@@ -60,6 +60,10 @@ clasp deploy -d "v1.0.0"
 - **Images** load from jsDelivr, pinned to the release tag (`--ref`), because HtmlService only serves the project's HTML files. Tag a release before deploying a build that points at it.
 - **Embedding** in Google Sites: uncomment `setXFrameOptionsMode(ALLOWALL)` in `Code.gs`.
 
+### Checking the Apps Script target without signing in
+
+`npm run check:gas` evaluates `dist/gas/Index.html` the way HtmlService does. It serves the result cross-origin inside a sandboxed iframe with Google's IFRAME-mode flags and a `google.script` stand-in, then drives it with Playwright. It reports the platform path taken, image and font loading, `google.script.history` calls, pinning, deep links, and console errors.
+
 ## Honesty notes
 
 - The roster is **sample data** mirroring the workbook's shape. Names are fictional. It includes the text `"NULL"` and an empty cell on purpose.

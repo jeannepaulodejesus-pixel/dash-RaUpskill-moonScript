@@ -103,10 +103,11 @@
     o = o || {};
     var rows = values.slice(0, o.maxRows || values.length);
     return '<div class="arr"><p class="arr__open">values = [</p>' + rows.map(function (row, i) {
-      var cells = row.map(function (v, k) {
+      var shown = o.cols ? row.slice(0, o.cols) : row;
+      var cells = shown.map(function (v, k) {
         var lit = o.litCell && o.litCell[0] === i && o.litCell[1] === k;
         return '<span class="arr__v' + (lit ? ' is-litcell' : '') + '"' + (lit ? ' data-lit' : '') + '>' + esc(literal(v)) + '</span>';
-      }).join(', ');
+      }).join(', ') + (o.cols && row.length > o.cols ? ', …' : '');
       var on = o.litRow === i;
       return '<p class="arr__row' + (on ? ' is-lit' : '') + '"' + (on && !o.litCell ? ' data-lit' : '') + '><span class="arr__i">[' + i + ']</span> [' + cells + ']</p>';
     }).join('') + (o.more ? '<p class="arr__row arr__more">  …</p>' : '') + '<p class="arr__open">]</p></div>';
@@ -271,6 +272,10 @@
     var T = tri.getBoundingClientRect();
     svg.setAttribute('viewBox', '0 0 ' + T.width + ' ' + T.height);
     var a = $('.sop li.is-lit', tri), b = $('.ln.is-lit', tri), c = $('[data-lit], .cons .is-lit', this.q.cons);
+    // A lit cell sits mid-row; anchor on its row header so the curve never
+    // crosses the row's text. Same for a lit value inside an array row.
+    if (c && c.tagName === 'TD') c = c.parentElement.firstElementChild;
+    else if (c && c.classList.contains('arr__v')) c = c.closest('.arr__row');
     var win = this.q.win.getBoundingClientRect();
     function mid(el, side) {
       var r = el.getBoundingClientRect();
@@ -292,6 +297,7 @@
   /* Read chapter beats (slides 10 to 15). */
   function readBeats() {
     var S = R.SAMPLE;
+    var S4 = S.map(function (r) { return r.slice(0, 4); }); // the columns the procedure reads
     var kickers = { 10: 'Function', 11: 'Variables', 12: 'Arrays', 13: 'Condition', 14: 'Loop', 15: 'Services' };
     return D.read.map(function (b) {
       var beat = { slide: b.slide, kind: b.kind, steps: b.steps, kicker: 'Slide ' + b.slide + ' · ' + kickers[b.slide] };
@@ -351,12 +357,12 @@
       if (b.kind === 'array') {
         beat.init = function () { return '<div class="arrpair"><div class="arrpair__ws"></div><div class="arrpair__arr"></div></div>'; };
         beat.render = function (cons, step) {
-          var st = step.cons, o = { maxRows: 4, compact: true, litCols: [], dimCols: [4] }, a = { maxRows: 4, more: true };
+          var st = step.cons, o = { maxRows: 4, compact: true, litCols: [] }, a = { maxRows: 4, more: true, cols: 4 };
           if (st === 'all') { o.litRows = [1, 2, 3, 4]; }
           if (st === 'header') { o.litRows = [1]; a.litRow = 0; }
           if (st === 'row') { o.litRows = [3]; a.litRow = 2; }
           if (st === 'cell') { o.litCells = ['3:3']; a.litRow = 2; a.litCell = [2, 3]; }
-          $('.arrpair__ws', cons).innerHTML = wsHTML(S, o) + '<p class="caption">Sheet: rows count from 1</p>';
+          $('.arrpair__ws', cons).innerHTML = wsHTML(S4, o) + '<p class="caption">Sheet: rows count from 1</p>';
           $('.arrpair__arr', cons).innerHTML = arrHTML(S, a) + '<p class="caption">Array: indexes count from 0</p>';
           if (st === 'all') $('.arrpair__ws table', cons).setAttribute('data-lit', '');
           if (st === 'header' || st === 'row') { var tr = $('.arrpair__ws tr.is-lit', cons); if (tr) tr.setAttribute('data-lit', ''); }
@@ -385,7 +391,7 @@
         beat.render = function (cons, step) {
           var k = step.cons, marks = {};
           for (var r = 1; r <= k && r < S.length; r++) marks[r + 1] = R.isIncluded(S[r]) ? 'is-in' : 'is-out';
-          $('.looppair__ws', cons).innerHTML = wsHTML(S, { compact: true, litRows: k > 0 ? [k + 1] : [], marks: marks, dimCols: [4] });
+          $('.looppair__ws', cons).innerHTML = wsHTML(S4, { compact: true, flagStatus: true, litRows: k > 0 ? [k + 1] : [], marks: marks });
           var out = R.selectActiveRows(S.slice(0, Math.min(k, S.length - 1) + 1));
           $('.looppair__out', cons).innerHTML = '<p class="looppair__h">output <span>' + out.length + ' rows</span></p>' + arrHTML(out, { litRow: out.length - 1 });
           var lit = k > 0 ? $('.looppair__ws tr.is-lit', cons) : $('.looppair__out .arr__row.is-lit', cons);

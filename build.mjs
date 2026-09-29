@@ -4,7 +4,7 @@
 // Usage: node build.mjs [--ref v1.0.0] [--repo owner/name]
 // The Apps Script target loads images from jsDelivr, pinned to --ref, because
 // HtmlService serves only the HTML files in the project.
-import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, existsSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import vm from 'node:vm';
@@ -25,6 +25,8 @@ const sandbox = { self: {} };
 vm.runInNewContext(read(src('data/lessons.js')), sandbox);
 const D = sandbox.self.MoonData;
 
+// Empty an output folder without removing it (a shell may be sitting in it).
+const clean = (d) => { mkdirSync(d, { recursive: true }); for (const f of readdirSync(d)) rmSync(join(d, f), { recursive: true, force: true }); };
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].map((d, i) =>
   `<article class="day${i === 4 ? ' day--last' : ''}"><p class="day__name">${d} <span>Workday ${i + 1}</span></p>` +
@@ -44,8 +46,7 @@ const JS = ['engine/scrollcraft.js', 'roster.js', 'data/lessons.js', 'env.js', '
 
 // ---------------------------------------------------------------- web
 const web = join(root, 'dist', 'web');
-rmSync(web, { recursive: true, force: true });
-mkdirSync(web, { recursive: true });
+clean(web);
 for (const f of [...CSS, ...JS]) { mkdirSync(dirname(join(web, f)), { recursive: true }); cpSync(src(f), join(web, f)); }
 cpSync(join(root, 'assets', 'img'), join(web, 'assets', 'img'), { recursive: true, filter: (p) => !p.endsWith('.txt') });
 writeFileSync(join(web, 'index.html'), html
@@ -56,8 +57,7 @@ writeFileSync(join(web, 'index.html'), html
 
 // ---------------------------------------------------------------- gas
 const gas = join(root, 'dist', 'gas');
-rmSync(gas, { recursive: true, force: true });
-mkdirSync(gas, { recursive: true });
+clean(gas);
 const styles = CSS.map((f) => read(src(f))).join('\n');
 const scripts = JS.map((f) => `/* ${f} */\n` + read(src(f))).join('\n;\n');
 for (const [name, body] of [['styles', styles], ['scripts', scripts]]) {
