@@ -28,7 +28,11 @@ npm install          # playwright-core, only for the verification harness
 npm test             # teaching logic and platform adapter (node --test)
 npm run build        # dist/web and dist/gas
 npm run serve        # build, then serve dist/web on http://localhost:4500
+npm run check:gas    # Apps Script (HtmlService) simulation
+npm run shots        # scroll-craft contact sheets (optional external harness)
 ```
+
+Working with a coding agent (Codex, Claude Code)? Start with [AGENTS.md](AGENTS.md). Session notes go in [docs/HANDOFF.md](docs/HANDOFF.md).
 
 Source layout:
 

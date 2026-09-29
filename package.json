@@ -7,14 +7,20 @@
     "repo": "jeannepaulodejesus-pixel/dash-RaUpskill-moonScript"
   },
   "scripts": {
-    "build": "node build.mjs",
     "test": "node --test test/roster.test.js test/env.test.js",
-    "serve": "node build.mjs && node C:/Users/djean/.claude/plugins/cache/nateherk/nateherk-design/0.3.0/skills/scroll-craft/scripts/serve.mjs --root dist/web --port 4500",
-    "gas:push": "node build.mjs && cd dist/gas && clasp push -f",
+    "build": "node build.mjs",
+    "serve": "node build.mjs && node tools/serve.mjs --root dist/web --port 4500",
     "check:gas": "node build.mjs && node tools/gas-sim.mjs",
+    "shots": "node tools/shoot.mjs --out lab/shots --steps 3",
+    "shots:mobile": "node tools/shoot.mjs --out lab/mobile --width 390 --height 844 --steps 2",
+    "shots:reduced": "node tools/shoot.mjs --out lab/reduced --reduced-motion --steps 2",
+    "gas:push": "node build.mjs && cd dist/gas && clasp push -f",
     "gas:deploy": "node build.mjs && cd dist/gas && clasp push -f && clasp deploy -i AKfycbyGfoGtxYVlMfFjAVm49ZABsSBmGQW8lNi8L5WUCMHj1tmMKxfQSeco9LW0VhENI044 -d \"update\""
   },
   "devDependencies": {
     "playwright-core": "^1.63.0"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
