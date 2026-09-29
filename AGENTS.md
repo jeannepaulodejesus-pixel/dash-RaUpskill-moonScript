@@ -42,6 +42,9 @@ npm run shots          # scroll-craft contact sheets; needs the external harness
 - Network is needed for `npm install`, `gh`, `clasp`, Google Fonts and jsDelivr. Request approval, or ask the user.
 - The build, tests and static server need no network and nothing outside the repo.
 - `dist/`, `lab/` and `node_modules/` are generated and gitignored. Don't read them for context; read `src/`.
+- If every command fails with `helper_unknown_error: setup refresh had errors`, the cause is the Codex Windows sandbox setup, not this repo.
+  - Check `%USERPROFILE%\.codex\.sandbox\sandbox.<date>.log` for `runtime read/execute validation failed`.
+  - On 2026-09-30 the cause was abandoned `.staging-*` folders under `%LOCALAPPDATA%\OpenAI\Codex\runtimes\cua_node`. Moving them out fixed it.
 
 ## Map
 
