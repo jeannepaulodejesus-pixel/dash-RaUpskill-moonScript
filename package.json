@@ -1,0 +1,18 @@
+{
+  "name": "dash-raupskill-moonscript",
+  "version": "1.0.0",
+  "private": true,
+  "description": "MoonScript Day 1: From Routine to Run. An immersive Apps Script upskilling web app that runs as a static site or an Apps Script web app.",
+  "moonscript": {
+    "repo": "jeannepaulodejesus-pixel/dash-RaUpskill-moonScript"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --test test/roster.test.js test/env.test.js",
+    "serve": "node build.mjs && node C:/Users/djean/.claude/plugins/cache/nateherk/nateherk-design/0.3.0/skills/scroll-craft/scripts/serve.mjs --root dist/web --port 4500",
+    "gas:push": "node build.mjs && cd dist/gas && clasp push -f"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.63.0"
+  }
+}
