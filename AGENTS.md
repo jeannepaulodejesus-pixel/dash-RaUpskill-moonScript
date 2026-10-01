@@ -29,10 +29,13 @@ npm test               # unit tests: teaching logic + platform adapter. Must sta
 npm run build          # writes dist/web and dist/gas (add -- --ref vX.Y.Z to pin CDN assets)
 npm run serve          # build, then serve dist/web on http://localhost:4500
 npm run check:gas      # simulates HtmlService: sandboxed cross-origin iframe + google.script stand-in
+npm run check:contrast # contrast of every visible text run against the composited pixels under it (needs serve)
 npm run shots          # scroll-craft contact sheets; needs the external harness (see below)
 ```
 
-- `check:gas` and `shots` need Google Chrome installed and a server on port 4500 (`npm run serve`) for `shots`.
+- `check:gas`, `check:contrast` and `shots` need Google Chrome installed; `check:contrast` and `shots` also need a server on port 4500 (`npm run serve`).
+- `check:contrast` is the check for text on glass. The scroll-craft harness only measures text over media. Expect a few known false positives: the amber underline of `mark.warn` is sampled as background, and text passing under the fixed rail.
+- `node tools/peek.mjs <out> [w h n]` and `node tools/peek-at.mjs <out> <w> <h> "#id@0.5" ...` take quick screenshots for visual review.
 - `shots` resolves the harness from `SCROLLCRAFT_SHOOT`, or from Claude's plugin cache by default. If the harness is missing, it exits 2 with a message. Treat that as "skipped", not "failed".
 - `gas:push` and `gas:deploy` change the live Apps Script project. **Only run them when the user asks.**
 
@@ -51,18 +54,18 @@ npm run shots          # scroll-craft contact sheets; needs the external harness
 ```
 src/index.html          semantic markup for all 24 slides; build fills <!--TRIPTYCH-->, <!--DAYS-->, <!--SCHEMATIC-->
 src/partials/           triptych stage markup, editor schematic SVG
-src/styles.css          all theming and layout (tokens at the top)
+src/styles.css          all theming and layout: Night Glass tokens, .world, .glass (tokens at the top)
 src/engine/             scrollcraft engine (scrollcraft.js / .css). VENDORED: do not edit
 src/roster.js           the teaching logic: SAMPLE roster, SCRIPT (the 20-line Day 1 script), run(), compare()
 src/data/lessons.js     slide headlines, minutes, speaker notes, Read-chapter step maps, quiz data
 src/env.js              platform adapter: static vs Apps Script (history, location, storage, clipboard)
-src/app.js              Program Counter, lessons, hero choreography, interactions, presenter mode
+src/app.js              Program Counter, lessons, hero choreography, world drift to dawn, glass sheen, interactions, presenter mode
 gas/Code.gs             doGet() + include(); gas/appsscript.json manifest (no OAuth scopes)
 build.mjs               produces both targets; guards against "<?" in inlined JS/CSS
 tools/serve.mjs         static server      tools/gas-sim.mjs   HtmlService simulation
 tools/shoot.mjs         wrapper for the external scroll-craft harness
 test/                   node --test suites
-assets/img/             generated photography (WebP + JPEG). Originals live outside the repo (see Assets)
+assets/img/             generated photography (WebP + JPEG; the page uses WebP). Prompts in docs/ASSET-PROMPTS.md
 scrollcraft/FINGERPRINTS.md  scroll-craft uniqueness registry (append-only)
 ```
 
@@ -84,9 +87,11 @@ scrollcraft/FINGERPRINTS.md  scroll-craft uniqueness registry (append-only)
 8. **No `<?` in any JS or CSS.** HtmlService would read it as a scriptlet. `build.mjs` throws if it finds one.
 9. **Palette and meaning.**
    - Teal means active/selected; amber means exception. Always pair colour with text.
-   - Small text on Paper uses `--teal-text` / `--amber-text`. The base values fail 4.5:1 there.
+   - On the night glass use `--teal-lit` / `--amber-lit`.
+   - Small text on Paper (the procedure sheet, the only paper left) uses `--teal-text` / `--amber-text`. The base values fail 4.5:1 there.
 10. **Accessibility.** Keyboard reachable, visible focus, `aria-live` on changing text, reduced motion keeps all content (no travel, same information).
 11. **No text baked into images.** Photography is atmosphere only.
+12. **Glass is a pane in front of the world, never a child of an animated element.** `backdrop-filter` only sees content up to the nearest ancestor with opacity < 1, a filter, a mask, a clip-path or `will-change` of those. Engine cues (opacity) and reveals (clip-path) are such ancestors, so put `.glass` on the animated element itself. Inside a pane, use inset wells (`--inset`), not nested glass or cards on cards.
 
 ## Apps Script specifics
 
@@ -104,7 +109,7 @@ scrollcraft/FINGERPRINTS.md  scroll-craft uniqueness registry (append-only)
 
 ## Assets
 
-Photography was generated locally with hybrid-gen (outside this repo, at `D:\GPT-Codex\Hybrid Image Generator\hybrid-gen`, project `p002_moonscript`). The user prefers local generation first. Cloud lanes spend quota and need the user's approval of the plan.
+The v1.0.0 photography was generated locally with hybrid-gen (outside this repo, at `D:\GPT-Codex\Hybrid Image Generator\hybrid-gen`, project `p002_moonscript`). The Night Glass set (2026-10-02) was regenerated with the Codex CLI's built-in image generation, at the user's request; every prompt and reference is in `docs/ASSET-PROMPTS.md`. For new images, ask the user which route to use. Cloud lanes spend quota and need the user's approval of the plan.
 
 Style preamble, for consistency: cinematic night photograph, 35mm film, single cool moonlight key, true blacks, deep navy shadows, fine film grain, photographic realism, muted desaturated grade.
 

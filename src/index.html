@@ -5,19 +5,29 @@
 <!--VIEWPORT-->
 <title>MoonScript: From Routine to Run</title>
 <meta name="description" content="Day 1 of MoonScript: follow one reporting procedure from a plain checklist to an Apps Script you can run and verify.">
+<meta name="theme-color" content="#070B14">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23101827'/%3E%3Ccircle cx='17' cy='15' r='8' fill='%23F6F4EE'/%3E%3Ccircle cx='20.5' cy='12.5' r='7' fill='%23101827'/%3E%3Crect x='9' y='7' width='2' height='18' rx='1' fill='%233CC4B8'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&display=swap">
 <!--STYLES-->
 </head>
 <body class="ms">
 
 <a class="skip" href="#recognize">Skip to the lesson</a>
+
+<!-- The world: one night outside the window, fixed behind every pane of
+     glass. It drifts with the whole page and turns to first light at the
+     close. The glass panes blur it; nothing is painted on top of it. -->
+<div class="world" aria-hidden="true" data-ms-world>
+  <img class="world__night" src="{{ASSET}}night.webp" width="2400" height="1350" alt="" decoding="async" fetchpriority="high">
+  <img class="world__dawn" src="{{ASSET}}dawn.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
+  <div class="world__shade"></div>
+</div>
 <div class="sc-grain" aria-hidden="true"></div>
 
 <!-- The progress rail is the chrome: five chapters, lit where you are. -->
-<nav class="rail" aria-label="Chapters" data-ms-rail>
+<nav class="rail glass" aria-label="Chapters" data-ms-rail>
   <a class="rail__mark" href="#begin" data-ms-link="begin" aria-label="MoonScript, back to the start">
     <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="7" fill="currentColor"/><circle cx="15" cy="10" r="6.2" fill="var(--rail-bg)"/><rect x="4" y="3" width="1.6" height="18" rx=".8" fill="var(--teal-lit)"/></svg>
     <span>MoonScript</span>
@@ -35,21 +45,21 @@
 <main id="main">
 
 <!-- ============================================================ 1 · HERO
-     Five planes: far window, moonbeam, headline, desk, the procedure sheet
-     (real markup in 3D), and an out-of-focus mug. The sheet turns to face
-     you and becomes the paper the lesson is written on. -->
+     Planes, back to front: the night window, a moonbeam, the headline on a
+     pane of frosted glass, the desk, the procedure sheet (real markup in 3D)
+     and an out-of-focus mug. On scroll the sheet lifts to face you while the
+     room falls out of focus, leaving the blurred night the lesson sits on. -->
 <section id="begin" class="hero" data-sc-act="pin" data-sc-span="1.7" data-slide="1" data-ms-hero data-ms-stops="0 0.98">
   <div data-sc-stage class="hero__stage">
-    <img class="hero__far" data-ms-plane="far" src="{{ASSET}}far.webp" width="2200" height="1283" alt="" decoding="async" fetchpriority="high">
+    <img class="hero__far" data-ms-plane="far" src="{{ASSET}}far.webp" width="2400" height="1350" alt="" decoding="async" fetchpriority="high">
     <div class="hero__beam" data-ms-plane="beam" aria-hidden="true"></div>
-    <div class="hero__scrim" aria-hidden="true"></div>
-    <div class="hero__copy" data-ms-plane="copy">
+    <div class="hero__copy glass glass--hero" data-ms-plane="copy">
       <p class="hero__kicker">MoonScript <span aria-hidden="true">·</span> Day 1: From Routine to Run</p>
       <h1 class="hero__title">A reporting routine can become a reusable instruction.</h1>
       <p class="hero__lede">Follow one procedure from a plain checklist to a script you can run, read, and verify.</p>
       <a class="btn btn--moon" href="#recognize" data-ms-link="recognize">Begin</a>
     </div>
-    <img class="hero__desk" data-ms-plane="desk" src="{{ASSET}}desk.webp" width="2200" height="1232" alt="" decoding="async">
+    <img class="hero__desk" data-ms-plane="desk" src="{{ASSET}}desk.webp" width="2400" height="1350" alt="" decoding="async">
     <div class="hero__sheetwrap" data-ms-plane="sheet" aria-hidden="true">
       <div class="sheet">
         <p class="sheet__title">Prepare the active-employee list</p>
@@ -63,13 +73,12 @@
         <p class="sheet__foot">Daily reporting procedure</p>
       </div>
     </div>
-    <img class="hero__mug" data-ms-plane="mug" src="{{ASSET}}mug.webp" width="900" height="720" alt="" decoding="async">
-    <div class="hero__paper" data-ms-plane="paper" aria-hidden="true"></div>
+    <img class="hero__mug" data-ms-plane="mug" src="{{ASSET}}mug.webp" width="900" height="822" alt="" decoding="async">
   </div>
 </section>
 
 <!-- ============================================================ 2 · RECURRENCE (pan) -->
-<section id="recognize" class="recur ground-paper" data-sc-act="pan" data-sc-span="2.6" data-slide="2" data-ms-chapter-start="recognize" data-ms-stops="0.05 0.95">
+<section id="recognize" class="recur scene" data-sc-act="pan" data-sc-span="2.6" data-slide="2" data-ms-chapter-start="recognize" data-ms-stops="0.05 0.95">
   <div data-sc-stage class="recur__stage">
     <div class="recur__rail" data-sc-pan="0.08">
       <div class="recur__lead">
@@ -82,25 +91,25 @@
 </section>
 
 <!-- ============================================================ 3 · CLARIFY -->
-<section class="clarify ground-paper sc-section" data-sc-act="flow" data-slide="3" data-ms-stop>
+<section class="clarify scene sc-section" data-sc-act="flow" data-slide="3" data-ms-stop>
   <div class="sc-wrap">
     <h2 class="assert">Automation starts with a procedure another person could follow.</h2>
     <p class="sc-body clarify__intro">Each vague word hides a business rule. A script cannot guess it, so we write it down.</p>
-    <ol class="clarify__list" data-sc-in data-sc-stagger="70" data-ms-clarify></ol>
+    <ol class="clarify__list glass" data-sc-in data-sc-stagger="70" data-ms-clarify></ol>
   </div>
 </section>
 
 <!-- ============================================================ TRANSLATE intertitle -->
-<section id="translate" class="chapter ground-midnight" data-sc-act="flow" data-slide="4" data-ms-chapter-start="translate" data-ms-stop>
-  <div class="chapter__beam" aria-hidden="true"></div>
+<section id="translate" class="chapter scene--open" data-sc-act="flow" data-slide="4" data-ms-chapter-start="translate" data-ms-stop>
   <div class="sc-wrap chapter__inner">
     <h2 class="chapter__word" data-sc-reveal="right" data-sc-reveal-at="0.12 0.42">Translate</h2>
     <p class="chapter__line" data-sc-in>Keep the checklist. Write its executable twin beside it.</p>
   </div>
+  <div class="chapter__pane" aria-hidden="true"></div>
 </section>
 
 <!-- ============================================================ 4 · THE TURN (pin) -->
-<section class="turn ground-paper" data-sc-act="pin" data-sc-span="2.4" data-slide="4" data-ms-stops="0.3 0.8">
+<section class="turn scene" data-sc-act="pin" data-sc-span="2.4" data-slide="4" data-ms-stops="0.3 0.8">
   <div data-sc-stage class="turn__stage">
     <div class="turn__a" data-sc-cue="0 0.56 0">
       <h2 class="assert">A script expresses that procedure in executable steps.</h2>
@@ -109,12 +118,12 @@
           <p class="sheet__title">Prepare the active-employee list</p>
           <ol class="sheet__steps" data-ms-sop-clear></ol>
         </div>
-        <div class="turn__code" data-sc-reveal="left" data-sc-reveal-at="0.06 0.34">
+        <div class="turn__code glass glass--smoke" data-sc-reveal="left" data-sc-reveal-at="0.06 0.34">
           <pre class="code code--sm" data-ms-script aria-label="The complete script"></pre>
         </div>
       </div>
     </div>
-    <div class="turn__b" data-sc-cue="0.5">
+    <div class="turn__b glass" data-sc-cue="0.5">
       <h3 class="turn__h">The mapping, once. Real terms from here on.</h3>
       <table class="tbl tbl--map">
         <thead><tr><th scope="col">Familiar reporting procedure</th><th scope="col">Programming concept</th><th scope="col">Relationship</th><th scope="col">In our script</th></tr></thead>
@@ -133,23 +142,27 @@
 </section>
 
 <!-- ============================================================ 5 · TOOLS -->
-<section class="tools ground-paper sc-section" data-sc-act="flow" data-slide="5" data-ms-stop>
-  <div class="sc-wrap">
-    <h2 class="assert">The workflow determines the appropriate tool.</h2>
-    <table class="tbl tbl--tools" data-sc-in>
-      <thead><tr><th scope="col">Task</th><th scope="col">Natural fit</th><th scope="col">Also workable</th></tr></thead>
-      <tbody>
-        <tr><th scope="row">Calculate a value in every row</th><td>Spreadsheet formulas</td><td>Excel formulas; a script when the result must feed other steps</td></tr>
-        <tr><th scope="row">Prepare and reshape data</th><td>Excel-based workflows (Power Query, macros, Office Scripts)</td><td>Sheets formulas and filters; Apps Script for Sheets-resident data</td></tr>
-        <tr><th scope="row">Coordinate Sheets, Forms, Drive and Gmail</th><td>Apps Script</td><td>Manual handoffs between tools</td></tr>
-      </tbody>
-    </table>
-    <p class="sc-body note">Excel automates too. The question is where the workflow already lives. Ours lives in Google Workspace.</p>
+<section class="tools scene sc-section" data-sc-act="flow" data-slide="5" data-ms-stop>
+  <div class="sc-wrap split">
+    <div class="split__head">
+      <h2 class="assert">The workflow determines the appropriate tool.</h2>
+      <p class="sc-body">Excel automates too. The question is where the workflow already lives. Ours lives in Google Workspace.</p>
+    </div>
+    <div class="glass pane" data-sc-in>
+      <table class="tbl tbl--tools">
+        <thead><tr><th scope="col">Task</th><th scope="col">Natural fit</th><th scope="col">Also workable</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Calculate a value in every row</th><td>Spreadsheet formulas</td><td>Excel formulas; a script when the result must feed other steps</td></tr>
+          <tr><th scope="row">Prepare and reshape data</th><td>Excel-based workflows (Power Query, macros, Office Scripts)</td><td>Sheets formulas and filters; Apps Script for Sheets-resident data</td></tr>
+          <tr class="is-ours"><th scope="row">Coordinate Sheets, Forms, Drive and Gmail</th><td>Apps Script</td><td>Manual handoffs between tools</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>
 
 <!-- ============================================================ 6 · SERVICES -->
-<section class="services ground-paper sc-section" data-sc-act="flow" data-slide="6" data-ms-stop>
+<section class="services scene sc-section" data-sc-act="flow" data-slide="6" data-ms-stop>
   <div class="sc-wrap services__grid">
     <div class="services__text">
       <h2 class="assert">Apps Script connects instructions to Google Workspace services.</h2>
@@ -160,7 +173,7 @@
         <div><dt><code>GmailApp</code> Gmail</dt><dd>Supports messages and drafts.</dd></div>
       </dl>
     </div>
-    <figure class="services__code">
+    <figure class="services__code glass glass--smoke">
       <pre class="code code--sm code--svc" data-ms-script data-ms-svc aria-label="The script with service calls marked"></pre>
       <figcaption class="legend"><span class="legend__svc">Service call: talks to Workspace</span><span class="legend__js">JavaScript logic: runs in memory</span></figcaption>
     </figure>
@@ -168,20 +181,22 @@
 </section>
 
 <!-- ============================================================ 7 · SORT -->
-<section class="sort ground-paper sc-section" data-sc-act="flow" data-slide="7" data-ms-stop>
+<section class="sort scene sc-section" data-sc-act="flow" data-slide="7" data-ms-stop>
   <div class="sc-wrap sort__wrap">
     <h2 class="assert">Clear rules make a task easier to automate.</h2>
     <p class="sc-body">Sort each task. Does it have a rule a script can execute, or does it need a person's judgment?</p>
-    <ul class="sort__list" data-ms-sort></ul>
+    <ul class="sort__list glass" data-ms-sort></ul>
   </div>
 </section>
 
 <!-- ============================================================ 8 · DATA -->
-<section class="data ground-paper sc-section" data-sc-act="flow" data-slide="8" data-ms-stop>
-  <div class="sc-wrap">
-    <h2 class="assert">Our first workflow produces a verifiable active-employee list.</h2>
-    <p class="sc-body">Four columns matter today. The output goes to its own tab, so the source is never touched.</p>
-    <figure class="data__fig" data-sc-reveal="up" data-sc-reveal-at="0.1 0.4">
+<section class="data scene sc-section" data-sc-act="flow" data-slide="8" data-ms-stop>
+  <div class="sc-wrap data__grid">
+    <div class="data__head">
+      <h2 class="assert">Our first workflow produces a verifiable active-employee list.</h2>
+      <p class="sc-body">Four columns matter today. The output goes to its own tab, so the source is never touched.</p>
+    </div>
+    <figure class="data__fig glass" data-sc-reveal="up" data-sc-reveal-at="0.1 0.4">
       <div class="ws-frame" data-ms-roster></div>
       <figcaption class="caption">Sample data mirroring <code>employees.master_roster</code>. Names are fictional. Amber marks values that need attention: the text <code>"NULL"</code> and an empty cell.</figcaption>
     </figure>
@@ -189,11 +204,11 @@
 </section>
 
 <!-- ============================================================ 9 · TERMS -->
-<section class="terms ground-paper sc-section" data-sc-act="flow" data-slide="9" data-ms-stop>
+<section class="terms scene sc-section" data-sc-act="flow" data-slide="9" data-ms-stop>
   <div class="sc-wrap">
     <h2 class="assert">Each programming term describes a familiar part of the task.</h2>
     <p class="sc-body">Match each term to the part of the procedure it names.</p>
-    <form class="terms__form" data-ms-terms novalidate>
+    <form class="terms__form glass" data-ms-terms novalidate>
       <ol class="terms__list"></ol>
       <div class="row"><button class="btn" type="submit">Check matches</button><p class="terms__result" role="status" aria-live="polite"></p></div>
     </form>
@@ -201,33 +216,33 @@
 </section>
 
 <!-- ============================================================ READ intertitle -->
-<section id="read" class="chapter ground-midnight" data-sc-act="flow" data-slide="10" data-ms-chapter-start="read" data-ms-stop>
-  <div class="chapter__beam" aria-hidden="true"></div>
+<section id="read" class="chapter scene--open" data-sc-act="flow" data-slide="10" data-ms-chapter-start="read" data-ms-stop>
   <div class="sc-wrap chapter__inner">
     <h2 class="chapter__word" data-sc-reveal="right" data-sc-reveal-at="0.12 0.42">Read</h2>
     <p class="chapter__line" data-sc-in>One instruction at a time. Watch the light: it marks the same step in all three columns.</p>
   </div>
+  <div class="chapter__pane" aria-hidden="true"></div>
 </section>
 
 <!-- ============================================================ 10–15 · READ (the triptych, pinned) -->
-<section class="lesson ground-paper" data-sc-act="pin" data-sc-span="8" data-ms-lesson="read">
+<section class="lesson scene" data-sc-act="pin" data-sc-span="8" data-ms-lesson="read">
   <div data-sc-stage class="lesson__stage">
     <!--TRIPTYCH-->
   </div>
 </section>
 
 <!-- ============================================================ BREAK (authored silence) -->
-<section id="run" class="pause ground-midnight" data-sc-act="flow" data-slide="break" data-ms-chapter-start="run" data-ms-stop>
-  <img class="pause__moon" src="{{ASSET}}moon.webp" width="1800" height="1050" alt="" decoding="async" data-sc-parallax="-0.12">
+<section id="run" class="pause scene--open" data-sc-act="flow" data-slide="break" data-ms-chapter-start="run" data-ms-stop>
+  <img class="pause__moon" src="{{ASSET}}moon.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy" data-sc-parallax="-0.12">
   <div class="sc-wrap pause__inner">
     <p class="pause__label">Break <span aria-hidden="true">·</span> 5 minutes</p>
     <ol class="pause__sop" data-ms-sop-clear></ol>
-    <button class="btn btn--moon pause__timer" type="button" data-ms-timer>Start the 5:00 break</button>
+    <button class="btn btn--glass pause__timer" type="button" data-ms-timer>Start the 5:00 break</button>
   </div>
 </section>
 
 <!-- ============================================================ 16 · ENVIRONMENT -->
-<section class="env ground-paper sc-section" data-sc-act="flow" data-slide="16" data-ms-stop>
+<section class="env scene sc-section" data-sc-act="flow" data-slide="16" data-ms-stop>
   <div class="sc-wrap env__grid">
     <div>
       <h2 class="assert">A script needs the correct file, target sheet, and permissions.</h2>
@@ -238,7 +253,7 @@
         <li><b>Authorization</b> <span>The first run asks you to allow the script to act as you. It is a permission, not an error.</span></li>
       </ol>
     </div>
-    <figure class="env__fig">
+    <figure class="env__fig glass">
       <!--SCHEMATIC-->
       <figcaption class="caption"><span class="tag">Schematic</span> Not a screenshot. Replace with a cropped capture of your prepared sandbox and one annotation.</figcaption>
     </figure>
@@ -246,16 +261,16 @@
 </section>
 
 <!-- ============================================================ 17 · THE RUN (peak) -->
-<section class="lesson lesson--peak ground-midnight" data-sc-act="pin" data-sc-span="9" data-ms-lesson="run">
+<section class="lesson lesson--peak scene" data-sc-act="pin" data-sc-span="9" data-ms-lesson="run">
   <div data-sc-stage class="lesson__stage">
-    <img class="peak__bg" src="{{ASSET}}far.webp" width="2200" height="1283" alt="" decoding="async" loading="lazy">
+    <img class="peak__bg" src="{{ASSET}}far.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
     <div class="peak__sweep" aria-hidden="true"></div>
     <!--TRIPTYCH-->
   </div>
 </section>
 
 <!-- ============================================================ 18 · CHECK -->
-<section class="check ground-paper sc-section" data-sc-act="flow" data-slide="18" data-ms-stop>
+<section class="check scene sc-section" data-sc-act="flow" data-slide="18" data-ms-stop>
   <div class="sc-wrap">
     <h2 class="assert">A completed execution still requires an output check.</h2>
     <div class="check__grid" data-ms-check></div>
@@ -263,12 +278,12 @@
 </section>
 
 <!-- ============================================================ 19 · WIDER -->
-<section class="wider ground-paper sc-section" data-sc-act="flow" data-slide="19" data-ms-stop>
+<section class="wider scene sc-section" data-sc-act="flow" data-slide="19" data-ms-stop>
   <div class="sc-wrap wider__grid">
     <div class="wider__main">
       <h2 class="assert">The same procedure can support a wider reporting workflow.</h2>
-      <pre class="code code--sm" data-ms-code-block="gmail" aria-label="Gmail draft example"></pre>
-      <div class="draft" aria-label="Draft body computed from today's output">
+      <div class="glass glass--smoke wider__code"><pre class="code code--sm" data-ms-code-block="gmail" aria-label="Gmail draft example"></pre></div>
+      <div class="draft glass" aria-label="Draft body computed from today's output">
         <p class="draft__meta"><span class="tag">Prepared example</span> Draft body, computed from the output above. A draft is created, never sent.</p>
         <pre class="draft__body" data-ms-draft></pre>
       </div>
@@ -282,50 +297,56 @@
 </section>
 
 <!-- ============================================================ VERIFY intertitle -->
-<section id="verify" class="chapter ground-midnight" data-sc-act="flow" data-slide="20" data-ms-chapter-start="verify" data-ms-stop>
-  <div class="chapter__beam" aria-hidden="true"></div>
+<section id="verify" class="chapter scene--open" data-sc-act="flow" data-slide="20" data-ms-chapter-start="verify" data-ms-stop>
   <div class="sc-wrap chapter__inner">
     <h2 class="chapter__word" data-sc-reveal="right" data-sc-reveal-at="0.12 0.42">Verify</h2>
     <p class="chapter__line" data-sc-in>Break it on purpose, then decide when it should run and who is responsible.</p>
   </div>
+  <div class="chapter__pane" aria-hidden="true"></div>
 </section>
 
 <!-- ============================================================ 20 · ERROR LAB -->
-<section class="errors ground-paper sc-section" data-sc-act="flow" data-slide="20" data-ms-stop>
+<section class="errors scene sc-section" data-sc-act="flow" data-slide="20" data-ms-stop>
   <div class="sc-wrap">
     <h2 class="assert">An error becomes actionable when its location and cause are visible.</h2>
-    <div class="lab" data-ms-lab></div>
-    <table class="tbl tbl--err">
-      <thead><tr><th scope="col">Kind</th><th scope="col">What you see</th><th scope="col">Where to look</th></tr></thead>
-      <tbody>
-        <tr><th scope="row">Syntax error</th><td>The script will not save or run. A missing brace or quote.</td><td>The editor marks the line before anything executes.</td></tr>
-        <tr><th scope="row">Execution error</th><td>It starts, then stops with a message and a line number.</td><td>The execution log: message, function, <code>Code.gs</code> line.</td></tr>
-        <tr><th scope="row">Incorrect result</th><td>It completes. The output is wrong.</td><td>Only an output check finds it. Try the lowercase status above.</td></tr>
-      </tbody>
-    </table>
+    <div class="lab glass" data-ms-lab></div>
+    <div class="glass pane pane--err">
+      <table class="tbl tbl--err">
+        <thead><tr><th scope="col">Kind</th><th scope="col">What you see</th><th scope="col">Where to look</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Syntax error</th><td>The script will not save or run. A missing brace or quote.</td><td>The editor marks the line before anything executes.</td></tr>
+          <tr><th scope="row">Execution error</th><td>It starts, then stops with a message and a line number.</td><td>The execution log: message, function, <code>Code.gs</code> line.</td></tr>
+          <tr><th scope="row">Incorrect result</th><td>It completes. The output is wrong.</td><td>Only an output check finds it. Try the lowercase status above.</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>
 
 <!-- ============================================================ 21 · TRIGGERS -->
-<section class="triggers ground-paper sc-section" data-sc-act="flow" data-slide="21" data-ms-stop>
+<section class="triggers scene sc-section" data-sc-act="flow" data-slide="21" data-ms-stop>
   <div class="sc-wrap">
     <h2 class="assert">Triggers change when a function runs and whose authority it uses.</h2>
-    <table class="tbl tbl--trig" data-sc-in>
-      <thead><tr><th scope="col">Execution</th><th scope="col">When it runs</th><th scope="col">Runs as</th><th scope="col">Keep in mind</th></tr></thead>
-      <tbody>
-        <tr><th scope="row">Manual</th><td>When you press Run, or choose a menu item you added</td><td>You</td><td>First run asks for authorization</td></tr>
-        <tr><th scope="row">Simple trigger</th><td>On a fixed event such as <code>onOpen</code> or <code>onEdit</code></td><td>The person who caused the event</td><td>Cannot use services that need authorization, such as Gmail. Short time limit.</td></tr>
-        <tr><th scope="row">Installable trigger</th><td>On a schedule, a form submit, or a change you configure</td><td class="hl">The account that created the trigger</td><td class="hl">Scheduled runs happen within a window, not at an exact second. Ownership matters when people leave.</td></tr>
-      </tbody>
-    </table>
+    <div class="glass pane" data-sc-in>
+      <table class="tbl tbl--trig">
+        <thead><tr><th scope="col">Execution</th><th scope="col">When it runs</th><th scope="col">Runs as</th><th scope="col">Keep in mind</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Manual</th><td>When you press Run, or choose a menu item you added</td><td>You</td><td>First run asks for authorization</td></tr>
+          <tr><th scope="row">Simple trigger</th><td>On a fixed event such as <code>onOpen</code> or <code>onEdit</code></td><td>The person who caused the event</td><td>Cannot use services that need authorization, such as Gmail. Short time limit.</td></tr>
+          <tr><th scope="row">Installable trigger</th><td>On a schedule, a form submit, or a change you configure</td><td class="hl">The account that created the trigger</td><td class="hl">Scheduled runs happen within a window, not at an exact second. Ownership matters when people leave.</td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>
 
 <!-- ============================================================ 22 · OPERATING CONDITIONS -->
-<section class="ops ground-paper sc-section" data-sc-act="flow" data-slide="22" data-ms-stop>
-  <div class="sc-wrap">
-    <h2 class="assert">Reliable automation depends on controlled inputs and maintained rules.</h2>
-    <ul class="pairs" data-sc-in data-sc-stagger="60">
+<section class="ops scene sc-section" data-sc-act="flow" data-slide="22" data-ms-stop>
+  <div class="sc-wrap split split--trail">
+    <div class="split__head">
+      <h2 class="assert">Reliable automation depends on controlled inputs and maintained rules.</h2>
+    </div>
+    <ul class="pairs glass" data-sc-in data-sc-stagger="60">
       <li><b>Repeatability</b><span>needs validated inputs: sheet names, headers and status values checked before anything is written.</span></li>
       <li><b>Integration</b><span>needs permissions: the script acts with exactly the access it was granted.</span></li>
       <li><b>Unattended execution</b><span>needs monitoring: failure notifications and a reviewed execution log.</span></li>
@@ -337,20 +358,23 @@
 </section>
 
 <!-- ============================================================ 23 · PREDICT -->
-<section class="predict ground-paper sc-section" data-sc-act="flow" data-slide="23" data-ms-stop>
-  <div class="sc-wrap">
-    <h2 class="assert">Understanding is visible when you can trace the next result.</h2>
+<section class="predict scene sc-section" data-sc-act="flow" data-slide="23" data-ms-stop>
+  <div class="sc-wrap split">
+    <div class="split__head">
+      <h2 class="assert">Understanding is visible when you can trace the next result.</h2>
+    </div>
     <div class="predict__list" data-ms-predict></div>
   </div>
 </section>
 
 <!-- ============================================================ 24 · CLOSE (dawn, holds) -->
-<section id="day2" class="close ground-midnight" data-sc-act="pin" data-sc-span="1.15" data-slide="24" data-ms-stops="0.5">
+<section id="day2" class="close scene--open" data-sc-act="pin" data-sc-span="1.15" data-slide="24" data-ms-stops="0.5">
   <div data-sc-stage class="close__stage">
-    <img class="close__far" src="{{ASSET}}far-dawn.webp" width="2200" height="1283" alt="" decoding="async" loading="lazy">
-    <img class="close__desk" src="{{ASSET}}desk-dawn.webp" width="2200" height="1232" alt="" decoding="async" loading="lazy">
+    <img class="close__far" src="{{ASSET}}far-dawn.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
+    <img class="close__desk" src="{{ASSET}}desk-dawn.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
+    <div class="close__shade" aria-hidden="true"></div>
     <div class="close__inner">
-      <h2 class="assert assert--light">Day 2 turns this demonstrated procedure into your own script.</h2>
+      <h2 class="assert">Day 2 turns this demonstrated procedure into your own script.</h2>
       <div class="close__pair" data-ms-close></div>
       <ol class="day2" aria-label="Day 2 sequence">
         <li>Read</li><li>Modify</li><li>Run</li><li>Inspect</li><li>Troubleshoot</li>
@@ -365,16 +389,16 @@
 </main>
 
 <!-- Presenter layer: notes, timing, keys. Hidden unless presenting. -->
-<aside class="notes" data-ms-notes aria-label="Speaker notes" hidden>
+<aside class="notes glass" data-ms-notes aria-label="Speaker notes" hidden>
   <div class="notes__head"><p class="notes__slide" data-ms-n-slide></p><button class="notes__close" type="button" data-ms-notes-close aria-label="Close notes">Close</button></div>
   <h2 class="notes__title" data-ms-n-title></h2>
   <dl class="notes__body" data-ms-n-body></dl>
 </aside>
-<div class="hud" data-ms-hud hidden>
+<div class="hud glass" data-ms-hud hidden>
   <span data-ms-hud-slide></span>
   <span class="hud__keys"><kbd>PgDn</kbd> next <kbd>N</kbd> notes <kbd>T</kbd> timing <kbd>F</kbd> full screen <kbd>Esc</kbd> exit</span>
 </div>
-<div class="timer" data-ms-timer-panel role="timer" aria-live="off" hidden><span data-ms-timer-left>5:00</span><button type="button" data-ms-timer-stop>Stop</button></div>
+<div class="timer glass" data-ms-timer-panel role="timer" aria-live="off" hidden><span data-ms-timer-left>5:00</span><button type="button" data-ms-timer-stop>Stop</button></div>
 
 <noscript><p class="noscript">MoonScript needs JavaScript to run its examples.</p></noscript>
 <!--SCRIPTS-->
