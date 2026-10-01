@@ -54,3 +54,22 @@ Scroll progress selects one step. That step lights the same instruction in all t
 
 - The same source runs as a static site and inside Google Apps Script HtmlService. See the README.
 - Data is a labelled sample mirroring `employees.master_roster`. Names are fictional.
+
+---
+
+## Revision 2: Night Glass (2026-10-02)
+
+**Request (verbatim):** "reimagine the UI design. The current web looks cheap, utilize the taste skill in /nateherk-design:scroll-craft to further improve the design. I want you to add glasmorphism design. also, im authorizing your to use my computer and leverage my codex cli and regenerate the assets via imagegen function."
+
+**What read as cheap (observed on the v1.0.0 render):** most of the page was flat Paper with plain tables, one document-like section after another; type sat at one size and one weight; the dawn desk had carved wavy grain; the hero desk stopped short of the right edge (an engine `max-width: 100%` cap).
+
+**Authored decisions, under that request:**
+
+- **Glass as a specific effect, not decoration.** One night outside the office window (`night.webp`, out-of-focus city bokeh under the moon) is fixed behind every act. Teaching surfaces are panes of glass in front of it, so every blur, tint and rim is made by real imagery behind the pane. Paper survives only as the procedure sheet: the one warm, physical object in a room of glass.
+- **The deck's Midnight / Paper hard cut becomes Night / Glass.** Teal still means active and amber still means exception, on lightened stops for the dark ground; the paper sheet keeps the darkened stops.
+- **Hero exit is a focus pull.** The headline sits on a frosted pane over the window. On scroll the sheet lifts to face you while the window and desk dissolve into the blurred night: the room goes out of focus and leaves the world the lesson is written on.
+- **Chapter beam as glass.** The moonbeam on each intertitle is a slab of glass that crosses the chapter word with the scroll and blurs what it passes. The body line stays above it so it is never obscured.
+- **First light.** The world crossfades toward a matched dawn plate from the Verify chapter (30%) and fully at the close, where the re-shot dawn window and desk hold.
+- **Type.** Geist at variable weights: display 500 to 520 with tight tracking, chapter words at 360. Light-on-dark compensation in line height and secondary ink.
+
+**Feel check (cold scroll, one word per act, then diffed with the curve above):** stillness, then focus (hero) · weary (recurrence) · sharpening (clarify) · "oh" (turn) · orientation (tools, services, sort) · grounding (data) · play (terms) · competence (read) · silence (break) · awe (run) · trust (check) · possibility (wider) · tension (errors) · responsibility (triggers, ops) · confidence (predict) · resolve (close). It matches the intended curve. The hero now ends in "focus" rather than "the sheet becomes the paper", a deliberate change. Risk noted: tools, services, sort and data are four consecutive glass-over-bokeh acts; varied anchors (split, trail, offset, stacked) carry the difference, not the material.

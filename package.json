@@ -11,6 +11,7 @@
     "build": "node build.mjs",
     "serve": "node build.mjs && node tools/serve.mjs --root dist/web --port 4500",
     "check:gas": "node build.mjs && node tools/gas-sim.mjs",
+    "check:contrast": "node tools/contrast.mjs 40",
     "shots": "node tools/shoot.mjs --out lab/shots --steps 3",
     "shots:mobile": "node tools/shoot.mjs --out lab/mobile --width 390 --height 844 --steps 2",
     "shots:reduced": "node tools/shoot.mjs --out lab/reduced --reduced-motion --steps 2",

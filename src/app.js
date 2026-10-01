@@ -485,9 +485,9 @@
     var excl = R.excluded(R.SAMPLE);
     function mark(ok) { return '<span class="chip ' + (ok ? 'chip--true' : 'chip--false') + '">' + (ok ? 'Pass' : 'Fail') + '</span>'; }
     el.innerHTML =
-      '<div class="check__col"><p class="check__h">Script output <code>' + R.TARGET + '</code></p>' + wsHTML(res.output, { compact: true }) + '</div>' +
-      '<div class="check__col"><p class="check__h">Manual filter: Status is Active</p>' + wsHTML(manual, { compact: true }) + '</div>' +
-      '<div class="check__list"><ul class="checks">' +
+      '<div class="check__col glass"><p class="check__h">Script output <code>' + R.TARGET + '</code></p>' + wsHTML(res.output, { compact: true }) + '</div>' +
+      '<div class="check__col glass"><p class="check__h">Manual filter: Status is Active</p>' + wsHTML(manual, { compact: true }) + '</div>' +
+      '<div class="check__list glass"><ul class="checks">' +
         '<li>' + mark(cmp.sameIds) + ' Included IDs match: ' + (manual.length - 1) + ' of ' + (manual.length - 1) + '</li>' +
         '<li>' + mark(cmp.sameHeader) + ' Field order: ' + R.OUTPUT_HEADER.join(', ') + '</li>' +
         '<li>' + mark(excl.length + manual.length - 1 === R.SAMPLE.length - 1) + ' Excluded records accounted for: ' + excl.map(function (r) { return esc(r[0]) + ' (' + esc(R.describeStatus(r[3])) + ')'; }).join('; ') + '</li>' +
@@ -558,7 +558,7 @@
   function buildPredict() {
     var el = $('[data-ms-predict]'); if (!el) return;
     el.innerHTML = D.predict.map(function (p, i) {
-      return '<fieldset class="pq" data-i="' + i + '"><legend><span class="pq__n">' + (i + 1) + '</span>' + esc(p.q) + '</legend>' +
+      return '<fieldset class="pq glass" data-i="' + i + '"><legend><span class="pq__n">' + (i + 1) + '</span>' + esc(p.q) + '</legend>' +
         '<div class="pq__opts">' + p.options.map(function (o) { return '<button type="button" class="seg__b" aria-pressed="false" data-o="' + esc(o) + '">' + esc(o) + '</button>'; }).join('') + '</div>' +
         '<div class="pq__a" hidden><p class="pq__why" role="status"></p><pre class="code code--sm">' + codeHTML(p.line.length > 1 ? p.line : [p.line[0] - 1, p.line[0], p.line[0] + 1]) + '</pre></div></fieldset>';
     }).join('');
@@ -578,7 +578,7 @@
     var el = $('[data-ms-close]'); if (!el) return;
     el.innerHTML =
       '<div class="card-sheet card-sheet--sm"><p class="sheet__title">The procedure</p><ol class="sheet__steps">' + D.sop.map(function (s) { return '<li>' + esc(s.clear) + '</li>'; }).join('') + '</ol></div>' +
-      '<div class="try">' +
+      '<div class="try glass">' +
         '<div class="try__row"><label class="field field--inline"><span>Change the rule</span><select data-try-status><option>Active</option><option>Inactive</option><option>NULL</option></select></label>' +
         '<button type="button" class="btn btn--moon btn--sm" data-try-run>Run</button></div>' +
         '<pre class="code code--sm" data-try-code></pre>' +
@@ -609,21 +609,67 @@
     if (Math.abs(p - lastHeroP) < 0.0005) return;
     lastHeroP = p;
     var m = smallMQ.matches, e = smooth(p), t = smooth(clamp(p / 0.8, 0, 1));
-    planes.far.style.transform = 'translate3d(0,' + (-3 * p) + 'vh,0) scale(' + (1.08 - 0.05 * p) + ')';
-    planes.beam.style.opacity = String(0.95 - 0.7 * p);
+    // The room falls out of focus: the sharp window and desk dissolve into
+    // the blurred night behind them, which is the world the lesson sits on.
+    var pull = smooth((p - 0.4) / 0.45);
+    planes.far.style.transform = 'translate3d(0,' + (-3 * p) + 'vh,0) scale(' + (1.06 + 0.06 * pull) + ')';
+    planes.far.style.opacity = String(1 - pull);
+    planes.beam.style.opacity = String(0.95 - 0.85 * p);
     planes.beam.style.transform = 'translate3d(' + (8 * p) + 'vw,0,0) skewX(-14deg)';
-    planes.copy.style.transform = 'translate3d(0,' + (-16 * e) + 'vh,0)';
-    planes.copy.style.opacity = String(1 - smooth((p - 0.12) / 0.34));
-    planes.copy.style.visibility = p > 0.5 ? 'hidden' : 'visible';
-    planes.desk.style.transform = 'translate3d(0,' + (-24 * e) + 'vh,0) scale(' + (1 + 0.06 * p) + ')';
+    planes.copy.style.transform = 'translate3d(0,' + (-14 * e) + 'vh,0)';
+    planes.copy.style.opacity = String(1 - smooth((p - 0.1) / 0.32));
+    planes.copy.style.visibility = p > 0.46 ? 'hidden' : 'visible';
+    planes.desk.style.transform = 'translate3d(0,' + (-22 * e) + 'vh,0) scale(' + (1 + 0.06 * p) + ')';
+    planes.desk.style.opacity = String(1 - smooth((p - 0.5) / 0.4));
     planes.mug.style.transform = 'translate3d(' + (7 * e) + 'vw,' + (36 * e) + 'vh,0)';
-    planes.mug.style.opacity = String(1 - smooth((p - 0.45) / 0.3));
+    planes.mug.style.opacity = String(1 - smooth((p - 0.3) / 0.3));
     var rx = (m ? 48 : 58) * (1 - t), rz = -7 * (1 - t);
     var ty = (m ? 18 : 16) * (1 - t);           // from lying on the desk to centred
-    var sc = (m ? 1 : 1) + (m ? 0.12 : 0.34) * t;
+    var sc = 1 + (m ? 0.12 : 0.3) * t;
     planes.sheet.style.transform = 'translate3d(-50%,calc(-50% + ' + ty + 'vh),0) perspective(1400px) rotateX(' + rx + 'deg) rotateZ(' + rz + 'deg) scale(' + sc + ')';
     planes.sheet.style.setProperty('--shadow', String(1 - t));
-    planes.paper.style.opacity = String(smooth((p - 0.62) / 0.3));
+  }
+
+  /* ------------------------------------------------------------ the world
+     The night behind the glass drifts with the whole page, and first light
+     arrives over the Verify chapter, fully at the close. */
+  var world = $('[data-ms-world]'), worldNight = world && $('.world__night', world), worldDawn = world && $('.world__dawn', world);
+  var verifyEl = $('#verify'), closeEl = $('#day2'), lastWorldY = -1;
+  function worldFrame() {
+    if (!world) return;
+    var y = window.scrollY;
+    if (y === lastWorldY) return;
+    lastWorldY = y;
+    var g = clamp(y / Math.max(1, doc.documentElement.scrollHeight - innerHeight), 0, 1);
+    if (!reduce) worldNight.style.transform = 'translate3d(0,' + (-5 * g).toFixed(3) + 'vh,0) scale(1.1)';
+    var vt = verifyEl ? topOf(verifyEl) : Infinity, ct = closeEl ? topOf(closeEl) : Infinity;
+    var dawn = 0.3 * smooth((y - vt) / Math.max(1, ct - vt)) + 0.7 * smooth((y - (ct - innerHeight)) / innerHeight);
+    worldDawn.style.opacity = dawn.toFixed(3);
+  }
+
+  /* ---------------------------------------------------------- glass sheen
+     A soft highlight follows the pointer across whichever pane it is over,
+     the way a lit room catches on real glass. Fine pointers only; it adds
+     nothing a keyboard or touch visitor needs. */
+  function bindSheen() {
+    if (reduce || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    var pending = null, queued = false, lastPane = null;
+    doc.addEventListener('pointermove', function (e) {
+      pending = e;
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(function () {
+        var ev = pending; queued = false;
+        var pane = ev.target.closest && ev.target.closest('.glass');
+        if (lastPane && lastPane !== pane) lastPane.classList.remove('is-sheen');
+        lastPane = pane;
+        if (!pane) return;
+        var r = pane.getBoundingClientRect();
+        pane.style.setProperty('--mx', (ev.clientX - r.left).toFixed(0) + 'px');
+        pane.style.setProperty('--my', (ev.clientY - r.top).toFixed(0) + 'px');
+        pane.classList.add('is-sheen');
+      });
+    }, { passive: true });
   }
 
   /* --------------------------------------------------- presenter + notes */
@@ -795,12 +841,13 @@
       if (s !== currentSlide) { currentSlide = s; if (presenting) renderNotes(); }
     }
     syncNow = sync;
-    function frame() { sync(); heroFrame(); requestAnimationFrame(frame); }
+    bindSheen();
+    function frame() { sync(); heroFrame(); worldFrame(); requestAnimationFrame(frame); }
     requestAnimationFrame(frame);
     // rAF pauses in background windows (a presenter's second screen, a
     // hidden tab); scroll events do not, so notes and the rail stay correct.
     addEventListener('scroll', function () { setTimeout(sync, 0); }, { passive: true });
-    addEventListener('resize', function () { lessons.forEach(function (l) { l.drawBridge(); }); lastHeroP = -1; });
+    addEventListener('resize', function () { lessons.forEach(function (l) { l.drawBridge(); }); lastHeroP = -1; lastWorldY = -1; });
 
     E.getInitial(function (init) {
       if (init.params.mode === 'present') setPresenting(true);

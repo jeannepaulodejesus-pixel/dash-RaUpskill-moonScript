@@ -29,7 +29,7 @@ const D = sandbox.self.MoonData;
 const clean = (d) => { mkdirSync(d, { recursive: true }); for (const f of readdirSync(d)) rmSync(join(d, f), { recursive: true, force: true }); };
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'].map((d, i) =>
-  `<article class="day${i === 4 ? ' day--last' : ''}"><p class="day__name">${d} <span>Workday ${i + 1}</span></p>` +
+  `<article class="day glass${i === 4 ? ' day--last' : ''}"><p class="day__name">${d} <span>Workday ${i + 1}</span></p>` +
   `<ol>${D.dailyChecklist.map((s) => `<li>${esc(s)}</li>`).join('')}</ol>` +
   `<p class="day__foot">${i === 4 ? 'Same list, same order, by hand. Next week it starts again.' : 'Done by hand'}</p></article>`
 ).join('\n      ');
