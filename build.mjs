@@ -23,7 +23,7 @@ const CDN = `https://cdn.jsdelivr.net/gh/${repo}@${ref}/assets/img/`;
 // static parts of the page from the same data.
 const sandbox = { self: {} };
 vm.runInNewContext(read(src('data/lessons.js')), sandbox);
-const D = sandbox.self.MoonData;
+const D = sandbox.self.PressData;
 
 // Empty an output folder without removing it (a shell may be sitting in it).
 const clean = (d) => { mkdirSync(d, { recursive: true }); for (const f of readdirSync(d)) rmSync(join(d, f), { recursive: true, force: true }); };

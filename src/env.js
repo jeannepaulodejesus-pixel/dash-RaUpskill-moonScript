@@ -5,7 +5,7 @@
 (function (root, factory) {
   var api = factory(root);
   if (typeof module === 'object' && module.exports) module.exports = api;
-  else root.MoonEnv = api;
+  else root.PressEnv = api;
 })(typeof self !== 'undefined' ? self : this, function (g) {
   'use strict';
 

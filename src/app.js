@@ -1,14 +1,15 @@
-/* MoonScript page logic.
+/* PressRun page logic.
    Everything bespoke lives here; the scrollcraft engine is untouched and only
-   publishes --sc-p on each act. The signature move is the Program Counter: in a
-   lesson act, scroll progress selects one step, and that step lights the same
-   instruction in three lanes at once (procedure, code, consequence), joined by
-   a thin light bridge. Every consequence is computed by MoonRoster from the
+   publishes --sc-p on each act. The signature move is the Program Counter, shown
+   as a register: in a lesson act, scroll progress selects one step, and that
+   step lights the same instruction in three lanes at once (procedure, code,
+   consequence), like three plates printing in register, joined by a thin
+   bridge that ends in registration marks. Every consequence is computed by PressRoster from the
    labelled sample roster; nothing on the page is a painted result. */
 (function () {
   'use strict';
 
-  var R = window.MoonRoster, D = window.MoonData, E = window.MoonEnv;
+  var R = window.PressRoster, D = window.PressData, E = window.PressEnv;
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var smallMQ = matchMedia('(max-width: 860px)');
   var doc = document;
@@ -264,8 +265,10 @@
     var target = lit.offsetTop - win.clientHeight / 2 + lit.offsetHeight / 2;
     win.scrollTo({ top: Math.max(0, target), behavior: reduce ? 'auto' : 'smooth' });
   };
-  /* The light bridge: two quiet curves joining the lit instruction, the lit
-     code line and the lit consequence. Pure SVG, recomputed per step. */
+  /* The register: two quiet curves joining the lit instruction, the lit code
+     line and the lit consequence, each end a registration mark, because the
+     three lanes are plates that must print the same step in register. Pure
+     SVG, recomputed per step. */
   Lesson.prototype.drawBridge = function () {
     var svg = this.q.bridge, tri = this.q.tri;
     if (!svg || smallMQ.matches) { if (svg) svg.innerHTML = ''; return; }
@@ -283,10 +286,13 @@
       if (el.classList.contains('ln')) return { x: (side === 'l' ? r.left : Math.min(r.right, win.right)) - T.left, y: y - T.top };
       return { x: (side === 'l' ? r.left : r.right) - T.left, y: r.top + r.height / 2 - T.top };
     }
+    function reg(o) {
+      return '<g class="reg" transform="translate(' + o.x.toFixed(1) + ' ' + o.y.toFixed(1) + ')"><circle r="3.6"/><path d="M-6.5 0H6.5M0-6.5V6.5"/></g>';
+    }
     function curve(p, q) {
       var dx = Math.max(24, (q.x - p.x) * 0.5);
       return '<path d="M' + p.x + ' ' + p.y + ' C ' + (p.x + dx) + ' ' + p.y + ', ' + (q.x - dx) + ' ' + q.y + ', ' + q.x + ' ' + q.y + '"/>' +
-        '<circle cx="' + p.x + '" cy="' + p.y + '" r="2.5"/><circle cx="' + q.x + '" cy="' + q.y + '" r="2.5"/>';
+        reg(p) + reg(q);
     }
     var h = '';
     if (a && b) h += curve(mid(a, 'r'), mid(b, 'l'));
@@ -580,7 +586,7 @@
       '<div class="card-sheet card-sheet--sm"><p class="sheet__title">The procedure</p><ol class="sheet__steps">' + D.sop.map(function (s) { return '<li>' + esc(s.clear) + '</li>'; }).join('') + '</ol></div>' +
       '<div class="try glass">' +
         '<div class="try__row"><label class="field field--inline"><span>Change the rule</span><select data-try-status><option>Active</option><option>Inactive</option><option>NULL</option></select></label>' +
-        '<button type="button" class="btn btn--moon btn--sm" data-try-run>Run</button></div>' +
+        '<button type="button" class="btn btn--paper btn--sm" data-try-run>Run</button></div>' +
         '<pre class="code code--sm" data-try-code></pre>' +
         '<div class="try__out" role="status" aria-live="polite"></div>' +
       '</div>';
@@ -599,41 +605,85 @@
     $('[data-try-run]', el).addEventListener('click', run);
   }
 
-  /* ------------------------------------------------------------- hero */
+  /* ------------------------------------------------------------- hero
+     One camera idea: walk into the shop toward the press. Three beats share
+     the pinned scroll. (a) The approach: the stone and the brayer drop away,
+     the proof lifts off the stone, the press comes toward you and slides
+     past on the right faster than the wall behind it. (b) The headline
+     recedes into the wall and the press leaves the frame. (c) The shop
+     dissolves into the blurred world behind every lesson. Each plane has its
+     own rate, which is where the depth comes from. A fine pointer adds a few
+     pixels of parallax on top; nothing depends on it. */
   var hero = $('[data-ms-hero]'), planes = {};
   $$('[data-ms-plane]').forEach(function (p) { planes[p.getAttribute('data-ms-plane')] = p; });
-  var lastHeroP = -1;
+  var lastHeroP = -1, ptr = { x: 0, y: 0, tx: 0, ty: 0 };
+  function layerHero() {
+    if (!hero || typeof Promise === 'undefined') return;
+    // The cut planes replace the uncut photograph only when all of them
+    // have decoded, so a slow or failed layer never leaves a partial room.
+    Promise.all($$('[data-ms-layer]', hero).map(function (img) {
+      return img.decode ? img.decode() : Promise.resolve();
+    })).then(function () { hero.classList.add('is-layered'); }, function () {});
+  }
+  function bindHeroPointer() {
+    if (!hero || reduce || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    hero.addEventListener('pointermove', function (e) {
+      ptr.tx = e.clientX / innerWidth * 2 - 1; ptr.ty = e.clientY / innerHeight * 2 - 1;
+    }, { passive: true });
+    hero.addEventListener('pointerleave', function () { ptr.tx = 0; ptr.ty = 0; });
+  }
+  function put(el, tf, op) {
+    el.style.transform = tf;
+    if (op !== undefined) { el.style.opacity = op.toFixed(3); el.style.visibility = op < 0.005 ? 'hidden' : ''; }
+  }
   function heroFrame() {
     if (!hero) return;
     var p = reduce ? 0 : pOf(hero);
-    if (Math.abs(p - lastHeroP) < 0.0005) return;
+    ptr.x += (ptr.tx - ptr.x) * 0.075; ptr.y += (ptr.ty - ptr.y) * 0.075;
+    var drifting = Math.abs(ptr.tx - ptr.x) + Math.abs(ptr.ty - ptr.y) > 0.002;
+    if (Math.abs(p - lastHeroP) < 0.0005 && !drifting) return;
     lastHeroP = p;
-    var m = smallMQ.matches, e = smooth(p), t = smooth(clamp(p / 0.8, 0, 1));
-    // The room falls out of focus: the sharp window and desk dissolve into
-    // the blurred night behind them, which is the world the lesson sits on.
-    var pull = smooth((p - 0.4) / 0.45);
-    planes.far.style.transform = 'translate3d(0,' + (-3 * p) + 'vh,0) scale(' + (1.06 + 0.06 * pull) + ')';
-    planes.far.style.opacity = String(1 - pull);
-    planes.beam.style.opacity = String(0.95 - 0.85 * p);
-    planes.beam.style.transform = 'translate3d(' + (8 * p) + 'vw,0,0) skewX(-14deg)';
-    planes.copy.style.transform = 'translate3d(0,' + (-14 * e) + 'vh,0)';
-    planes.copy.style.opacity = String(1 - smooth((p - 0.1) / 0.32));
-    planes.copy.style.visibility = p > 0.46 ? 'hidden' : 'visible';
-    planes.desk.style.transform = 'translate3d(0,' + (-22 * e) + 'vh,0) scale(' + (1 + 0.06 * p) + ')';
-    planes.desk.style.opacity = String(1 - smooth((p - 0.5) / 0.4));
-    planes.mug.style.transform = 'translate3d(' + (7 * e) + 'vw,' + (36 * e) + 'vh,0)';
-    planes.mug.style.opacity = String(1 - smooth((p - 0.3) / 0.3));
+    var m = smallMQ.matches, x = ptr.x, y = ptr.y;
+    var a = smooth(p / 0.42), b = smooth((p - 0.34) / 0.4), c = smooth((p - 0.62) / 0.3);
+    var shift = function (k) { return 'translate3d(' + (-k * x).toFixed(2) + 'px,' + (-k * 0.6 * y).toFixed(2) + 'px,0)'; };
+
+    // The wall scales about its own origin (30% 40% of the plate); the lamp's
+    // glow is moved by the same amount, so it stays on the lamp.
+    var wallS = 1 + 0.1 * a + 0.4 * b, W = planes.far.offsetWidth, H = planes.far.offsetHeight;
+    var wall = shift(4) + ' scale(' + wallS.toFixed(4) + ')';
+    put(planes.far, wall, 1 - c);
+    put(planes.glow, shift(4) + ' translate3d(' + ((0.834 - 0.3) * W * (wallS - 1)).toFixed(1) + 'px,' + ((0.165 - 0.4) * H * (wallS - 1)).toFixed(1) + 'px,0) scale(' + wallS.toFixed(4) + ')', (1 - c) * (1 - 0.3 * a));
+
+    var headO = 1 - smooth((p - 0.34) / 0.2);
+    // The headline recedes with the wall but a little faster, from its own
+    // left edge, so it never drifts under the press.
+    put(planes.head, m ? 'translate3d(0,' + (-3 * a).toFixed(2) + 'vh,0)' : shift(5) + ' scale(' + (1 + 0.12 * a + 0.3 * b).toFixed(4) + ')', headO);
+    put(planes.scrim, 'none', headO);
+    // The press is nearer than the wall: it grows faster and slides out of
+    // frame to the right as you pass it.
+    // It leaves the frame before it fades, so it never shows through itself.
+    var press = shift(16) + ' translate3d(' + (8 * a + 46 * b).toFixed(2) + 'vw,' + (5 * a + 10 * b).toFixed(2) + 'vh,0) scale(' + (1 + 0.3 * a + 0.7 * b).toFixed(4) + ')';
+    put(planes.press, press, 1 - smooth((p - 0.58) / 0.1));
+    put(planes.beam, press, 0.95 - 0.9 * smooth(p / 0.5));
+
+    put(planes.desk, shift(22) + ' translate3d(0,' + (46 * a).toFixed(2) + 'vh,0) scale(' + (1 + 0.08 * a).toFixed(4) + ')', 1 - smooth((p - 0.28) / 0.24));
+    put(planes.mug, shift(34) + ' translate3d(' + (10 * a).toFixed(2) + 'vw,' + (62 * a).toFixed(2) + 'vh,0)', 1 - smooth((p - 0.1) / 0.24));
+    put(planes.act, 'translate3d(0,' + (7 * a).toFixed(2) + 'vh,0)', 1 - smooth(p / 0.14));
+
+    // The sheet lifts off the desk and comes to face you, centred.
+    var t = smooth((p - 0.14) / 0.5);
     var rx = (m ? 48 : 58) * (1 - t), rz = -7 * (1 - t);
-    var ty = (m ? 18 : 16) * (1 - t);           // from lying on the desk to centred
-    var sc = 1 + (m ? 0.12 : 0.3) * t;
-    planes.sheet.style.transform = 'translate3d(-50%,calc(-50% + ' + ty + 'vh),0) perspective(1400px) rotateX(' + rx + 'deg) rotateZ(' + rz + 'deg) scale(' + sc + ')';
-    planes.sheet.style.setProperty('--shadow', String(1 - t));
+    var dx = ((m ? 50 - 58 : 50 - 68) * t).toFixed(2), dy = ((m ? 46 - 63 : 47 - 72) * t).toFixed(2);
+    var sc = 1 + (m ? 0.14 : 0.32) * t, k = 26 * (1 - t);
+    planes.sheet.style.transform = 'translate3d(calc(-50% + ' + dx + 'vw + ' + (-k * x).toFixed(2) + 'px),calc(-50% + ' + dy + 'vh + ' + (-k * 0.6 * y).toFixed(2) + 'px),0) perspective(1400px) rotateX(' + rx.toFixed(2) + 'deg) rotateZ(' + rz.toFixed(2) + 'deg) scale(' + sc.toFixed(4) + ')';
+    planes.sheet.style.setProperty('--shadow', (1 - t).toFixed(3));
   }
 
   /* ------------------------------------------------------------ the world
-     The night behind the glass drifts with the whole page, and first light
-     arrives over the Verify chapter, fully at the close. */
-  var world = $('[data-ms-world]'), worldNight = world && $('.world__night', world), worldDawn = world && $('.world__dawn', world);
+     The shop behind the panes drifts with the whole page, and daylight
+     comes in over the Verify chapter, fully at the close: the morning of
+     the run. */
+  var world = $('[data-ms-world]'), worldShop = world && $('.world__shop', world), worldDay = world && $('.world__day', world);
   var verifyEl = $('#verify'), closeEl = $('#day2'), lastWorldY = -1;
   function worldFrame() {
     if (!world) return;
@@ -641,15 +691,15 @@
     if (y === lastWorldY) return;
     lastWorldY = y;
     var g = clamp(y / Math.max(1, doc.documentElement.scrollHeight - innerHeight), 0, 1);
-    if (!reduce) worldNight.style.transform = 'translate3d(0,' + (-5 * g).toFixed(3) + 'vh,0) scale(1.1)';
+    if (!reduce) worldShop.style.transform = 'translate3d(0,' + (-5 * g).toFixed(3) + 'vh,0) scale(1.1)';
     var vt = verifyEl ? topOf(verifyEl) : Infinity, ct = closeEl ? topOf(closeEl) : Infinity;
-    var dawn = 0.3 * smooth((y - vt) / Math.max(1, ct - vt)) + 0.7 * smooth((y - (ct - innerHeight)) / innerHeight);
-    worldDawn.style.opacity = dawn.toFixed(3);
+    var day = 0.3 * smooth((y - vt) / Math.max(1, ct - vt)) + 0.7 * smooth((y - (ct - innerHeight)) / innerHeight);
+    worldDay.style.opacity = day.toFixed(3);
   }
 
-  /* ---------------------------------------------------------- glass sheen
+  /* ----------------------------------------------------------- pane sheen
      A soft highlight follows the pointer across whichever pane it is over,
-     the way a lit room catches on real glass. Fine pointers only; it adds
+     the way the work lamp catches on smoked glass. Fine pointers only; it adds
      nothing a keyboard or touch visitor needs. */
   function bindSheen() {
     if (reduce || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
@@ -745,7 +795,9 @@
   var chapterEls = {};
   $$('[data-ms-chapter-start]').forEach(function (s) { chapterEls[s.getAttribute('data-ms-chapter-start')] = s; });
   var lastChapter = null, seen = E.store.get('seen', []);
+  var railEl = $('[data-ms-rail]');
   function railFrame() {
+    railEl.classList.toggle('is-solid', window.scrollY > innerHeight * 0.6);
     var y = window.scrollY + innerHeight * 0.4, ids = D.chapters.map(function (c) { return c.id; });
     var starts = ids.map(function (id) { return id === 'recognize' ? 0 : topOf(chapterEls[id]); });
     var end = doc.documentElement.scrollHeight - innerHeight * 0.6;
@@ -814,6 +866,82 @@
   });
 
   /* ---------------------------------------------------------------- boot */
+  /* Arrivals. Each assertion rises out of a mask the first time it enters
+     the viewport, and each glass pane in the flowing sections tilts up into
+     place with light running once along its rim, staggered within its
+     section. Panes inside pinned stages are already choreographed, and ones
+     the engine reveals keep its timing. Without script, or without
+     IntersectionObserver, nothing is hidden. */
+  function bindArrivals() {
+    if (!('IntersectionObserver' in window)) return;
+    doc.documentElement.classList.add('ms-js');
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -6% 0px' });
+    $$('.assert').forEach(function (h) { io.observe(h); });
+    $$('main section').forEach(function (sec) {
+      if (sec.querySelector('[data-sc-stage]')) return;
+      $$('.glass', sec).filter(function (g) {
+        return !g.closest('[data-sc-in], [data-sc-cue], [data-sc-stagger]') && !g.parentElement.closest('.glass');
+      }).forEach(function (g, i) {
+        g.classList.add('ms-arrive');
+        g.style.setProperty('--d', Math.min(i, 4) * 90 + 'ms');
+        io.observe(g);
+      });
+    });
+  }
+
+  /* Transitions between sections, all read from scroll position.
+     Passages: each chapter word starts as a blind impression (pressed, not
+     inked). A brayer rolls across it with the scroll and the word is inked
+     behind the roller, while a forme of type drifts out of focus behind it.
+     Assertions in the flowing sections lag a little behind their section, so
+     heading and pane part as you pass. Rects are read first, then everything
+     is written. */
+  var passages = [], depthHeads = [], lastTY = -1, lastTW = -1;
+  var ROLLER_LINE = 0.74; // the cylinder's contact line, as a fraction of the roller image's width
+  function bindTransitions() {
+    passages = $$('[data-ms-passage]').map(function (sec) {
+      var word = $('.chapter__word', sec), text = word.textContent.trim();
+      // The blind impression is decoration, hidden from assistive technology;
+      // the inked copy is the heading's text.
+      word.innerHTML = '<span class="chapter__blind" aria-hidden="true">' + esc(text) + '</span><span class="chapter__inked">' + esc(text) + '</span>';
+      return { sec: sec, far: $('[data-ms-type]', sec), roller: $('[data-ms-roller]', sec), word: word, inked: $('.chapter__inked', word) };
+    });
+    depthHeads = $$('main .assert').filter(function (h) { return !h.closest('[data-sc-stage]'); });
+  }
+  function transitionsFrame() {
+    var y = window.scrollY;
+    if (y === lastTY && innerWidth === lastTW) return;
+    lastTY = y; lastTW = innerWidth;
+    var vh = innerHeight, vw = innerWidth;
+    var pr = passages.map(function (o) { return o.sec.getBoundingClientRect(); });
+    var wr = passages.map(function (o) { return o.inked.getBoundingClientRect(); });
+    var hr = reduce ? [] : depthHeads.map(function (h) { return h.getBoundingClientRect(); });
+    passages.forEach(function (o, i) {
+      var r = pr[i], w = wr[i];
+      if (r.bottom < -vh * 0.2 || r.top > vh * 1.2) return;
+      if (reduce) { o.word.style.setProperty('--ink', '100%'); return; }
+      var q = clamp((vh - r.top) / (vh + r.height), 0, 1);       // 0 entering below, 1 gone above
+      o.far.style.transform = 'translate3d(' + (3 - 6 * q).toFixed(2) + 'vw,' + (12 - 24 * q).toFixed(2) + 'vh,0) scale(1.12)';
+      o.far.style.opacity = (0.9 * Math.sin(Math.PI * clamp(q * 1.1, 0, 1))).toFixed(3);
+      // The roller: its height covers the word; its contact line travels from
+      // off the left edge to off the right edge, and the ink follows it.
+      var rh = w.height * 1.25, rw = rh * (752 / 900);
+      var line = -0.2 * vw + 1.45 * vw * smooth((q - 0.1) / 0.5);
+      o.roller.style.height = rh.toFixed(0) + 'px';
+      o.roller.style.transform = 'translate3d(' + (line - ROLLER_LINE * rw).toFixed(1) + 'px,' + (w.top - r.top + w.height / 2 - rh / 2).toFixed(1) + 'px,0)';
+      o.roller.style.opacity = (smooth(q / 0.12) * (1 - smooth((q - 0.62) / 0.1))).toFixed(3);
+      var ink = clamp((line - w.left) / Math.max(1, w.width), 0, 1);
+      o.word.style.setProperty('--ink', (ink * 100).toFixed(2) + '%');
+    });
+    hr.forEach(function (r, i) {
+      if (r.bottom < -100 || r.top > vh + 100) return;
+      var d = (r.top + r.height / 2 - vh / 2) * 0.07;
+      depthHeads[i].style.translate = '0 ' + d.toFixed(1) + 'px';
+    });
+  }
+
   function boot() {
     // Under reduced motion the hero keeps its composition but not its travel,
     // so it does not need the extra pinned scroll.
@@ -841,13 +969,13 @@
       if (s !== currentSlide) { currentSlide = s; if (presenting) renderNotes(); }
     }
     syncNow = sync;
-    bindSheen();
-    function frame() { sync(); heroFrame(); worldFrame(); requestAnimationFrame(frame); }
+    bindSheen(); bindHeroPointer(); layerHero(); bindArrivals(); bindTransitions();
+    function frame() { sync(); heroFrame(); worldFrame(); transitionsFrame(); requestAnimationFrame(frame); }
     requestAnimationFrame(frame);
     // rAF pauses in background windows (a presenter's second screen, a
     // hidden tab); scroll events do not, so notes and the rail stay correct.
     addEventListener('scroll', function () { setTimeout(sync, 0); }, { passive: true });
-    addEventListener('resize', function () { lessons.forEach(function (l) { l.drawBridge(); }); lastHeroP = -1; lastWorldY = -1; });
+    addEventListener('resize', function () { lessons.forEach(function (l) { l.drawBridge(); }); lastHeroP = -1; lastWorldY = -1; lastTY = -1; });
 
     E.getInitial(function (init) {
       if (init.params.mode === 'present') setPresenting(true);

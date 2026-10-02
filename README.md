@@ -1,8 +1,8 @@
-# MoonScript: From Routine to Run
+# PressRun: From Routine to Run
 
-Day 1 of the MoonScript Apps Script upskilling track for Reporting Analysts, rebuilt from a 24-slide deck as an immersive, scroll-driven web app.
+Day 1 of the PressRun Apps Script upskilling track for Reporting Analysts, rebuilt from a 24-slide deck as an immersive, scroll-driven web app. The analogy is a print shop: the report you copy out by hand every week becomes a page set once in type, proofed, and run.
 
-One reporting procedure (build the active-employee list from `employees.master_roster`) becomes executable in front of you. As you scroll, a beam of light acts as the program counter. It lights the same step in the plain-language procedure, the code, and the spreadsheet at once.
+One reporting procedure (build the active-employee list from `employees.master_roster`) becomes executable in front of you. As you scroll, a program counter lights the same step in the plain-language procedure, the code, and the spreadsheet at once, like three plates printing in register.
 
 The same source runs two ways:
 
@@ -45,7 +45,7 @@ src/data/lessons.js     headlines, timings, speaker notes, lesson step maps
 src/env.js              platform adapter: static vs Apps Script (history, location, storage, clipboard)
 src/app.js              Program Counter, lessons, interactions, presenter mode
 gas/Code.gs             doGet + include()
-assets/img/             generated photography (WebP + JPEG)
+assets/img/             generated photography (WebP)
 ```
 
 ## Apps Script deployment
@@ -53,7 +53,7 @@ assets/img/             generated photography (WebP + JPEG)
 ```bash
 npm run build -- --ref v1.0.0
 cd dist/gas
-clasp create --type webapp --title "MoonScript: From Routine to Run"   # first time only
+clasp create --type webapp --title "PressRun: From Routine to Run"   # first time only
 clasp push -f
 clasp deploy -d "v1.0.0"
 ```

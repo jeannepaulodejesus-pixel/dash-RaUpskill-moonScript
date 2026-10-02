@@ -1,5 +1,5 @@
 /**
- * MoonScript: From Routine to Run, served as an Apps Script web app.
+ * PressRun: From Routine to Run, served as an Apps Script web app.
  *
  * The page is static and computes every example in the browser from labelled
  * sample data, so this project uses no Workspace services and requests no
@@ -14,7 +14,7 @@
 function doGet(e) {
   return HtmlService.createTemplateFromFile('Index')
     .evaluate()
-    .setTitle('MoonScript: From Routine to Run')
+    .setTitle('PressRun: From Routine to Run')
     // HtmlService ignores a <meta name="viewport"> in the file; it must be added here.
     .addMetaTag('viewport', 'width=device-width, initial-scale=1')
     // Uncomment to allow embedding in Google Sites or another page.
