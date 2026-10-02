@@ -1,4 +1,4 @@
-/* MoonScript content. Headlines are the deck's assertion headlines verbatim.
+/* PressRun content. Headlines are the deck's assertion headlines verbatim.
    Notes follow the deck's speaker-note structure: point, misconception, cue,
    bridge. Minutes come from the Day 1 outline (115 minutes in total). */
 (function (root) {
@@ -20,7 +20,7 @@
     1: { min: 2, title: 'A reporting routine can become a reusable instruction.',
       notes: n('Day 1 outcome: explain what a small Apps Script does, trace its input and output, and say where a person still has to check.',
         'That this is a programming course. It is a reporting course that ends in a script.',
-        'Point at the procedure card on the desk. It stays with us all day.',
+        'Point at the procedure sheet on the stone: the proof. It stays with us all day.',
         'Before any code, look at how often we already repeat this card.') },
     2: { min: 4, title: 'Repeated reporting requires us to repeat the same instructions.',
       notes: n('The same five steps recur every workday. The recurrence, not the difficulty, is what makes it a candidate.',
@@ -102,7 +102,7 @@
     17: { min: 7, title: 'The script follows the procedure we already understand.',
       notes: n('Guided live run. Pause at each SOP step as its lines execute.',
         'That the script is doing something new. It is the same five steps.',
-        'Let the light travel. Stop on the status rule and on the write.',
+        'Let the register travel. Stop on the status rule and on the write.',
         'A completed execution is not yet a correct result.') },
     18: { min: 5, title: 'A completed execution still requires an output check.',
       notes: n('Compare against a manual filter: included IDs, excluded records, field order, and a rerun that replaces rather than duplicates.',
@@ -159,7 +159,7 @@
   ];
 
   /* The Read chapter: six beats on one pinned triptych.
-     code: either script line numbers (from MoonRoster.SCRIPT) or a teaching
+     code: either script line numbers (from PressRoster.SCRIPT) or a teaching
      excerpt given as { excerpt: [...] } with its own numbering.
      Each step lights sop (index), code (line numbers) and a consequence state. */
   var read = [
@@ -246,7 +246,7 @@
       why: "Only the rule changes: row[3] === 'Inactive'. Reading and writing stay the same." }
   ];
 
-  root.MoonData = {
+  root.PressData = {
     chapters: chapters, slides: slides, sop: sop, dailyChecklist: dailyChecklist,
     read: read, sortTasks: sortTasks, terms: terms, predict: predict
   };

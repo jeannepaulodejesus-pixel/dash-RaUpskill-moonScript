@@ -73,3 +73,77 @@ Scroll progress selects one step. That step lights the same instruction in all t
 - **Type.** Geist at variable weights: display 500 to 520 with tight tracking, chapter words at 360. Light-on-dark compensation in line height and secondary ink.
 
 **Feel check (cold scroll, one word per act, then diffed with the curve above):** stillness, then focus (hero) · weary (recurrence) · sharpening (clarify) · "oh" (turn) · orientation (tools, services, sort) · grounding (data) · play (terms) · competence (read) · silence (break) · awe (run) · trust (check) · possibility (wider) · tension (errors) · responsibility (triggers, ops) · confidence (predict) · resolve (close). It matches the intended curve. The hero now ends in "focus" rather than "the sheet becomes the paper", a deliberate change. Risk noted: tools, services, sort and data are four consecutive glass-over-bokeh acts; varied anchors (split, trail, offset, stacked) carry the difference, not the material.
+
+---
+
+## Revision 3: Through the Window (2026-10-02)
+
+**Request (verbatim):** "the ux feels dull and cheap, the hero still looks cheap. your /goal is to make the web feel more premium just like how Nate Herks' web outputs"
+
+**What read as cheap (observed on the revision 2 render):** the headline sat in a frosted card pasted over a flat photograph, so the hero was a website on top of a picture rather than a place. The desk, sheet and mug were the only depth; the window, moon and city were one plane. The rail was a heavy pill crossing the window. Section headings were modest and arrived with no motion. Selects were browser defaults.
+
+**Authored decisions, under that request (the scroll-craft hero-depth standard):**
+
+- **Layer contract.** One photograph (`far.webp`) is cut into registered planes by `tools/cut-hero.py`: the view outside (mullions and moon removed), the moon, the room with its three glass panes made transparent, then the existing desk, sheet and mug. A `.hero__scene` box reproduces object-fit: cover in CSS, so every plane is positioned in the photograph's own coordinates.
+- **The headline is beyond the glass.** It sits between the view and the room, so two mullions cross it. Its placement was measured against every glyph box so the bars fall on an "n", an "o" and a word space; the type scales with the plate, so this holds at every desktop size. On phones the headline comes in front (too small to be crossed and stay readable). The kicker, lede and Begin stay in the room with the visitor.
+- **One camera idea, three beats.** Walk to the window (the room grows around you, the desk drops away, the sheet lifts off it), pass through the glass (the room and mullions slide past on either side, the headline recedes), then the view dissolves into the blurred night every lesson is written on. This replaces revision 2's focus pull with an actual spatial move, and it tells the title's story: from the routine on the desk out into the run.
+- **Safe fallback.** The cut planes replace the uncut photograph only after all of them decode, so the Apps Script build (whose CDN tag predates them) shows the complete original composition.
+- **Chrome and type.** The rail is a full-width line over a progressive blur. Assertion headings are larger and lighter (weight 480, -0.05em) and rise out of a mask the first time they arrive. Glass panes have a cleaner rim and a bottom edge. Selects are styled.
+
+**Feel check (cold scroll of the hero, then diffed):** curiosity (a room at night, words out in the sky) · approach (the room opens around you) · arrival (the sheet in your hands, the night behind it). It matches the intended "stillness, curiosity", and the hero now ends where the lesson begins: in the night.
+
+---
+
+## Revision 4: Passages (2026-10-02)
+
+**Request (verbatim):** "add more animation on transitions. again, you may utilize codex cli -> imagegen to create assets"
+
+**What read as flat:** sections handed over by simply scrolling in. The chapter intertitles were the only authored transitions, and they were a clip wipe plus a glass slab over the same bokeh as every other act. Panes appeared already in place.
+
+**Authored decisions, under that request:**
+
+- **Chapter passages.** Each chapter (Translate, Read, Verify) is reached through moonlit cloud, two new Codex imagegen plates generated on black. They are keyed to alpha by `tools/key-clouds.py`, using white with luminance alpha, which composites exactly like a screen blend. The far bank drifts slowly behind the chapter word, and the near masses rush past in front of it at about four times the rate. The word settles from a slight scale as it comes clear. The near cloud keeps a soft clearing over the word and its line, measured each frame, so the text never sits under bright cloud. A scrim pool appears under the text only while cloud is passing. Feeling: passing from one part of the night into the next.
+- **Arrivals.** Glass panes in the flowing sections tilt up into place (perspective, 10deg, 64px), then a band of light runs once along the rim. They are staggered within a section, and headings still rise out of their mask. Pinned stages keep their own choreography.
+- **Depth on the way through.** Assertions in flowing sections lag 7% behind their section, so heading and pane part as you pass.
+- **The break.** A slow mist crosses the rising moon. It stays quiet: the authored silence is kept.
+- **Reduced motion.** No travel. The far cloud holds still, the near cloud is hidden, panes and headings fade.
+
+**Feel check (cold scroll, the passages only):** threshold (cloud thickens) · emergence (the word clears) · arrival (the lesson below). It matches the intent. Nothing in the teaching surfaces changed meaning.
+
+---
+
+## Revision 5: The Press Run (2026-10-02)
+
+**Request (verbatim):** "reamagine the analogy away from moon, make it more relatable to what was being discussed, I also dont want it to be a cliche analogy, make it unique. you may generate images again in codex cli"
+
+**Choice (the user's, from three offered: The Press Run, The Handover Note, The Player-Piano Roll):** The Press Run. The product is renamed to fit: **PressRun** (the user chose "Rename to fit"; the repo name stays).
+
+**Why it fits the lesson, not just the look.** A reporting routine is a page copied out by hand every week. A script is the same page set once in type, proofed, and run as often as it is needed. The deck's own words already belong to a print shop: *line*, *sort* (slide 7; a sort is one piece of type), *proof*, *run*, *report*, *edition*, *typo*. Nothing in the analogy needs explaining to an analyst, and none of it is the usual recipe, robot, assembly line or light-beam metaphor.
+
+| Lesson | In the shop |
+|---|---|
+| Recognize | The same page copied by hand, Monday to Friday |
+| Clarify | Vague words cannot be set in type. Only exact sorts can. |
+| Translate | Composing: each instruction set as a line of type |
+| Read | Proofing. The three lanes are three plates; the Program Counter puts them **in register** |
+| Break | The forme locked in the chase, the press at rest |
+| Run (peak) | The press run: the impression cylinder passes and the active roster is printed |
+| Verify | Pull a proof, check it against the manual filter, fix the typo in the forme |
+| Triggers | The scheduled edition: when the press runs, and on whose authority |
+| Close | Morning of the run: daylight in the shop, change the rule and run it again |
+
+**Authored decisions:**
+
+- **World.** One print shop before the morning run (`shop.webp`), fixed behind every act and blurred by the panes. The panes are smoked and warm now, not night blue; the rim catches lamp light. Daylight replaces dawn: the shop crossfades to `shop-day.webp` from Verify to the close.
+- **Type.** Assertions, chapter words and the hero headline are set in a display serif (Newsreader), so the headlines read as set type. Geist stays for UI and body copy, Geist Mono for code.
+- **Hero.** Planes: the back wall of type cabinets (far), the cylinder proof press standing in the room (mid, a true-alpha cutout, between the headline and the stone), the lamp's light, the imposing stone with a locked chase (near), the procedure sheet as an HTML proof lying on the stone, and a blurred ink brayer in the front corner. On scroll the stone and brayer drop away, the press slides past faster than the wall, and the proof lifts off the stone to face you, then the shop dissolves into the world.
+- **Signature, renamed: the Register.** The Program Counter is unchanged in behaviour. Its bridge now ends in registration marks, because what it shows is three plates printing the same step in register.
+- **Chapter passages: inking the word.** Each chapter word is first a blind impression (pressed, uninked, tone on tone). A brayer rolls across it with the scroll and the word is inked behind the roller. Behind it, a forme of type drifts out of focus. Feeling: the next part of the job is being set up.
+- **The peak: an impression.** When the output is written, a dark impression cylinder passes over the lanes and the active roster arrives inked.
+- **Teal and amber keep their meaning.** Teal is active and in register; amber is exception. On the shop ground they use `--teal-lit` / `--amber-lit`.
+
+**Feeling curve:** unchanged from the table above (stillness, weary recognition, sharpening, "oh", orientation, grounding, play, growing competence, authored silence, awe, trust, possibility, tension to control, responsibility, confidence, resolve). The causes change: a shop before the run instead of a night office; a press at rest instead of a rising moon; an impression instead of a sweep of light.
+
+**Tell-someone sentence:** "It's the site where your weekly report gets set in type: as you scroll, the same step lines up in the procedure, the code and the spreadsheet like plates in register, and then the press runs and the active roster is printed."
+
+**Authored silence:** the Break is the press at rest under one lamp.

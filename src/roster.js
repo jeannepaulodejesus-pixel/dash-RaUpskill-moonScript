@@ -1,4 +1,4 @@
-/* MoonScript teaching logic.
+/* PressRun teaching logic.
    Pure functions, no DOM. The same procedure the page traces is the one a
    learner runs in Apps Script; only the SpreadsheetApp calls are modelled here,
    because the browser has no spreadsheet. Everything the page shows as a result
@@ -6,7 +6,7 @@
 (function (root, factory) {
   var api = factory();
   if (typeof module === 'object' && module.exports) module.exports = api;
-  else root.MoonRoster = api;
+  else root.PressRoster = api;
 })(typeof self !== 'undefined' ? self : this, function () {
   'use strict';
 

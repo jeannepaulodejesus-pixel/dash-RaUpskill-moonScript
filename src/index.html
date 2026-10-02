@@ -3,34 +3,34 @@
 <head>
 <meta charset="utf-8">
 <!--VIEWPORT-->
-<title>MoonScript: From Routine to Run</title>
-<meta name="description" content="Day 1 of MoonScript: follow one reporting procedure from a plain checklist to an Apps Script you can run and verify.">
-<meta name="theme-color" content="#070B14">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23101827'/%3E%3Ccircle cx='17' cy='15' r='8' fill='%23F6F4EE'/%3E%3Ccircle cx='20.5' cy='12.5' r='7' fill='%23101827'/%3E%3Crect x='9' y='7' width='2' height='18' rx='1' fill='%233CC4B8'/%3E%3C/svg%3E">
+<title>PressRun: From Routine to Run</title>
+<meta name="description" content="Day 1 of PressRun: follow one reporting procedure from a plain checklist to an Apps Script you can run and verify.">
+<meta name="theme-color" content="#0C0B0A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2315120F'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%23F4EFE4' stroke-width='2'/%3E%3Cpath d='M16 5v22M5 16h22' stroke='%23F4EFE4' stroke-width='2'/%3E%3Cpath d='M16 9a7 7 0 0 1 7 7h-7z' fill='%233CC4B8'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
 <!--STYLES-->
 </head>
 <body class="ms">
 
 <a class="skip" href="#recognize">Skip to the lesson</a>
 
-<!-- The world: one night outside the window, fixed behind every pane of
-     glass. It drifts with the whole page and turns to first light at the
-     close. The glass panes blur it; nothing is painted on top of it. -->
+<!-- The world: the print shop before the morning run, fixed behind every
+     pane. It drifts with the whole page and fills with daylight at the
+     close. The panes blur it; nothing is painted on top of it. -->
 <div class="world" aria-hidden="true" data-ms-world>
-  <img class="world__night" src="{{ASSET}}night.webp" width="2400" height="1350" alt="" decoding="async" fetchpriority="high">
-  <img class="world__dawn" src="{{ASSET}}dawn.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
+  <img class="world__shop" src="{{ASSET}}shop.webp" width="2400" height="1350" alt="" decoding="async" fetchpriority="high">
+  <img class="world__day" src="{{ASSET}}shop-day.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
   <div class="world__shade"></div>
 </div>
 <div class="sc-grain" aria-hidden="true"></div>
 
 <!-- The progress rail is the chrome: five chapters, lit where you are. -->
-<nav class="rail glass" aria-label="Chapters" data-ms-rail>
-  <a class="rail__mark" href="#begin" data-ms-link="begin" aria-label="MoonScript, back to the start">
-    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="7" fill="currentColor"/><circle cx="15" cy="10" r="6.2" fill="var(--rail-bg)"/><rect x="4" y="3" width="1.6" height="18" rx=".8" fill="var(--teal-lit)"/></svg>
-    <span>MoonScript</span>
+<nav class="rail" aria-label="Chapters" data-ms-rail>
+  <a class="rail__mark" href="#begin" data-ms-link="begin" aria-label="PressRun, back to the start">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="5.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 2.5v19M2.5 12h19" stroke="currentColor" stroke-width="1.5"/><path d="M12 6.4a5.6 5.6 0 0 1 5.6 5.6H12z" fill="var(--teal-lit)"/></svg>
+    <span>PressRun</span>
   </a>
   <ol class="rail__list">
     <li><a href="#recognize" data-ms-link="recognize" data-ms-chapter="recognize"><span class="rail__seg"><i></i></span><span class="rail__label">Recognize</span></a></li>
@@ -45,21 +45,31 @@
 <main id="main">
 
 <!-- ============================================================ 1 · HERO
-     Planes, back to front: the night window, a moonbeam, the headline on a
-     pane of frosted glass, the desk, the procedure sheet (real markup in 3D)
-     and an out-of-focus mug. On scroll the sheet lifts to face you while the
-     room falls out of focus, leaving the blurred night the lesson sits on. -->
-<section id="begin" class="hero" data-sc-act="pin" data-sc-span="1.7" data-slide="1" data-ms-hero data-ms-stops="0 0.98">
+     The print shop before the morning run, in registered planes.
+     Back to front: the back wall of type cabinets, the lamp's pool, the
+     headline (on the plain wall), the cylinder proof press standing in the
+     room (a true-alpha cutout, so it passes in front of the headline as you
+     move), the lamp's light falling across it, the imposing stone with a
+     locked chase, the procedure sheet lying on it as a proof (real markup in
+     3D), a blurred ink brayer in the front corner, then the kicker, the lede
+     and the action. On scroll the stone and the brayer drop away, the press
+     slides past faster than the wall, the proof lifts off the stone to face
+     you, and the shop dissolves into the blurred world the lesson sits on.
+     .hero__scene is the far plate's own coordinate box (object-fit: cover,
+     computed in CSS), so every plane stays registered to the wall. -->
+<section id="begin" class="hero" data-sc-act="pin" data-sc-span="2.4" data-slide="1" data-ms-hero data-ms-stops="0 0.98">
   <div data-sc-stage class="hero__stage">
-    <img class="hero__far" data-ms-plane="far" src="{{ASSET}}far.webp" width="2400" height="1350" alt="" decoding="async" fetchpriority="high">
-    <div class="hero__beam" data-ms-plane="beam" aria-hidden="true"></div>
-    <div class="hero__copy glass glass--hero" data-ms-plane="copy">
-      <p class="hero__kicker">MoonScript <span aria-hidden="true">·</span> Day 1: From Routine to Run</p>
-      <h1 class="hero__title">A reporting routine can become a reusable instruction.</h1>
-      <p class="hero__lede">Follow one procedure from a plain checklist to a script you can run, read, and verify.</p>
-      <a class="btn btn--moon" href="#recognize" data-ms-link="recognize">Begin</a>
+    <div class="hero__scene" data-ms-scene>
+      <img class="hero__far" data-ms-plane="far" src="{{ASSET}}hero-shop.webp" width="2400" height="1350" alt="" decoding="async" fetchpriority="high">
+      <div class="hero__glow" data-ms-plane="glow" aria-hidden="true"></div>
+      <div class="hero__scrim" data-ms-plane="scrim" aria-hidden="true"></div>
+      <div class="hero__head" data-ms-plane="head">
+        <h1 class="hero__title">A reporting routine can become a reusable instruction.</h1>
+      </div>
+      <img class="hero__press" data-ms-plane="press" data-ms-layer src="{{ASSET}}press.webp" width="1400" height="896" alt="" decoding="async" fetchpriority="high">
+      <div class="hero__beam" data-ms-plane="beam" aria-hidden="true"></div>
     </div>
-    <img class="hero__desk" data-ms-plane="desk" src="{{ASSET}}desk.webp" width="2400" height="1350" alt="" decoding="async">
+    <img class="hero__desk" data-ms-plane="desk" src="{{ASSET}}stone.webp" width="2400" height="1350" alt="" decoding="async">
     <div class="hero__sheetwrap" data-ms-plane="sheet" aria-hidden="true">
       <div class="sheet">
         <p class="sheet__title">Prepare the active-employee list</p>
@@ -73,7 +83,12 @@
         <p class="sheet__foot">Daily reporting procedure</p>
       </div>
     </div>
-    <img class="hero__mug" data-ms-plane="mug" src="{{ASSET}}mug.webp" width="900" height="822" alt="" decoding="async">
+    <img class="hero__mug" data-ms-plane="mug" src="{{ASSET}}brayer.webp" width="900" height="514" alt="" decoding="async">
+    <div class="hero__act" data-ms-plane="act">
+      <p class="hero__kicker">PressRun <span aria-hidden="true">·</span> Day 1: From Routine to Run</p>
+      <p class="hero__lede">Follow one procedure from a plain checklist to a script you can run, read, and verify.</p>
+      <a class="btn btn--paper" href="#recognize" data-ms-link="recognize">Begin <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
   </div>
 </section>
 
@@ -100,12 +115,16 @@
 </section>
 
 <!-- ============================================================ TRANSLATE intertitle -->
-<section id="translate" class="chapter scene--open" data-sc-act="flow" data-slide="4" data-ms-chapter-start="translate" data-ms-stop>
+<section id="translate" class="chapter scene--open" data-ms-passage data-sc-act="flow" data-slide="4" data-ms-chapter-start="translate" data-ms-stop>
+  <div class="passage" aria-hidden="true">
+    <img class="passage__far" data-ms-type src="{{ASSET}}type-far.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
+  </div>
   <div class="sc-wrap chapter__inner">
-    <h2 class="chapter__word" data-sc-reveal="right" data-sc-reveal-at="0.12 0.42">Translate</h2>
+    <div class="chapter__scrim" aria-hidden="true"></div>
+    <h2 class="chapter__word" data-ms-ink>Translate</h2>
     <p class="chapter__line" data-sc-in>Keep the checklist. Write its executable twin beside it.</p>
   </div>
-  <div class="chapter__pane" aria-hidden="true"></div>
+  <img class="passage__roller" data-ms-roller src="{{ASSET}}roller.webp" width="752" height="900" alt="" aria-hidden="true" decoding="async" loading="lazy">
 </section>
 
 <!-- ============================================================ 4 · THE TURN (pin) -->
@@ -216,12 +235,16 @@
 </section>
 
 <!-- ============================================================ READ intertitle -->
-<section id="read" class="chapter scene--open" data-sc-act="flow" data-slide="10" data-ms-chapter-start="read" data-ms-stop>
-  <div class="sc-wrap chapter__inner">
-    <h2 class="chapter__word" data-sc-reveal="right" data-sc-reveal-at="0.12 0.42">Read</h2>
-    <p class="chapter__line" data-sc-in>One instruction at a time. Watch the light: it marks the same step in all three columns.</p>
+<section id="read" class="chapter scene--open" data-ms-passage data-sc-act="flow" data-slide="10" data-ms-chapter-start="read" data-ms-stop>
+  <div class="passage" aria-hidden="true">
+    <img class="passage__far" data-ms-type src="{{ASSET}}type-far.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
   </div>
-  <div class="chapter__pane" aria-hidden="true"></div>
+  <div class="sc-wrap chapter__inner">
+    <div class="chapter__scrim" aria-hidden="true"></div>
+    <h2 class="chapter__word" data-ms-ink>Read</h2>
+    <p class="chapter__line" data-sc-in>One instruction at a time. Watch the register: the same step lines up in all three columns.</p>
+  </div>
+  <img class="passage__roller" data-ms-roller src="{{ASSET}}roller.webp" width="752" height="900" alt="" aria-hidden="true" decoding="async" loading="lazy">
 </section>
 
 <!-- ============================================================ 10–15 · READ (the triptych, pinned) -->
@@ -233,7 +256,7 @@
 
 <!-- ============================================================ BREAK (authored silence) -->
 <section id="run" class="pause scene--open" data-sc-act="flow" data-slide="break" data-ms-chapter-start="run" data-ms-stop>
-  <img class="pause__moon" src="{{ASSET}}moon.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy" data-sc-parallax="-0.12">
+  <img class="pause__plate" src="{{ASSET}}rest.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy" data-sc-parallax="-0.12">
   <div class="sc-wrap pause__inner">
     <p class="pause__label">Break <span aria-hidden="true">·</span> 5 minutes</p>
     <ol class="pause__sop" data-ms-sop-clear></ol>
@@ -263,8 +286,8 @@
 <!-- ============================================================ 17 · THE RUN (peak) -->
 <section class="lesson lesson--peak scene" data-sc-act="pin" data-sc-span="9" data-ms-lesson="run">
   <div data-sc-stage class="lesson__stage">
-    <img class="peak__bg" src="{{ASSET}}far.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
-    <div class="peak__sweep" aria-hidden="true"></div>
+    <img class="peak__bg" src="{{ASSET}}hero-shop.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
+    <div class="peak__sweep" aria-hidden="true"><span class="peak__cyl"></span></div>
     <!--TRIPTYCH-->
   </div>
 </section>
@@ -297,12 +320,16 @@
 </section>
 
 <!-- ============================================================ VERIFY intertitle -->
-<section id="verify" class="chapter scene--open" data-sc-act="flow" data-slide="20" data-ms-chapter-start="verify" data-ms-stop>
+<section id="verify" class="chapter scene--open" data-ms-passage data-sc-act="flow" data-slide="20" data-ms-chapter-start="verify" data-ms-stop>
+  <div class="passage" aria-hidden="true">
+    <img class="passage__far" data-ms-type src="{{ASSET}}type-far.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
+  </div>
   <div class="sc-wrap chapter__inner">
-    <h2 class="chapter__word" data-sc-reveal="right" data-sc-reveal-at="0.12 0.42">Verify</h2>
+    <div class="chapter__scrim" aria-hidden="true"></div>
+    <h2 class="chapter__word" data-ms-ink>Verify</h2>
     <p class="chapter__line" data-sc-in>Break it on purpose, then decide when it should run and who is responsible.</p>
   </div>
-  <div class="chapter__pane" aria-hidden="true"></div>
+  <img class="passage__roller" data-ms-roller src="{{ASSET}}roller.webp" width="752" height="900" alt="" aria-hidden="true" decoding="async" loading="lazy">
 </section>
 
 <!-- ============================================================ 20 · ERROR LAB -->
@@ -367,11 +394,11 @@
   </div>
 </section>
 
-<!-- ============================================================ 24 · CLOSE (dawn, holds) -->
+<!-- ============================================================ 24 · CLOSE (the morning of the run, holds) -->
 <section id="day2" class="close scene--open" data-sc-act="pin" data-sc-span="1.15" data-slide="24" data-ms-stops="0.5">
   <div data-sc-stage class="close__stage">
-    <img class="close__far" src="{{ASSET}}far-dawn.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
-    <img class="close__desk" src="{{ASSET}}desk-dawn.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
+    <img class="close__far" src="{{ASSET}}hero-shop-day.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
+    <img class="close__desk" src="{{ASSET}}stone-day.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
     <div class="close__shade" aria-hidden="true"></div>
     <div class="close__inner">
       <h2 class="assert">Day 2 turns this demonstrated procedure into your own script.</h2>
@@ -380,7 +407,7 @@
         <li>Read</li><li>Modify</li><li>Run</li><li>Inspect</li><li>Troubleshoot</li>
       </ol>
       <footer class="foot">
-        <p>MoonScript Day 1 <span aria-hidden="true">·</span> Sample data is fictional <span aria-hidden="true">·</span> <a href="https://developers.google.com/apps-script" target="_blank" rel="noopener">Apps Script documentation</a></p>
+        <p>PressRun Day 1 <span aria-hidden="true">·</span> Sample data is fictional <span aria-hidden="true">·</span> <a href="https://developers.google.com/apps-script" target="_blank" rel="noopener">Apps Script documentation</a></p>
       </footer>
     </div>
   </div>
@@ -400,7 +427,7 @@
 </div>
 <div class="timer glass" data-ms-timer-panel role="timer" aria-live="off" hidden><span data-ms-timer-left>5:00</span><button type="button" data-ms-timer-stop>Stop</button></div>
 
-<noscript><p class="noscript">MoonScript needs JavaScript to run its examples.</p></noscript>
+<noscript><p class="noscript">PressRun needs JavaScript to run its examples.</p></noscript>
 <!--SCRIPTS-->
 </body>
 </html>

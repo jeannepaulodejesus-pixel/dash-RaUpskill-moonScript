@@ -1,10 +1,10 @@
-# AGENTS.md: MoonScript, From Routine to Run
+# AGENTS.md: PressRun, From Routine to Run
 
 Instructions for any coding agent working in this repository: Codex, Claude Code, or others. `CLAUDE.md` imports this file, so both agents follow the same rules. Keep this file current when the project changes.
 
 ## What this is
 
-Day 1 of the MoonScript Apps Script upskilling track for Reporting Analysts. It is a 24-slide deck rebuilt as a scroll-driven web app. One source tree builds two targets:
+Day 1 of the PressRun Apps Script upskilling track for Reporting Analysts (renamed from MoonScript on 2026-10-02; the repo keeps its name). It is a 24-slide deck rebuilt as a scroll-driven web app. The analogy is a print shop: a weekly report copied by hand becomes a page set once in type, proofed and run (see `BRIEF.md`, Revision 5). One source tree builds two targets:
 
 | Target | Folder | Runs as |
 |---|---|---|
@@ -54,18 +54,21 @@ npm run shots          # scroll-craft contact sheets; needs the external harness
 ```
 src/index.html          semantic markup for all 24 slides; build fills <!--TRIPTYCH-->, <!--DAYS-->, <!--SCHEMATIC-->
 src/partials/           triptych stage markup, editor schematic SVG
-src/styles.css          all theming and layout: Night Glass tokens, .world, .glass (tokens at the top)
+src/styles.css          all theming and layout: print-shop tokens, .world, .glass panes, Newsreader display serif (tokens at the top)
 src/engine/             scrollcraft engine (scrollcraft.js / .css). VENDORED: do not edit
 src/roster.js           the teaching logic: SAMPLE roster, SCRIPT (the 20-line Day 1 script), run(), compare()
 src/data/lessons.js     slide headlines, minutes, speaker notes, Read-chapter step maps, quiz data
 src/env.js              platform adapter: static vs Apps Script (history, location, storage, clipboard)
-src/app.js              Program Counter, lessons, hero choreography, world drift to dawn, glass sheen, interactions, presenter mode
+src/app.js              Program Counter (register marks), lessons, hero choreography, inking passages, world drift to daylight, pane sheen, interactions, presenter mode
 gas/Code.gs             doGet() + include(); gas/appsscript.json manifest (no OAuth scopes)
 build.mjs               produces both targets; guards against "<?" in inlined JS/CSS
 tools/serve.mjs         static server      tools/gas-sim.mjs   HtmlService simulation
 tools/shoot.mjs         wrapper for the external scroll-craft harness
+tools/export-assets.py  exports the raw Codex PNGs in lab/gen/press/<name>/ to assets/img WebP (plates and alpha cutouts); needs Pillow
 test/                   node --test suites
-assets/img/             generated photography (WebP + JPEG; the page uses WebP). Prompts in docs/ASSET-PROMPTS.md
+assets/img/             generated photography, WebP only. Prompts in docs/ASSET-PROMPTS.md.
+                        plates: shop, shop-day (world), hero-shop, hero-shop-day, stone, stone-day, type-far, rest
+                        alpha cutouts: press (hero mid plane), brayer (hero foreground), roller (chapter passages)
 scrollcraft/FINGERPRINTS.md  scroll-craft uniqueness registry (append-only)
 ```
 
@@ -87,7 +90,7 @@ scrollcraft/FINGERPRINTS.md  scroll-craft uniqueness registry (append-only)
 8. **No `<?` in any JS or CSS.** HtmlService would read it as a scriptlet. `build.mjs` throws if it finds one.
 9. **Palette and meaning.**
    - Teal means active/selected; amber means exception. Always pair colour with text.
-   - On the night glass use `--teal-lit` / `--amber-lit`.
+   - On the dark shop panes use `--teal-lit` / `--amber-lit`.
    - Small text on Paper (the procedure sheet, the only paper left) uses `--teal-text` / `--amber-text`. The base values fail 4.5:1 there.
 10. **Accessibility.** Keyboard reachable, visible focus, `aria-live` on changing text, reduced motion keeps all content (no travel, same information).
 11. **No text baked into images.** Photography is atmosphere only.
@@ -109,9 +112,9 @@ scrollcraft/FINGERPRINTS.md  scroll-craft uniqueness registry (append-only)
 
 ## Assets
 
-The v1.0.0 photography was generated locally with hybrid-gen (outside this repo, at `D:\GPT-Codex\Hybrid Image Generator\hybrid-gen`, project `p002_moonscript`). The Night Glass set (2026-10-02) was regenerated with the Codex CLI's built-in image generation, at the user's request; every prompt and reference is in `docs/ASSET-PROMPTS.md`. For new images, ask the user which route to use. Cloud lanes spend quota and need the user's approval of the plan.
+The v1.0.0 photography was generated locally with hybrid-gen (outside this repo, at `D:\GPT-Codex\Hybrid Image Generator\hybrid-gen`, project `p002_moonscript`). The Night Glass set and then the Press Run set (both 2026-10-02) were generated with the Codex CLI's built-in image generation, at the user's request; every prompt and reference is in `docs/ASSET-PROMPTS.md`. For new images, ask the user which route to use. Cloud lanes spend quota and need the user's approval of the plan.
 
-Style preamble, for consistency: cinematic night photograph, 35mm film, single cool moonlight key, true blacks, deep navy shadows, fine film grain, photographic realism, muted desaturated grade.
+Style preamble, for consistency: cinematic photograph, 35mm film, a quiet letterpress print shop before the morning run, single warm tungsten work-lamp key with a faint cool window fill, true blacks, deep umber shadows, fine film grain, photographic realism, muted desaturated grade. (Daylight plates swap the key for soft overcast daylight from tall windows; see `docs/ASSET-PROMPTS.md`.)
 
 ## Working together (Codex and Claude Code)
 

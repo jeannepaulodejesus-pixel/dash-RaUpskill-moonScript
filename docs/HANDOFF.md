@@ -100,3 +100,88 @@ Branch `claude/glass-redesign`, uncommitted at the end of the session (the user 
 - To ship to Apps Script: commit, tag a new release (e.g. `v1.1.0`), build with `-- --ref v1.1.0`, then `gas:deploy`. Not done; it needs the user's go-ahead.
 - Not yet tested on a real phone. `backdrop-filter` cost on low-end mobile GPUs is unmeasured; the `@supports not` fallback covers browsers without it.
 - Tools, services, sort and data are four consecutive glass-over-bokeh acts. Layout anchors vary, but the material does not.
+
+---
+
+## 2026-10-02 · Claude Code · Premium pass: Through the Window
+
+Branch `claude/premium-pass`, uncommitted at the end of the session (the user had not asked for a commit).
+
+**Changed**
+
+- Request: "the ux feels dull and cheap, the hero still looks cheap". Rationale in `BRIEF.md` (Revision 3); new row in `scrollcraft/FINGERPRINTS.md`.
+- Hero rebuilt as registered depth planes cut from `far.webp` by the new `tools/cut-hero.py` (Python: Pillow, NumPy, opencv-python-headless): `hero-sky.webp`, `hero-room.webp`, `hero-moon.webp` (WebP with alpha; no JPEG twins). The headline sits beyond the glass and the mullions cross it; the placement is measured (see the comment on `.hero__head`). Scroll is a three-beat walk through the window (`heroFrame()` in `app.js`), span 1.7 to 2.4, with fine-pointer parallax (`bindHeroPointer()`). `layerHero()` swaps from the uncut photo only when every plane has decoded.
+- Rail: full-width chrome over a progressive blur, `is-solid` after the hero. The logo's crescent is now an SVG mask (it used to paint `--rail-bg`, which would show on a transparent bar). Notes mode moves the rail's right edge instead of translating it.
+- Type: larger, lighter `.assert`; pinned and split contexts are capped; ledes after headings are larger. Headings rise out of a mask on arrival (`bindArrivals()`, `.ms-js .assert`), opacity only under reduced motion.
+- Glass rim and shadow refined; styled selects; the Workday label lifted to `--ink-2` for contrast.
+
+**Verified**
+
+- `npm test` 14/14, `npm run build` both targets.
+- `npm run shots`: 70 captures, no dead scroll, all media cues at least 4.5:1. Hero inspected at desktop 1440x900 and 1920x1080 (opening, 0.25, 0.45, 0.62, end) and phone 390x844 (opening, 0.3, 0.6). Reduced motion: a static, complete composition.
+- Fallback: with the three new planes blocked, the hero shows the uncut photograph with the headline and stays complete.
+- `npm run check:gas`: no console errors. Failed requests are the new hero planes plus `night`/`dawn`, because the CDN ref is still `v1.0.0`; the hero falls back as above.
+- `npm run check:contrast`: the remaining reports are the known `mark.warn` underline, text passing under the rail band (y < 64) and the transient peak sweep.
+
+**Open**
+
+- Apps Script needs a new tag (e.g. `v1.1.0`) that includes the hero planes, a build with `-- --ref v1.1.0`, then `gas:deploy`. Not done; it needs the user's go-ahead.
+- Not tested on a real phone. Mid-approach (about 0.2 to 0.35 of the hero) the moving mullions briefly cover thin letters; this happens in motion, by design.
+- If `far.webp` changes, rerun `tools/cut-hero.py` and re-measure the headline placement.
+
+---
+
+## 2026-10-02 · Claude Code · Transitions: Passages
+
+Same branch `claude/premium-pass`, still uncommitted.
+
+**Changed**
+
+- Request: "add more animation on transitions" (Codex imagegen authorized). Rationale in `BRIEF.md` (Revision 4); row in `scrollcraft/FINGERPRINTS.md`.
+- New assets: `cloud-far.webp`, `cloud-near.webp`. Generated with `codex exec --enable image_generation` (prompts in `docs/ASSET-PROMPTS.md`), raw PNGs in `lab/gen/cloud-*/`, keyed by the new `tools/key-clouds.py` (white with luminance alpha, which equals a screen blend; edges feathered).
+- `index.html`: a `.passage` (far) and `.passage--near` plane plus a `.chapter__scrim` in each chapter intertitle; `.pause__mist` in the break.
+- `app.js`: `bindArrivals()` now also arrives glass panes (`.ms-arrive`, staggered `--d`); new `bindTransitions()` / `transitionsFrame()` drive the passages, the clearing (`--cx/--cy/--cw/--ch` on the near plane's mask), the mist and heading depth (`translate`), reading every rect before writing anything.
+- `styles.css`: passage planes and masks, `@property --sweep` rim light, arrival states, reduced-motion overrides. The rail's blur band is denser, and Present has a faint fill (it sat over bright cloud).
+
+**Verified**
+
+- `npm test` 14/14, `npm run build`.
+- `npm run shots`, `shots:mobile`, `shots:reduced`: no dead scroll, no console errors, no failed requests.
+- Passages inspected at six positions (Read, desktop), at three positions (Translate), and on a phone (Verify). Reduced motion inspected. A pane arrival was filmed in 180 ms frames.
+- `npm run check:contrast`: chapter word and line pass at every sampled frame (they failed at 1.7:1 before the clearing). The remaining reports are the known `mark.warn` underline, text under the rail band (the "Run again" button at y=24), and the peak sweep.
+- `npm run check:gas`: no console errors; the new clouds join the other untagged assets on the failed list (CDN ref still `v1.0.0`). Without them, chapters fall back to the previous look.
+
+**Open**
+
+- The release tag and Apps Script deploy are still not done (now including the two cloud planes).
+- Not tested on a real phone. Passages animate three large alpha WebPs per chapter on scroll; GPU cost on low-end phones is unmeasured.
+
+---
+
+## 2026-10-02 · Claude Code · Reimagined: The Press Run (renamed PressRun)
+
+Same branch `claude/premium-pass`, uncommitted (no commit was asked for).
+
+**Changed**
+
+- Request: "reamagine the analogy away from moon, make it more relatable to what was being discussed, I also dont want it to be a cliche analogy, make it unique. you may generate images again in codex cli". The user chose The Press Run from three offered analogies, and chose to rename the product to fit: **PressRun**. Rationale, lesson-to-shop mapping and feeling curve in `BRIEF.md` (Revision 5); row and a "taken" bullet in `scrollcraft/FINGERPRINTS.md`.
+- 11 new images from `codex exec --enable image_generation` (prompts verbatim in `docs/ASSET-PROMPTS.md`; raw PNGs in `lab/gen/press/`, exported by the new `tools/export-assets.py`): plates `shop`, `shop-day`, `hero-shop`, `hero-shop-day`, `stone`, `stone-day`, `type-far`, `rest`; true-alpha cutouts `press`, `brayer`, `roller`. WebP only.
+- Removed the moon-era assets (`night`, `dawn`, `far`, `desk`, `mug`, `moon`, `far-dawn`, `desk-dawn` and their JPEGs, `far.lqip.txt`) and the hero/cloud cuts with their tools (`cut-hero.py`, `key-clouds.py`). The tracked files remain in git history and in tag `v1.0.0`. The uncommitted Revision 3/4 work was never in git, so its last build (`dist/`), its assets and its two tools are archived in `lab/archive-moon/` (gitignored, local only).
+- `index.html`: name, favicon and wordmark (a registration mark), Newsreader font, world plates, the hero rebuilt as print-shop planes, the passages (type plate, `data-ms-ink` word, roller), break, peak cylinder, close plates, and the Read intertitle line ("Watch the register: ...").
+- `app.js`: `heroFrame()` for wall/press/stone/brayer; `bindTransitions()`/`transitionsFrame()` now ink each chapter word behind the roller (blind copy is `aria-hidden`); register marks at the bridge ends; world drifts to daylight. Globals renamed `PressRoster`/`PressData`/`PressEnv` (also `build.mjs`, `roster.js`, `env.js`, `lessons.js`). The storage key prefix `moonscript:` and package name are unchanged on purpose.
+- `styles.css`: warm print-shop tokens (navy rgba values remapped), Newsreader for display type, hero planes measured on `hero-shop.webp` (comment above `.hero__stage`), passage/ink styles, impression cylinder and inked rows at the peak, reduced-motion rules.
+- Two speaker notes reworded (desk to stone, light to register). Headlines untouched.
+
+**Verified**
+
+- `npm test` 14/14, `npm run build`.
+- `npm run shots`, `shots:mobile`, `shots:reduced`: no dead scroll, all media cues at least 4.5:1, no console errors, no failed requests.
+- Looked at: hero at 0, 0.3, 0.5, 0.85 (1440x900) and phone (390x844, opening and 0.4); the Read passage at six roller positions; clarify, read lesson, break, peak end, close; reduced-motion hero and Verify passage.
+- `npm run check:contrast` (2,931 runs, 40 positions): only the four known `mark.warn` underline false positives remain.
+- `npm run check:gas`: no console errors. All new images fail from the CDN because the ref is still `v1.0.0`; the page stays readable on the dark ground but the photography is missing there until a new tag.
+
+**Open**
+
+- To ship to Apps Script: commit, tag (e.g. `v1.1.0`), `npm run build -- --ref v1.1.0`, `gas:deploy`. The Apps Script project title also changes on the next push (`Code.gs`). Not done; needs the user's go-ahead.
+- The repo and package names still say moonscript (the user asked to keep the repo name).
+- Not tested on a real phone.

@@ -2,7 +2,7 @@
   "name": "dash-raupskill-moonscript",
   "version": "1.0.0",
   "private": true,
-  "description": "MoonScript Day 1: From Routine to Run. An immersive Apps Script upskilling web app that runs as a static site or an Apps Script web app.",
+  "description": "PressRun Day 1: From Routine to Run. An immersive Apps Script upskilling web app that runs as a static site or an Apps Script web app.",
   "moonscript": {
     "repo": "jeannepaulodejesus-pixel/dash-RaUpskill-moonScript"
   },
