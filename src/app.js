@@ -725,7 +725,7 @@
   /* --------------------------------------------------- presenter + notes */
   var presenting = false, notesOpen = false, timingOn = false;
   var syncNow = function () {};
-  var notesEl = $('[data-ms-notes]'), hud = $('[data-ms-hud]'), presentBtn = $('[data-ms-present]');
+  var notesEl = $('[data-ms-notes]'), hud = $('[data-ms-hud]');
   var lessons = [];
   function chapterOf(slide) {
     for (var i = 0; i < D.chapters.length; i++) if (D.chapters[i].slides.indexOf(slide) >= 0) return D.chapters[i];
@@ -754,11 +754,18 @@
     var n = s.notes, rows = [['Teaching point', n.point], ['Expected misconception', n.misconception], ['Cue', n.cue], ['Bridge', n.bridge]];
     $('[data-ms-n-body]').innerHTML = rows.filter(function (r) { return r[1]; }).map(function (r) { return '<dt>' + r[0] + '</dt><dd>' + esc(r[1]) + '</dd>'; }).join('');
   }
+  // Folio: total counts numbered slides only; the break shows as a word.
+  var folioNum = $('[data-ms-folio-num]'), folioOf = $('[data-ms-folio-of]');
+  var slideTotal = D.chapters.reduce(function (n, c) { return n + c.slides.filter(function (x) { return typeof x === 'number'; }).length; }, 0);
+  function renderFolio() {
+    var brk = currentSlide === 'break';
+    folioNum.textContent = brk ? 'Break' : (currentSlide < 10 ? '0' : '') + currentSlide;
+    folioOf.textContent = brk ? '' : ' / ' + slideTotal;
+    folioNum.parentNode.classList.toggle('is-break', brk);
+  }
   function setPresenting(on) {
     presenting = on;
     doc.documentElement.classList.toggle('is-presenting', on);
-    presentBtn.setAttribute('aria-pressed', String(on));
-    presentBtn.textContent = on ? 'Exit' : 'Present';
     hud.hidden = !on;
     if (!on) setNotes(false);
     renderNotes();
@@ -953,7 +960,6 @@
 
     window.ScrollCraft.mount(doc.body);
 
-    presentBtn.addEventListener('click', function () { setPresenting(!presenting); });
     $('[data-ms-notes-close]').addEventListener('click', function () { setNotes(false); });
     var tb = $('[data-ms-timer]'); if (tb) tb.addEventListener('click', startTimer);
     $('[data-ms-timer-stop]').addEventListener('click', function () { clearInterval(timerT); $('[data-ms-timer-panel]').hidden = true; });
@@ -966,9 +972,10 @@
       lessons.forEach(function (l) { l.update(); });
       railFrame();
       var s = detectSlide();
-      if (s !== currentSlide) { currentSlide = s; if (presenting) renderNotes(); }
+      if (s !== currentSlide) { currentSlide = s; renderFolio(); if (presenting) renderNotes(); }
     }
     syncNow = sync;
+    renderFolio();
     bindSheen(); bindHeroPointer(); layerHero(); bindArrivals(); bindTransitions();
     function frame() { sync(); heroFrame(); worldFrame(); transitionsFrame(); requestAnimationFrame(frame); }
     requestAnimationFrame(frame);

@@ -206,15 +206,6 @@ mark.warn { background: var(--warn-bg); color: var(--amber-lit); padding: 0 .2em
 .rail__list a.is-current { color: var(--ink); }
 .rail__list a.is-current .rail__label::after { content: ""; display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--teal-lit); margin-left: 7px; vertical-align: .15em; }
 .rail__list a.is-done:not(.is-current) .rail__label { color: var(--ink-2); }
-.rail__tool {
-  justify-self: end; appearance: none; cursor: pointer; background: rgba(14, 12, 10, .45); color: var(--ink-2);
-  font: 500 .76rem/1 var(--sc-font-text); letter-spacing: .02em; padding: 10px 14px; border-radius: var(--r-ctl); min-height: 38px;
-  border: 1px solid rgba(255, 240, 220, .16);
-  transition: background-color 160ms var(--sc-ease-out), color 160ms var(--sc-ease-out), border-color 160ms var(--sc-ease-out), transform 120ms var(--sc-ease-out);
-}
-.rail__tool:hover { color: var(--ink); border-color: rgba(255, 240, 220, .32); background: rgba(40, 34, 28, .6); }
-.rail__tool:active { transform: scale(.97); }
-.rail__tool[aria-pressed="true"] { background: var(--teal-lit); border-color: var(--teal-lit); color: var(--teal-deep); }
 
 /* ------------------------------------------------------------------ hero */
 /* The scene box is the far plate's own coordinate system: the size and
@@ -752,6 +743,21 @@ mark.warn { background: var(--warn-bg); color: var(--amber-lit); padding: 0 .2em
 .hud__keys { color: var(--ink-3); } .hud kbd { font-size: .7rem; padding: 1px 5px; border-radius: 4px; background: rgba(255, 255, 255, .1); color: var(--ink); margin: 0 3px 0 8px; }
 .timer { position: fixed; z-index: 75; right: 12px; bottom: 12px; display: flex; gap: 12px; align-items: center; padding: 10px 12px 10px 16px; border-radius: 16px; color: var(--ink); font: 500 1.4rem var(--sc-font-mono); font-variant-numeric: tabular-nums; }
 .timer button { appearance: none; border: 0; background: rgba(255, 255, 255, .1); color: var(--ink); border-radius: 9px; padding: 8px 11px; font: 500 .78rem var(--sc-font-text); cursor: pointer; }
+/* Folio: a page number in the foot margin. Quiet, never clickable; it moves
+   up over the timer and gives way to the notes panel. */
+.folio {
+  position: fixed; z-index: 70; right: 14px; bottom: 12px; margin: 0; pointer-events: none;
+  padding: 6px 10px 6px 11px; border-radius: 999px; color: var(--ink-2);
+  background: rgba(12, 10, 8, .68); box-shadow: inset 0 0 0 1px var(--glass-line);
+  -webkit-backdrop-filter: blur(10px) saturate(130%); backdrop-filter: blur(10px) saturate(130%);
+  font: 500 .72rem/1 var(--sc-font-mono); font-variant-numeric: tabular-nums; letter-spacing: .04em; white-space: nowrap;
+}
+.folio__label { font-family: var(--sc-font-text); font-size: .62rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); margin-right: .1em; }
+.folio__num { color: var(--ink); font-size: .84rem; }
+.folio.is-break .folio__label { display: none; }
+.folio.is-break .folio__num { font-family: var(--sc-font-text); font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; }
+.timer:not([hidden]) ~ .folio { bottom: 78px; }
+.is-notes .folio { display: none; }
 
 /* =============================================================== MOBILE */
 @media (max-width: 860px) {
@@ -761,7 +767,6 @@ mark.warn { background: var(--warn-bg); color: var(--amber-lit); padding: 0 .2em
   .rail__list { justify-content: space-between; }
   .rail__list a { min-width: 0; padding: 8px 4px 6px; font-size: .68rem; }
   .rail__label { letter-spacing: 0; }
-  .rail__tool { display: none; }
 
   /* Phone: the crop moves right so the lamp and the press stay in frame, and
      the headline comes in front of the room (too small to sit behind the
@@ -844,6 +849,7 @@ mark.warn { background: var(--warn-bg); color: var(--amber-lit); padding: 0 .2em
   .day2 li { font-size: .78rem; padding: .4em .6em; }
   .notes { top: auto; height: 55svh; left: 8px; right: 8px; width: auto; }
   .hud { display: none; }
+  .folio { right: 10px; bottom: 10px; }
 }
 @media (max-width: 380px) {
   .rail__list a { padding: 7px 4px; font-size: .62rem; }

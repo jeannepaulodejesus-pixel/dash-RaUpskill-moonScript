@@ -185,3 +185,64 @@ Same branch `claude/premium-pass`, uncommitted (no commit was asked for).
 - To ship to Apps Script: commit, tag (e.g. `v1.1.0`), `npm run build -- --ref v1.1.0`, `gas:deploy`. The Apps Script project title also changes on the next push (`Code.gs`). Not done; needs the user's go-ahead.
 - The repo and package names still say moonscript (the user asked to keep the repo name).
 - Not tested on a real phone.
+
+## 2026-11-06 · Claude Code: presenter script
+
+Branch `main`, uncommitted (no commit was asked for).
+
+**Changed**
+
+- Request: "create a full presentation script that is interactive with the audience and helps me help them better understand the concept in .md". Added `docs/PRESENTER-SCRIPT.md`: a slide-by-slide facilitation script for all 24 slides and the break (SAY / DO / ASK / LISTEN FOR / WATCH OUT / BRIDGE), an interaction toolkit, three running threads (Priya Nair, a prediction board, the text "NULL"), an exit ticket, likely questions and recovery plays.
+- Headlines quoted verbatim from `lessons.js`. Every number in its answer key was computed with `src/roster.js` (6 active; 12 after an appending rerun; 0 for lowercase `active`; 2 Inactive; 1 NULL); the file says how to recompute them. No em dashes, no time-saving claims.
+
+- Request: "omit the \"present\" button". Removed the Present button from the rail (`index.html`), its `presentBtn` wiring in `app.js` and the `.rail__tool` styles. Presenter mode is unchanged and still opens with the P key or `?mode=present`; Esc leaves it.
+
+**Verified**
+
+- Answer key values checked by running `roster.js` in node.
+- `npm test` 14/14, `npm run build`, `npm run check:gas` (no console errors; image failures are the known `v1.0.0` CDN ref issue). In Chrome at 1440x900: no button in the rail, chapter list still centred, P turns presenter mode and the HUD on, Esc turns it off, `?mode=present` opens in presenter mode, no page errors.
+
+**Open**
+
+- If the sample roster or script changes, the answer key and the per-slide tables in the presenter script must be updated with them (rule 1).
+
+## 2026-11-06 · Claude Code: slide folio
+
+Branch `main`, uncommitted (no commit was asked for).
+
+**Changed**
+
+- Request: "add a footer watermark that indicates which slide am i on". Added a folio (the printer's word for a page number) fixed in the bottom-right foot margin: `Slide 07 / 24`, or `Break` at the break.
+  - `index.html`: `.folio` after the timer panel.
+  - `app.js`: `renderFolio()` reads the same `currentSlide` that `detectSlide()` keeps for the presenter notes, so the two always agree. The total is counted from `D.chapters` (numbered slides only), not hard-coded.
+  - `styles.css`: a small smoked pill, `pointer-events: none`. It rises above the break timer when that is open and hides while speaker notes are open (they cover that corner).
+
+**Verified**
+
+- `npm test` 14/14, `npm run build`, `npm run check:gas` (no console errors).
+- `npm run check:contrast`: first pass flagged the folio label on the daylight close (2.76:1); backing darkened and label lifted to `--ink-2`, rerun has no folio failures.
+- Screenshots at 1440x900 (slides 5, break, 24) and 390x844 (slide 9). Playwright: folio moves to `bottom: 78px` with the timer open, `display: none` with notes open, no page errors.
+
+**Open**
+
+- Not on a real phone. On narrow screens it can sit over the lower edge of a pane; it is click-through, so nothing is blocked.
+
+## 2026-11-10 · Claude Code: notes PDF and PPTX
+
+Branch `main`, uncommitted (no commit was asked for). No repo source changed.
+
+**Changed**
+
+- Request: "for the pdf file, add in the notes, the questions are in the file, also create a pptx file". The PDF is `~/Downloads/PressRun-Day1.pdf` (77 page screenshots of the 24 slides plus the break, several per slide on the stepped slides). Pages were mapped to slides by reading each page's folio.
+- `~/Downloads/PressRun-Day1-with-notes.pdf`: A4 notes pages, slide on top and notes below, one per source page, with a front page (labels, interaction toolkit, three threads), a back page (likely questions, recovery plays) and bookmarks per slide. The original PDF is untouched.
+- `~/Downloads/PressRun-Day1.pptx`: 77 full-bleed 16:9 slides from the original JPEGs, the same notes as speaker notes, alt text, sections per chapter.
+- Notes come from `docs/PRESENTER-SCRIPT.md`, split per page. On step pages, "ASK BEFORE YOU ADVANCE" is the next step's question, so its answer lands on the next page.
+
+**Verified**
+
+- PPTX passes the pptx skill's `validate.py`; notes read back for all 77 slides. PDF pages rendered and checked visually; no notes overflowed.
+
+**Open**
+
+- PPTX not opened in PowerPoint or Keynote here (no LibreOffice; Quick Look timed out on the 24 MB file).
+- The build scripts lived in the session scratchpad and were not kept. If the page or the script changes, the notes need regenerating.
