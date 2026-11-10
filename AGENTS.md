@@ -15,7 +15,7 @@ Live references:
 
 - Repo: https://github.com/jeannepaulodejesus-pixel/dash-RaUpskill-moonScript
 - Release tag `v1.1.0` (from `package.json` version): jsDelivr serves `assets/img/` from this tag to the Apps Script build.
-- Apps Script deployment ID: `AKfycbyGfoGtxYVlMfFjAVm49ZABsSBmGQW8lNi8L5WUCMHj1tmMKxfQSeco9LW0VhENI044`. The script ID is in `.clasp.json`, which is local and gitignored.
+- Apps Script deployment ID: `AKfycbxwGWUecT_vHEIOXfGKNqOaXzXQ2CIiEXloY0z7dHKJBZ0fwCppmFZ08Zh2wkX0IjGXzg` (project "PressRun: Routine…", script `1W3PMUOlgY1hRGh0DnDwxCeNickK7P64K3-xBLOPp9ALnU31nL8vEy8B_`). The script ID goes in `.clasp.json`, which is local and gitignored: `{"scriptId":"<id>"}` at the repo root. The old MoonScript project (`AKfycbyGfoGtxYVlMfFjAVm49ZABsSBmGQW8lNi8L5WUCMHj1tmMKxfQSeco9LW0VhENI044`) is retired.
 
 Design intent and the feeling curve live in `BRIEF.md`. Read it before changing anything visual.
 

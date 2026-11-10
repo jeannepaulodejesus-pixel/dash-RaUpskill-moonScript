@@ -266,3 +266,22 @@ Branch `claude/cdn-v1.1.0`, pushed. Tag `v1.1.0` pushed.
 
 - `npm run gas:deploy` was blocked by the agent's permission check; the user runs it. Until then the live app still serves the `v1.0.0` URLs.
 - Branch needs merging into `main`. The tag already points at the branch commit, so the live images don't depend on the merge.
+
+## 2026-11-11 · Claude Code: deployed the image fix
+
+Branch `claude/cdn-v1.1.0`.
+
+**Changed**
+
+- Request: "deploy it". `npm run gas:deploy` failed with "Project settings not found": there was no `.clasp.json` on this Mac. `clasp list` showed two projects for this deck; the AGENTS.md deployment ID belonged to the old "MoonScript: From…" project. The user chose the "PressRun: Routine…" project, deployment @2.
+- Wrote a local `.clasp.json` for the PressRun project, pushed, and moved deployment `AKfycbxwGWUe…IjGXzg` from @2 to @3 ("v1.1.0: Press Run images from jsDelivr"). Same URL.
+- `package.json` `gas:deploy` and AGENTS.md now name the PressRun deployment and script ID.
+
+**Verified**
+
+- `clasp push` sent 5 files built against `@v1.1.0`; `clasp list-deployments` shows @3.
+
+**Open**
+
+- The live page needs Google sign-in, so it was not loaded here. The user should hard-refresh it to confirm the images.
+- PressRun deployment @1 (`AKfycbwXzsSy…l8GwhA`) still serves the v1.0.0 build, so its images 404. Retire it or move it to @3 if anyone has that link.
