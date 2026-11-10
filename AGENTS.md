@@ -14,7 +14,7 @@ Day 1 of the PressRun Apps Script upskilling track for Reporting Analysts (renam
 Live references:
 
 - Repo: https://github.com/jeannepaulodejesus-pixel/dash-RaUpskill-moonScript
-- Release tag `v1.0.0`: jsDelivr serves `assets/img/` from this tag to the Apps Script build.
+- Release tag `v1.1.0` (from `package.json` version): jsDelivr serves `assets/img/` from this tag to the Apps Script build.
 - Apps Script deployment ID: `AKfycbyGfoGtxYVlMfFjAVm49ZABsSBmGQW8lNi8L5WUCMHj1tmMKxfQSeco9LW0VhENI044`. The script ID is in `.clasp.json`, which is local and gitignored.
 
 Design intent and the feeling curve live in `BRIEF.md`. Read it before changing anything visual.
@@ -102,11 +102,11 @@ scrollcraft/FINGERPRINTS.md  scroll-craft uniqueness registry (append-only)
 - Images load from `https://cdn.jsdelivr.net/gh/<repo>@<ref>/assets/img/`.
 - **Changing an image means:**
   1. Commit it.
-  2. Push a new tag.
-  3. Build with `-- --ref <tag>`.
-  4. Push and deploy.
+  2. Bump `version` in `package.json` (and `package-lock.json`). The build's default ref is `v<version>`, and `gas:push` / `gas:deploy` rebuild without `--ref`, so the version is what actually reaches Apps Script.
+  3. Push a tag `v<version>` on a commit that contains the image.
+  4. Push and deploy (`npm run gas:deploy`).
 
-  An untagged image never reaches the Apps Script version.
+  An untagged image never reaches the Apps Script version. On 2026-11-11 every image 404'd because the Press Run images were never tagged and the build still pointed at `v1.0.0`.
 - The manifest has no OAuth scopes, so visitors are never asked to authorize. Adding any Workspace service call changes that. Discuss with the user first.
 - Access is `ANYONE` (Google sign-in required), execute as `USER_ACCESSING`.
 
