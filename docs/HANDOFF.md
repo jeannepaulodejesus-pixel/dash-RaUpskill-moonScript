@@ -246,3 +246,23 @@ Branch `main`, uncommitted (no commit was asked for). No repo source changed.
 
 - PPTX not opened in PowerPoint or Keynote here (no LibreOffice; Quick Look timed out on the 24 MB file).
 - The build scripts lived in the session scratchpad and were not kept. If the page or the script changes, the notes need regenerating.
+
+## 2026-11-11 · Claude Code: Apps Script images 404
+
+Branch `claude/cdn-v1.1.0`, pushed. Tag `v1.1.0` pushed.
+
+**Changed**
+
+- Request: "I've deployed it to appscript. the problem is the images is not loading". Cause: the Apps Script build loads images from jsDelivr at `v<package version>`, which was still `v1.0.0`. That tag predates the Press Run images (it holds the old MoonScript `desk`/`moon`/`far` set), so all 11 image URLs returned 404.
+- `package.json` / `package-lock.json` version 1.0.0 to 1.1.0, so the default ref is `v1.1.0`. This matters because `gas:push` and `gas:deploy` rebuild without `--ref`.
+- Tag `v1.1.0` on the fix commit. AGENTS.md: release tag line and the "Changing an image" steps now say to bump the version.
+
+**Verified**
+
+- `npm test` 14/14, `npm run build` (gas assets point at `@v1.1.0`), `npm run check:gas`: no console errors, no failed requests.
+- All 11 images return 200 `image/webp` from jsDelivr at `@v1.1.0` (three 404'd for about 20 s right after the tag push, then resolved).
+
+**Open**
+
+- `npm run gas:deploy` was blocked by the agent's permission check; the user runs it. Until then the live app still serves the `v1.0.0` URLs.
+- Branch needs merging into `main`. The tag already points at the branch commit, so the live images don't depend on the merge.
