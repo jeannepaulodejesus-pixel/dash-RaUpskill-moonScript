@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <!--VIEWPORT-->
-<title>PressRun: From Routine to Run</title>
-<meta name="description" content="Day 1 of PressRun: follow one reporting procedure from a plain checklist to an Apps Script you can run and verify.">
-<meta name="theme-color" content="#0C0B0A">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2315120F'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%23F4EFE4' stroke-width='2'/%3E%3Cpath d='M16 5v22M5 16h22' stroke='%23F4EFE4' stroke-width='2'/%3E%3Cpath d='M16 9a7 7 0 0 1 7 7h-7z' fill='%233CC4B8'/%3E%3C/svg%3E">
+<title>OneTap: From Routine to Run</title>
+<meta name="description" content="Day 1 of OneTap: follow one reporting procedure from a plain checklist to an Apps Script you can run and verify.">
+<meta name="theme-color" content="#0B0B0C">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2315120F'/%3E%3Cpath d='M7 11h18M7 21h18' stroke='%23F4EFE4' stroke-width='2' stroke-linecap='round'/%3E%3Ccircle cx='12' cy='11' r='3.4' fill='%2315120F' stroke='%23F4EFE4' stroke-width='2'/%3E%3Ccircle cx='20' cy='21' r='3.8' fill='%233CC4B8'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400..600&family=Newsreader:opsz,wght@6..72,300..600&display=swap">
@@ -16,21 +16,23 @@
 
 <a class="skip" href="#recognize">Skip to the lesson</a>
 
-<!-- The world: the print shop before the morning run, fixed behind every
-     pane. It drifts with the whole page and fills with daylight at the
-     close. The panes blur it; nothing is painted on top of it. -->
+<!-- The world: the shot being edited, fixed behind every pane. It starts as
+     the flat, unedited RAW file, drifts with the whole page, and takes the
+     preset over the Verify chapter, fully at the close. Both plates come from
+     one photograph; the grade is applied in tools/export-assets.py, so the
+     edit is a real preset, not a second picture. The panes blur it. -->
 <div class="world" aria-hidden="true" data-ms-world>
-  <img class="world__shop" src="{{ASSET}}shop.webp" width="2400" height="1350" alt="" decoding="async" fetchpriority="high">
-  <img class="world__day" src="{{ASSET}}shop-day.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
+  <img class="world__raw" src="{{ASSET}}shot-raw.webp" width="2400" height="1350" alt="" decoding="async" fetchpriority="high">
+  <img class="world__edit" src="{{ASSET}}shot-edit.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
   <div class="world__shade"></div>
 </div>
 <div class="sc-grain" aria-hidden="true"></div>
 
 <!-- The progress rail is the chrome: five chapters, lit where you are. -->
 <nav class="rail" aria-label="Chapters" data-ms-rail>
-  <a class="rail__mark" href="#begin" data-ms-link="begin" aria-label="PressRun, back to the start">
-    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="5.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 2.5v19M2.5 12h19" stroke="currentColor" stroke-width="1.5"/><path d="M12 6.4a5.6 5.6 0 0 1 5.6 5.6H12z" fill="var(--teal-lit)"/></svg>
-    <span>PressRun</span>
+  <a class="rail__mark" href="#begin" data-ms-link="begin" aria-label="OneTap, back to the start">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3.5 8h17M3.5 16h17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="9" cy="8" r="2.7" fill="var(--room-0)" stroke="currentColor" stroke-width="1.5"/><circle cx="15" cy="16" r="3" fill="var(--teal-lit)"/></svg>
+    <span>OneTap</span>
   </a>
   <ol class="rail__list">
     <li><a href="#recognize" data-ms-link="recognize" data-ms-chapter="recognize"><span class="rail__seg"><i></i></span><span class="rail__label">Recognize</span></a></li>
@@ -44,31 +46,31 @@
 <main id="main">
 
 <!-- ============================================================ 1 · HERO
-     The print shop before the morning run, in registered planes.
-     Back to front: the back wall of type cabinets, the lamp's pool, the
-     headline (on the plain wall), the cylinder proof press standing in the
+     A creator's editing desk late at night, in layered planes.
+     Back to front: the back wall of taped-up prints, the lamp's pool, the
+     headline (on the plain wall), the camera on its tripod standing in the
      room (a true-alpha cutout, so it passes in front of the headline as you
-     move), the lamp's light falling across it, the imposing stone with a
-     locked chase, the procedure sheet lying on it as a proof (real markup in
-     3D), a blurred ink brayer in the front corner, then the kicker, the lede
-     and the action. On scroll the stone and the brayer drop away, the press
-     slides past faster than the wall, the proof lifts off the stone to face
-     you, and the shop dissolves into the blurred world the lesson sits on.
+     move), the lamp's light falling across it, the desk with the card reader,
+     the procedure sheet lying on it (real markup in 3D), a blurred phone face
+     down in the front corner, then the kicker, the lede and the action. On
+     scroll the desk and the phone drop away, the camera slides past faster
+     than the wall, the sheet lifts off the desk to face you, and the room
+     dissolves into the shot the lesson sits on.
      .hero__scene is the far plate's own coordinate box (object-fit: cover,
-     computed in CSS), so every plane stays registered to the wall. -->
+     computed in CSS), so every plane stays pinned to the wall. -->
 <section id="begin" class="hero" data-sc-act="pin" data-sc-span="2.4" data-slide="1" data-ms-hero data-ms-stops="0 0.98">
   <div data-sc-stage class="hero__stage">
     <div class="hero__scene" data-ms-scene>
-      <img class="hero__far" data-ms-plane="far" src="{{ASSET}}hero-shop.webp" width="2400" height="1350" alt="" decoding="async" fetchpriority="high">
+      <img class="hero__far" data-ms-plane="far" src="{{ASSET}}room.webp" width="2400" height="1350" alt="" decoding="async" fetchpriority="high">
       <div class="hero__glow" data-ms-plane="glow" aria-hidden="true"></div>
       <div class="hero__scrim" data-ms-plane="scrim" aria-hidden="true"></div>
       <div class="hero__head" data-ms-plane="head">
         <h1 class="hero__title">A reporting routine can become a reusable instruction.</h1>
       </div>
-      <img class="hero__press" data-ms-plane="press" data-ms-layer src="{{ASSET}}press.webp" width="1400" height="896" alt="" decoding="async" fetchpriority="high">
+      <img class="hero__camera" data-ms-plane="camera" data-ms-layer src="{{ASSET}}camera.webp" width="760" height="1392" alt="" decoding="async" fetchpriority="high">
       <div class="hero__beam" data-ms-plane="beam" aria-hidden="true"></div>
     </div>
-    <img class="hero__desk" data-ms-plane="desk" src="{{ASSET}}stone.webp" width="2400" height="1350" alt="" decoding="async">
+    <img class="hero__desk" data-ms-plane="desk" src="{{ASSET}}desk.webp" width="2400" height="1350" alt="" decoding="async">
     <div class="hero__sheetwrap" data-ms-plane="sheet" aria-hidden="true">
       <div class="sheet">
         <p class="sheet__title">Prepare the active-employee list</p>
@@ -82,9 +84,9 @@
         <p class="sheet__foot">Daily reporting procedure</p>
       </div>
     </div>
-    <img class="hero__mug" data-ms-plane="mug" src="{{ASSET}}brayer.webp" width="900" height="514" alt="" decoding="async">
+    <img class="hero__phone" data-ms-plane="phone" src="{{ASSET}}phone.webp" width="900" height="543" alt="" decoding="async">
     <div class="hero__act" data-ms-plane="act">
-      <p class="hero__kicker">PressRun <span aria-hidden="true">·</span> Day 1: From Routine to Run</p>
+      <p class="hero__kicker">OneTap <span aria-hidden="true">·</span> Day 1: From Routine to Run</p>
       <p class="hero__lede">Follow one procedure from a plain checklist to a script you can run, read, and verify.</p>
       <a class="btn btn--paper" href="#recognize" data-ms-link="recognize">Begin <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
@@ -116,14 +118,14 @@
 <!-- ============================================================ TRANSLATE intertitle -->
 <section id="translate" class="chapter scene--open" data-ms-passage data-sc-act="flow" data-slide="4" data-ms-chapter-start="translate" data-ms-stop>
   <div class="passage" aria-hidden="true">
-    <img class="passage__far" data-ms-type src="{{ASSET}}type-far.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
+    <img class="passage__far" data-ms-far src="{{ASSET}}prints-far.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
   </div>
   <div class="sc-wrap chapter__inner">
     <div class="chapter__scrim" aria-hidden="true"></div>
-    <h2 class="chapter__word" data-ms-ink>Translate</h2>
+    <h2 class="chapter__word" data-ms-edit>Translate</h2>
     <p class="chapter__line" data-sc-in>Keep the checklist. Write its executable twin beside it.</p>
   </div>
-  <img class="passage__roller" data-ms-roller src="{{ASSET}}roller.webp" width="752" height="900" alt="" aria-hidden="true" decoding="async" loading="lazy">
+  <div class="passage__split" data-ms-split aria-hidden="true"><span class="passage__tag">After</span><span class="passage__knob"></span><span class="passage__tag">Before</span></div>
 </section>
 
 <!-- ============================================================ 4 · THE TURN (pin) -->
@@ -236,14 +238,14 @@
 <!-- ============================================================ READ intertitle -->
 <section id="read" class="chapter scene--open" data-ms-passage data-sc-act="flow" data-slide="10" data-ms-chapter-start="read" data-ms-stop>
   <div class="passage" aria-hidden="true">
-    <img class="passage__far" data-ms-type src="{{ASSET}}type-far.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
+    <img class="passage__far" data-ms-far src="{{ASSET}}prints-far.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
   </div>
   <div class="sc-wrap chapter__inner">
     <div class="chapter__scrim" aria-hidden="true"></div>
-    <h2 class="chapter__word" data-ms-ink>Read</h2>
-    <p class="chapter__line" data-sc-in>One instruction at a time. Watch the register: the same step lines up in all three columns.</p>
+    <h2 class="chapter__word" data-ms-edit>Read</h2>
+    <p class="chapter__line" data-sc-in>One instruction at a time. Watch the sync: the same step lights up in all three columns.</p>
   </div>
-  <img class="passage__roller" data-ms-roller src="{{ASSET}}roller.webp" width="752" height="900" alt="" aria-hidden="true" decoding="async" loading="lazy">
+  <div class="passage__split" data-ms-split aria-hidden="true"><span class="passage__tag">After</span><span class="passage__knob"></span><span class="passage__tag">Before</span></div>
 </section>
 
 <!-- ============================================================ 10–15 · READ (the triptych, pinned) -->
@@ -285,8 +287,8 @@
 <!-- ============================================================ 17 · THE RUN (peak) -->
 <section class="lesson lesson--peak scene" data-sc-act="pin" data-sc-span="9" data-ms-lesson="run">
   <div data-sc-stage class="lesson__stage">
-    <img class="peak__bg" src="{{ASSET}}hero-shop.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
-    <div class="peak__sweep" aria-hidden="true"><span class="peak__cyl"></span></div>
+    <img class="peak__bg" src="{{ASSET}}room.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
+    <div class="peak__sweep" aria-hidden="true"><span class="peak__line"></span></div>
     <!--TRIPTYCH-->
   </div>
 </section>
@@ -321,14 +323,14 @@
 <!-- ============================================================ VERIFY intertitle -->
 <section id="verify" class="chapter scene--open" data-ms-passage data-sc-act="flow" data-slide="20" data-ms-chapter-start="verify" data-ms-stop>
   <div class="passage" aria-hidden="true">
-    <img class="passage__far" data-ms-type src="{{ASSET}}type-far.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
+    <img class="passage__far" data-ms-far src="{{ASSET}}prints-far.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
   </div>
   <div class="sc-wrap chapter__inner">
     <div class="chapter__scrim" aria-hidden="true"></div>
-    <h2 class="chapter__word" data-ms-ink>Verify</h2>
+    <h2 class="chapter__word" data-ms-edit>Verify</h2>
     <p class="chapter__line" data-sc-in>Break it on purpose, then decide when it should run and who is responsible.</p>
   </div>
-  <img class="passage__roller" data-ms-roller src="{{ASSET}}roller.webp" width="752" height="900" alt="" aria-hidden="true" decoding="async" loading="lazy">
+  <div class="passage__split" data-ms-split aria-hidden="true"><span class="passage__tag">After</span><span class="passage__knob"></span><span class="passage__tag">Before</span></div>
 </section>
 
 <!-- ============================================================ 20 · ERROR LAB -->
@@ -393,11 +395,11 @@
   </div>
 </section>
 
-<!-- ============================================================ 24 · CLOSE (the morning of the run, holds) -->
+<!-- ============================================================ 24 · CLOSE (the next morning, the batch done, holds) -->
 <section id="day2" class="close scene--open" data-sc-act="pin" data-sc-span="1.15" data-slide="24" data-ms-stops="0.5">
   <div data-sc-stage class="close__stage">
-    <img class="close__far" src="{{ASSET}}hero-shop-day.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
-    <img class="close__desk" src="{{ASSET}}stone-day.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
+    <img class="close__far" src="{{ASSET}}room-day.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
+    <img class="close__desk" src="{{ASSET}}desk-day.webp" width="2400" height="1350" alt="" decoding="async" loading="lazy">
     <div class="close__shade" aria-hidden="true"></div>
     <div class="close__inner">
       <h2 class="assert">Day 2 turns this demonstrated procedure into your own script.</h2>
@@ -406,7 +408,7 @@
         <li>Read</li><li>Modify</li><li>Run</li><li>Inspect</li><li>Troubleshoot</li>
       </ol>
       <footer class="foot">
-        <p>PressRun Day 1 <span aria-hidden="true">·</span> Sample data is fictional <span aria-hidden="true">·</span> <a href="https://developers.google.com/apps-script" target="_blank" rel="noopener">Apps Script documentation</a></p>
+        <p>OneTap Day 1 <span aria-hidden="true">·</span> Sample data is fictional <span aria-hidden="true">·</span> <a href="https://developers.google.com/apps-script" target="_blank" rel="noopener">Apps Script documentation</a></p>
       </footer>
     </div>
   </div>
@@ -428,7 +430,7 @@
 <!-- Folio: the slide you are on, set like a page number in the foot margin. -->
 <p class="folio" data-ms-folio><span class="folio__label">Slide</span> <span class="folio__num" data-ms-folio-num>01</span><span class="folio__of" data-ms-folio-of> / 24</span></p>
 
-<noscript><p class="noscript">PressRun needs JavaScript to run its examples.</p></noscript>
+<noscript><p class="noscript">OneTap needs JavaScript to run its examples.</p></noscript>
 <!--SCRIPTS-->
 </body>
 </html>

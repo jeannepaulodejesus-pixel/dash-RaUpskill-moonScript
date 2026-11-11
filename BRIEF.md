@@ -147,3 +147,41 @@ Scroll progress selects one step. That step lights the same instruction in all t
 **Tell-someone sentence:** "It's the site where your weekly report gets set in type: as you scroll, the same step lines up in the procedure, the code and the spreadsheet like plates in register, and then the press runs and the active roster is printed."
 
 **Authored silence:** the Break is the press at rest under one lamp.
+
+---
+
+## Revision 6: The Preset (2026-11-11)
+
+**Request (verbatim):** "i want you to revise the analogy used. Old printing press looks too old school, i need something a gen z and a millenial would relate to"
+
+**Choice (the user's, from three offered: The Preset, The Speedrun, The Choreo):** The Preset. The product is renamed to fit: **OneTap** (the user chose "Rename to fit", then OneTap from PresetRun, Preset, OneTap and SavedEdit; the repo name stays). Built on its own branch and worktree (`claude/preset-analogy`) for the user to check and approve.
+
+**Why it fits the lesson, not just the look.** Almost everyone under forty has edited a photo slider by slider and has saved, bought or downloaded a preset (Lightroom, VSCO, a CapCut template). A reporting routine is the same edit done by hand on every photo, every week. A script is that edit saved once and applied in one tap. The mapping holds where it matters most: "make it pop" is not a setting, "exposure +0.3" is, which is exactly the Clarify slide. And it stops in the same place the deck says the analogy stops: a preset applies exactly what was saved, wrong settings included, so you still check the before/after.
+
+| Lesson | In the edit |
+|---|---|
+| Recognize | Editing the same kind of photo by hand, Monday to Friday |
+| Clarify | A vague word is not a setting; only exact values can be saved |
+| Translate | Saving each instruction as one adjustment |
+| Read | The edit stack. The three lanes show one adjustment **in sync**; the Program Counter is the sync |
+| Break | The desk at rest: laptop closed, phone face down, one lamp |
+| Run (peak) | Applying the preset to the whole batch: the divider sweeps and the active roster develops |
+| Verify | Before/after against the manual filter; find the setting that is off (the error lab) |
+| Triggers | Auto-apply on import: when it fires, and whose account it runs as |
+| Close | The next morning: the batch done, change one slider (the rule) and apply again |
+
+**Authored decisions:**
+
+- **World.** The shot being edited (`shot-raw.webp`), a rain-wet street at blue hour, fixed behind every act and blurred by the panes. It is the flat RAW file until Verify, then takes the preset (`shot-edit.webp`), fully at the close. Both plates come from one generated photograph: the RAW look and the preset are applied in `tools/export-assets.py`, so the edit on the page is a real preset, not a second picture. The panes turn from warm smoke to graphite, like an editor's adjustment panels.
+- **Hero.** Planes: the back wall of taped-up prints (far), the lamp's glow, the headline on the plain wall, a camera on a tripod (mid, a true-alpha cutout, replacing the press), the lamp's light, the desk with a card reader and SD cards (near, shot on the old stone's camera so the measurements carry over), the checklist, and a blurred phone face down in the front corner. Same choreography: the camera slides past faster than the wall and the checklist lifts to face you, then the room dissolves into the shot.
+- **Signature, renamed: the Sync.** The Program Counter is unchanged in behaviour. Its bridge now ends in slider knobs.
+- **Chapter passages: the before/after.** Each chapter word starts flat (grey, low contrast). A compare divider with a round handle and After / Before tags is dragged across it by the scroll, and the word is edited behind it. Behind, a wall of prints drifts out of focus. Pure CSS; the roller image is gone.
+- **The peak: applying the preset.** When the output is written, the divider sweeps the stage trailing the teal-and-amber grade, and the output rows develop from flat and grey to full.
+- **Teal and amber keep their meaning.** Teal is active and synced; amber is exception. They are also, by luck, the two halves of the classic teal-and-amber grade, which the preset uses.
+- **Type unchanged.** Newsreader stays for display, Geist for the interface.
+
+**Feeling curve:** unchanged (stillness, weary recognition, sharpening, "oh", orientation, grounding, play, growing competence, authored silence, awe, trust, possibility, tension to control, responsibility, confidence, resolve). The causes change: an editing nook at night instead of a print shop; the desk at rest instead of a press at rest; the batch developing instead of an impression.
+
+**Tell-someone sentence:** "It's the site where your weekly report becomes a saved preset: as you scroll, the same step lights up in the procedure, the code and the spreadsheet, synced, and then you hit apply and the active roster develops in front of you."
+
+**Authored silence:** the Break is the desk at rest under one lamp.

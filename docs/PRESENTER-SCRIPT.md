@@ -1,6 +1,6 @@
-# PressRun Day 1: Presenter Script
+# OneTap Day 1: Presenter Script
 
-**From Routine to Run.** A full, interactive facilitation script for the 24-slide PressRun page, for Reporting Analysts.
+**From Routine to Run.** A full, interactive facilitation script for the 24-slide OneTap page, for Reporting Analysts.
 
 This script follows the page exactly: the headlines are the deck's, the code is the 20-line `buildActiveRoster` script in `src/roster.js`, and every answer below was computed from the sample roster in that file. If the sample or the script changes, recompute the answer key (see [Answer key](#answer-key)) before you present.
 
@@ -85,19 +85,19 @@ The script refers to these by name. Each one is designed so that **everyone** an
 
 ## The analogy, and where it stops
 
-The page is a print shop. A weekly report copied out by hand is a page written again every week. A script is that page **set once in type**, proofed, then run as often as needed.
+The page is a photo edit. A weekly report done by hand is like editing every photo yourself, slider by slider, every week. A script is that edit **saved once as a preset**, checked, then applied in one tap as often as needed. Almost everyone in the room has used one: a Lightroom or VSCO preset, a CapCut template, a saved filter.
 
-| Lesson | In the shop | One line you can use |
+| Lesson | In the edit | One line you can use |
 |---|---|---|
-| Recognize | Copying the same page by hand, Monday to Friday | "We are the copyists." |
-| Clarify | You cannot set a vague word in type | "There is no piece of type for 'usual'." |
-| Translate | Setting each instruction as a line of type | "Same text, now in metal." |
-| Read | Proofing; the three columns are plates printing **in register** | "When the same step lines up in all three, it's in register." |
-| Run | The press run | "Now the press runs." |
-| Verify | Pull a proof and check it; fix the typo in the forme | "A clean run can still print a typo." |
-| Triggers | The scheduled edition | "Who is allowed to start the press at 6 a.m.?" |
+| Recognize | Editing the same kind of photo by hand, Monday to Friday | "We're doing every edit by hand." |
+| Clarify | A vague word is not a setting | "'Make it pop' isn't a setting. 'Exposure +0.3' is." |
+| Translate | Saving each instruction as one adjustment | "Same edit, now saved." |
+| Read | The edit stack; the three columns show the same adjustment **in sync** | "When the same step lights up in all three, it's in sync." |
+| Run | Applying the preset to the whole batch | "One tap. Watch the batch." |
+| Verify | Before/after: compare it against the manual filter, fix the setting that's off | "A preset applies a bad setting just as fast as a good one." |
+| Triggers | Auto-apply on import | "Who set it to auto-apply, and whose account is it running on?" |
 
-**Where it stops.** Say this out loud once, at slide 4: a printer copies exactly what was set. So does a script. Neither one notices that the words were wrong. That is why Verify exists.
+**Where it stops.** Say this out loud once, at slide 4: a preset applies exactly the settings that were saved. So does a script. Neither one notices that a setting was wrong for this photo. That is why Verify exists.
 
 Use the analogy to open and close a chapter, not on every slide. Once the real terms arrive, use the real terms.
 
@@ -119,10 +119,10 @@ Keep coming back to these three. They are what makes the day feel like one story
 
 ## Slide 1 · A reporting routine can become a reusable instruction. (2 min)
 
-**DO.** Start on the hero, still. The procedure sheet is lying on the stone. Don't scroll yet.
+**DO.** Start on the hero, still. The procedure sheet is lying on the desk. Don't scroll yet.
 
 **SAY.**
-> "Good morning. Before we look at a single line of code, look at the sheet on the stone. Five steps: open the roster, identify active employees, select the fields, prepare the output, check the results. Some of you did exactly this, or something very like it, this week.
+> "Good morning. Before we look at a single line of code, look at the sheet on the desk. Five steps: open the roster, identify active employees, select the fields, prepare the output, check the results. Some of you did exactly this, or something very like it, this week.
 >
 > By the end of today you'll be able to do three things: explain what a small Apps Script does, trace what goes in and what comes out, and say where a person still has to check. That last one matters most.
 >
@@ -175,8 +175,8 @@ Keep coming back to these three. They are what makes the day feel like one story
 
 **WATCH OUT.** "The script will work out what 'current' means." It won't. It does what it's told.
 
-**SAY** (the print-shop line):
-> "In a print shop there's no piece of type for 'usual'. You can only set exact letters. Same here."
+**SAY** (the preset line):
+> "You can't save 'make it pop' as a preset. You can only save exact settings: exposure plus 0.3, contrast plus 10. Same here. 'Current' has to become 'Status is exactly Active'."
 
 **BRIDGE.** "An explicit procedure is already most of a program. Let's write its twin."
 
@@ -205,7 +205,7 @@ Walk the table top to bottom, pointing at the right-hand column each time:
 | A scheduled reminder | Trigger | not used today |
 
 **SAY** (the boundary, out loud, slowly):
-> "Here's where the comparison stops. A script executes encoded instructions. It does not infer missing business rules, and it doesn't check whether the reporting definition is correct. A printer prints exactly what was set, typos included. So does this."
+> "Here's where the comparison stops. A script executes encoded instructions. It does not infer missing business rules, and it doesn't check whether the reporting definition is correct. A preset applies exactly the settings you saved, bad ones included. So does this."
 
 **ASK** (fist to five): "How comfortable are you with the idea that the script is just the checklist, written exactly?"
 
@@ -313,10 +313,10 @@ Walk the table top to bottom, pointing at the right-hand column each time:
 
 **Energy:** concentrated. This is the heart of the day. Go slower than feels natural.
 
-**How the Read chapter works.** One pinned stage, three columns: the procedure, the code, and what happens to the data. Each scroll step lights the same step in all three. On the page that's called **the register**: three plates printing the same step, lined up.
+**How the Read chapter works.** One pinned stage, three columns: the procedure, the code, and what happens to the data. Each scroll step lights the same step in all three. On the page that's called **the sync**: one adjustment synced across three views, joined by a line with a slider knob at each end.
 
 **SAY** (once, at the start of the chapter):
-> "One instruction at a time. Watch the register: the same step lines up in all three columns. Procedure on the left, code in the middle, the data on the right. If you lose your place, look for the lit line."
+> "One instruction at a time. Watch the sync: the same step lights up in all three columns. Procedure on the left, code in the middle, the data on the right. If you lose your place, look for the lit line."
 
 **The rhythm for every slide in this chapter:**
 1. Show the code line. **Before stepping forward, ask the room to predict what happens.**
@@ -334,7 +334,7 @@ Four steps. Predict before each.
 | 3 | 1, 20 | "Where does the procedure start and end?" | The braces `{ }` mark the start and end. |
 | 4 | 3 to 5 | "Now someone presses Run. Which line runs first?" | Lines run top to bottom. |
 
-**WATCH OUT.** "Writing the function runs it." The print-shop version helps: "Setting the type isn't printing. Nothing hits paper until the press runs."
+**WATCH OUT.** "Writing the function runs it." The preset version helps: "Saving a preset doesn't edit anything. Nothing changes until you apply it."
 
 **SAY** (the comment, worth a moment):
 > "Line 2 is the most underrated line in the script. It says what the code is for in plain English. When you inherit someone else's script in six months, that line is the one you'll thank them for."
@@ -384,7 +384,7 @@ values[2][3]   // column D of that row
 ```
 
 **SAY.**
-> "`getValues` reads the whole table into memory as rows of cells. A list of rows, and each row is a list of cells. Like a stack of printed lines, each with its fields in order."
+> "`getValues` reads the whole table into memory as rows of cells. A list of rows, and each row is a list of cells. Like a camera roll: a list of photos, and each photo has its details in the same order."
 
 **ASK** before step 2 (chat waterfall): "The header is the very first row. What number do you think the code uses for it?"
 
@@ -505,7 +505,7 @@ Four steps. Light each link of the chain, then show the three phases.
 
 ## Break · 5 minutes
 
-**DO.** Click **Start the 5:00 break**. Leave the plain-language procedure on screen. The page shows the press at rest under one lamp.
+**DO.** Click **Start the 5:00 break**. Leave the plain-language procedure on screen. The page shows the editing desk at rest under one lamp: laptop closed, phone face down.
 
 **SAY.**
 > "Five minutes. When you come back, the press runs. Before you go, look at the prediction board and decide if you want to change your number."
@@ -536,7 +536,7 @@ Four steps. Light each link of the chain, then show the three phases.
 
 ## Slide 17 · The script follows the procedure we already understand. (7 min)
 
-This is **the peak**. On the page, the whole script runs against the sample roster, one record per step, and when the output is written an impression cylinder passes over and the active roster arrives inked.
+This is **the peak**. On the page, the whole script runs against the sample roster, one record per step, and when the output is written the preset is applied: a before/after divider sweeps across the stage and the active roster develops from flat to full.
 
 **DO.** Before you start, point at the prediction board.
 
@@ -561,7 +561,7 @@ This is **the peak**. On the page, the whole script runs against the sample rost
 **DO.** Stop on two moments.
 
 - **The status rule** (any row): "Same line 10, every time. Same rule for everyone."
-- **The write** (line 18): Stop talking. Let the cylinder pass and the roster ink. Count two seconds of silence. Then:
+- **The write** (line 18): Stop talking. Let the divider pass and the roster develop. Count two seconds of silence. Then:
 
 > "Six. Six active employees, written in one call to `training.active_roster`."
 
@@ -579,7 +579,7 @@ This is **the peak**. On the page, the whole script runs against the sample rost
 ## Slide 18 · A completed execution still requires an output check. (5 min)
 
 **SAY.**
-> "'Execution completed' means the script didn't crash. It doesn't mean the answer is right. A clean press run can still print a typo. So we pull a proof and check it against something we trust: a manual filter, done the way you'd do it in the sheet."
+> "'Execution completed' means the script didn't crash. It doesn't mean the answer is right. A preset can apply cleanly and still be wrong for the photo. So we do a before/after and check it against something we trust: a manual filter, done the way you'd do it in the sheet."
 
 **DO.** Walk the three checks on screen. For each one, ask the room to confirm by eye before you say "pass".
 
@@ -680,8 +680,8 @@ This is **the peak**. On the page, the whole script runs against the sample rost
 | Simple trigger | On a fixed event such as onOpen or onEdit | The person who caused the event |
 | Installable trigger | On a schedule, form submit, or a change you configure | The account that created the trigger |
 
-**SAY** (print-shop line):
-> "This is the scheduled edition. Two questions: when does the press run, and who's allowed to start it?"
+**SAY** (preset line):
+> "This is auto-apply on import. Two questions: when does it fire, and whose account is it running as?"
 
 **ASK** (pair and share, 90 seconds): "You set up a trigger to run this every morning. Six months later you move to another team and your account loses access. What happens to the report?"
 
@@ -760,7 +760,7 @@ Answer: **2** (Jonah Park and Lea Dizon). You'll confirm it on the next slide.
 > "One row. Because 'NULL' here is a word, and Tomas is the only person with that word in his Status cell. You just used the trap on purpose."
 
 **SAY** (close):
-> "This morning we started with a checklist on a stone. Now it's set in type, proofed, and you've watched it run. Day 2: you read it, modify it, run it, inspect it, and troubleshoot it yourself. And you won't start from a blank editor. You start from this exact script in the sandbox."
+> "This morning we started with a checklist on a desk. Now it's saved as a preset, checked against a manual filter, and you've watched it run. Day 2: you read it, modify it, run it, inspect it, and troubleshoot it yourself. And you won't start from a blank editor. You start from this exact script in the sandbox."
 
 **DO.** Point at the parking lot. "These are what we start with on Day 2." Then close.
 

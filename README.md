@@ -1,8 +1,8 @@
-# PressRun: From Routine to Run
+# OneTap: From Routine to Run
 
-Day 1 of the PressRun Apps Script upskilling track for Reporting Analysts, rebuilt from a 24-slide deck as an immersive, scroll-driven web app. The analogy is a print shop: the report you copy out by hand every week becomes a page set once in type, proofed, and run.
+Day 1 of the OneTap Apps Script upskilling track for Reporting Analysts, rebuilt from a 24-slide deck as an immersive, scroll-driven web app. The analogy is a photo preset: the report you rebuild by hand every week is a photo edited slider by slider; a script is that edit saved once as a preset and applied in one tap.
 
-One reporting procedure (build the active-employee list from `employees.master_roster`) becomes executable in front of you. As you scroll, a program counter lights the same step in the plain-language procedure, the code, and the spreadsheet at once, like three plates printing in register.
+One reporting procedure (build the active-employee list from `employees.master_roster`) becomes executable in front of you. As you scroll, a program counter lights the same step in the plain-language procedure, the code, and the spreadsheet at once, like one adjustment synced across three photos.
 
 The same source runs two ways:
 
@@ -53,7 +53,7 @@ assets/img/             generated photography (WebP)
 ```bash
 npm run build -- --ref v1.0.0
 cd dist/gas
-clasp create --type webapp --title "PressRun: From Routine to Run"   # first time only
+clasp create --type webapp --title "OneTap: From Routine to Run"   # first time only
 clasp push -f
 clasp deploy -d "v1.0.0"
 ```

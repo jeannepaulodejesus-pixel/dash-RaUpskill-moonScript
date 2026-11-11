@@ -330,3 +330,145 @@ Change only the light and one detail: soft overcast morning daylight from the up
 Framing: wide landscape 16:9, full bleed, no letterbox bars.
 Constraints: no readable text, no letters or words anywhere (type and printed matter, if visible, must be too small or too blurred to read), no logos, no brand plates, no watermark, no people, no glossy CGI look, no carved patterns.
 ```
+
+# Asset prompts: The Preset (2026-11-11)
+
+The print-shop set above is superseded. The OneTap photography was generated with the Codex CLI's built-in image generation (`codex exec --enable image_generation -s workspace-write`), one session per image, at the user's request (they chose the Codex route for this set). Each prompt below was sent verbatim on stdin; the runner is `lab/gen/preset/run.sh` (gitignored, local). Raw outputs are 1672 x 941 plates and RGBA cutouts (alpha verified: camera 1024 x 1536, phone 1672 x 941). They are kept in `lab/gen/preset/<name>/` and exported with `python tools/export-assets.py`: plates to 2400 px WebP q80; cutouts cropped to their alpha, alpha at 240 or above made opaque, WebP with alpha (camera 760 px wide, phone 900).
+
+`shot` is exported twice and never used as is: `shot-raw.webp` is the photograph flattened like an unedited RAW file (`RAW` in the tool), `shot-edit.webp` is the same photograph with `PRESET` applied (S-curve, teal shadows, amber highlights, a little saturation). The page crossfades between them, so the edit it shows is a real preset.
+
+## room
+
+Input: the Press Run `hero-shop.webp` (composition only: camera height, plain wall upper left, lamp and window right, floor line).
+
+```text
+Use your built-in image generation tool to create ONE image, then save the resulting PNG into the current working directory as room.png (copy it from wherever the tool writes it). Do not edit any other files. Reply with the final file path and pixel size only.
+
+Style preamble (verbatim): cinematic photograph, 35mm film, a creator's small home editing desk late at night, single warm desk-lamp key with a faint cool window fill, true blacks, deep graphite shadows, fine film grain, photographic realism, muted desaturated grade.
+
+Asset: the far background plane of a layered website hero. Other layers are composited on top in code: a camera on a tripod standing in the middle distance on the right, a dark desk surface across the bottom of the frame, a paper checklist, a phone, and large headline text.
+Input image 1 is a composition reference only: keep its camera height, its plain dark wall in the upper left, its lamp on the right, its tall window at the far right and its dark floor in the bottom 30 percent. Replace everything else; it is a different room.
+Scene: a small apartment room used as a photo-editing studio, late at night, eye level, looking straight at the back wall. On the right two thirds of the wall, a loose, uneven grid of small unframed photo prints held up with strips of tape and a few bulldog clips: city streets, portraits in silhouette, landscapes, all small and slightly soft, none with text. A single warm desk lamp with an angled metal arm glows on the right and casts a soft amber pool across the prints. At the far right, a tall window with faint rain on the glass and soft cool blue city bokeh outside. The upper left of the frame is a calm, plain, dark painted wall in deep graphite shadow with very little detail, so a large white headline can sit there. The bottom 30 percent is dark floor in shadow (it will be covered by another layer).
+Framing: wide landscape 16:9, eye level, straight verticals, full bleed, no letterbox bars.
+Constraints: no readable text, no letters, numbers or words anywhere, no screens showing an interface or app (any screen is off or dark), no logos, no brand marks, no watermark, no people, no lens flare, no orange cast, no purple or magenta cast. No camera or tripod in the frame (it is a separate layer), no desk or objects in the foreground, no monitor.
+```
+
+## camera
+
+No reference image.
+
+```text
+Use your built-in image generation tool to create ONE image, then save the resulting PNG into the current working directory as camera.png (copy it from wherever the tool writes it). Do not edit any other files. Reply with the final file path and pixel size only.
+
+Style preamble (verbatim): cinematic photograph, 35mm film, a creator's small home editing desk late at night, single warm desk-lamp key with a faint cool window fill, true blacks, deep graphite shadows, fine film grain, photographic realism, muted desaturated grade.
+
+Asset: an isolated mid-ground cutout for a layered website hero. It MUST be a PNG with a genuinely transparent background (alpha channel), not a checkerboard pattern and not a white or black backdrop. If the tool supports a transparent background option, use it. Verify the saved PNG has an alpha channel (for example with Python PIL) and report whether it does.
+Subject: a mirrorless camera with a medium zoom lens mounted on a tall, slim carbon-fibre tripod, legs spread, three-quarter view from slightly above eye level, the lens pointing toward the left. Matte black body with worn edges, no brand name and no markings on the body or lens. Lit by a warm desk lamp from the upper right: a thin warm rim light along the top of the camera, the lens barrel and one tripod leg, the rest in deep shadow. Complete object including all three tripod feet, nothing cropped, centred with a small margin.
+Constraints: no readable text, no letters, numbers or words anywhere, no screens showing an interface or app (any screen is off or dark), no logos, no brand marks, no watermark, no people, no lens flare, no orange cast, no purple or magenta cast. No floor, no shadow on a ground plane, no background, no strap text.
+```
+
+## desk
+
+Input: the Press Run `stone.webp` (camera angle and silhouette, so the hero measurements carry over).
+
+```text
+Use your built-in image generation tool to create ONE image, then save the resulting PNG into the current working directory as desk.png (copy it from wherever the tool writes it). Do not edit any other files. Reply with the final file path and pixel size only.
+
+Style preamble (verbatim): cinematic photograph, 35mm film, a creator's small home editing desk late at night, single warm desk-lamp key with a faint cool window fill, true blacks, deep graphite shadows, fine film grain, photographic realism, muted desaturated grade.
+
+Asset: the foreground plane of a layered website hero. A paper checklist and a phone are composited on its surface later in code, and a far room layer sits behind it.
+Input image 1 is the camera angle and silhouette reference: keep exactly its oblique close view from above, the front edge running diagonally from lower left toward middle right, the broad flat top filling most of the frame, and the dark falloff in the top quarter (almost black, so it blends into the layer behind). Replace the stone and the type with a desk.
+Subject: a matte charcoal-black desk with a fine, even linoleum-like surface and a thin satin edge. On the left third, where the reference has a frame of type, lie the tools of a photo edit: a small aluminium SD card reader with two memory cards beside it, a short coiled cable, and a slim closed laptop edge just entering the frame at the far left. All of them unbranded and unmarked. Warm desk-lamp light from the upper right grazes the surface and catches the front edge as a thin highlight. A large clear empty surface in the centre right.
+Framing: wide landscape 16:9, full bleed, no letterbox bars.
+Constraints: no readable text, no letters, numbers or words anywhere, no screens showing an interface or app (any screen is off or dark), no logos, no brand marks, no watermark, no people, no lens flare, no orange cast, no purple or magenta cast. No papers, no glossy CGI look, no visible wood grain swirls.
+```
+
+## phone
+
+No reference image.
+
+```text
+Use your built-in image generation tool to create ONE image, then save the resulting PNG into the current working directory as phone.png (copy it from wherever the tool writes it). Do not edit any other files. Reply with the final file path and pixel size only.
+
+Style preamble (verbatim): cinematic photograph, 35mm film, a creator's small home editing desk late at night, single warm desk-lamp key with a faint cool window fill, true blacks, deep graphite shadows, fine film grain, photographic realism, muted desaturated grade.
+
+Asset: an isolated foreground cutout for a layered website hero; it will be blurred in code. It MUST be a PNG with a genuinely transparent background (alpha channel), not a checkerboard pattern and not a white or black backdrop. If the tool supports a transparent background option, use it. Verify the saved PNG has an alpha channel (for example with Python PIL) and report whether it does.
+Subject: a modern smartphone lying face down on an invisible surface, seen from above at a low three-quarter angle, its back toward the camera: matte graphite back, a square camera bump with three lenses in one corner, rounded edges. No logo, no brand mark, no text anywhere. Warm desk-lamp light from the upper right gives a thin rim on the near edge and a soft reflection on the lenses; the rest in shadow. Complete object, nothing cropped, centred with a small margin.
+Constraints: no readable text, no letters, numbers or words anywhere, no screens showing an interface or app (any screen is off or dark), no logos, no brand marks, no watermark, no people, no lens flare, no orange cast, no purple or magenta cast. No floor, no shadow on a ground plane, no background, no case.
+```
+
+## shot
+
+No reference image.
+
+```text
+Use your built-in image generation tool to create ONE image, then save the resulting PNG into the current working directory as shot.png (copy it from wherever the tool writes it). Do not edit any other files. Reply with the final file path and pixel size only.
+
+Style preamble (verbatim): cinematic photograph, 35mm film, a city street at blue hour after rain, true blacks, fine film grain, photographic realism.
+
+Asset: a full-bleed website background that will sit behind frosted-glass panels, so it must read beautifully when heavily blurred. In code it is shown twice: once flattened to look like an unedited RAW file, once graded with a preset. Give it a full, rich tonal range so both treatments have room.
+Scene: a quiet city street just after rain at blue hour, seen from the pavement at waist height, deliberately soft focus. Wet asphalt reflects warm amber streetlights and red car tail lights as long soft streaks; cool blue sky glow between dark buildings; large, round, soft bokeh. Large calm dark areas in the left half and along the bottom for text to sit over.
+Framing: wide landscape 16:9, full bleed, no letterbox bars.
+Constraints: no readable text, no letters, numbers or words anywhere, no shop signs, no neon signs, no street signs, no licence plates, no logos, no watermark, no recognisable people (at most one tiny distant silhouette), no lens-flare streaks, no purple or magenta cast.
+```
+
+## prints-far
+
+No reference image.
+
+```text
+Use your built-in image generation tool to create ONE image, then save the resulting PNG into the current working directory as prints-far.png (copy it from wherever the tool writes it). Do not edit any other files. Reply with the final file path and pixel size only.
+
+Style preamble (verbatim): cinematic photograph, 35mm film, a creator's small home editing desk late at night, single warm desk-lamp key with a faint cool window fill, true blacks, deep graphite shadows, fine film grain, photographic realism, muted desaturated grade.
+
+Asset: the far plane behind a large chapter word on a website. It is shown dim and slightly blurred, so it must stay dark and calm.
+Scene: a close, very shallow depth-of-field view of a wall covered with small photo prints in a loose grid, held with tape and bulldog clips, photographed so that every print is out of focus: soft rectangles of muted colour with paper edges catching warm lamp light from the right. The centre of the frame is the darkest and calmest area.
+Framing: wide landscape 16:9, full bleed, no letterbox bars.
+Constraints: no readable text, no letters, numbers or words anywhere, no screens showing an interface or app (any screen is off or dark), no logos, no brand marks, no watermark, no people, no lens flare, no orange cast, no purple or magenta cast.
+```
+
+## rest
+
+Input: the Press Run `rest.webp` (composition only).
+
+```text
+Use your built-in image generation tool to create ONE image, then save the resulting PNG into the current working directory as rest.png (copy it from wherever the tool writes it). Do not edit any other files. Reply with the final file path and pixel size only.
+
+Style preamble (verbatim): cinematic photograph, 35mm film, a creator's small home editing desk late at night, single warm desk-lamp key with a faint cool window fill, true blacks, deep graphite shadows, fine film grain, photographic realism, muted desaturated grade.
+
+Asset: a full-bleed background for an authored pause in a website (a five-minute break). It must be quiet, dark and spacious, with a calm area in the centre and left for a short list of text.
+Input image 1 is a composition reference only (camera height, where the light falls, the amount of darkness).
+Scene: the editing desk at rest. A slim laptop closed, a smartphone face down beside it, a ceramic mug, a mirrorless camera lying on its side with the lens cap on, all unbranded. One warm desk lamp on the right makes a small pool of light on the desk; everything else falls into deep graphite shadow. Faint cool window light at the far right.
+Framing: wide landscape 16:9, full bleed, no letterbox bars.
+Constraints: no readable text, no letters, numbers or words anywhere, no screens showing an interface or app (any screen is off or dark), no logos, no brand marks, no watermark, no people, no lens flare, no orange cast, no purple or magenta cast.
+```
+
+## room-day
+
+Input: `room.png`.
+
+```text
+Use your built-in image generation tool to create ONE image, then save the resulting PNG into the current working directory as room-day.png (copy it from wherever the tool writes it). Do not edit any other files. Reply with the final file path and pixel size only.
+
+Style preamble (verbatim): cinematic photograph, 35mm film, a creator's small home editing desk the next morning, soft overcast daylight key from a tall window, true blacks, deep graphite shadows, fine film grain, photographic realism, muted desaturated grade.
+
+Asset: the far background plane of the closing scene of a website. It must match Input image 1 exactly in camera, framing and architecture: the same back wall, the same grid of taped photo prints, the same lamp, the same tall window on the far right, the same plain dark painted wall in the upper left, the same dark floor in the bottom 30 percent.
+Change only the time: the next morning. The lamp is off. Soft overcast daylight comes through the window on the right and spreads across the prints; the room is gently lit but still muted. The upper left wall stays dark enough for white text.
+Framing: wide landscape 16:9, eye level, straight verticals, full bleed, no letterbox bars.
+Constraints: no readable text, no letters, numbers or words anywhere, no screens showing an interface or app (any screen is off or dark), no logos, no brand marks, no watermark, no people, no lens flare, no orange cast, no purple or magenta cast. No sun disc, no sun rays.
+```
+
+## desk-day
+
+Input: `desk.png`.
+
+```text
+Use your built-in image generation tool to create ONE image, then save the resulting PNG into the current working directory as desk-day.png (copy it from wherever the tool writes it). Do not edit any other files. Reply with the final file path and pixel size only.
+
+Style preamble (verbatim): cinematic photograph, 35mm film, a creator's small home editing desk the next morning, soft overcast daylight key from a tall window, true blacks, deep graphite shadows, fine film grain, photographic realism, muted desaturated grade.
+
+Asset: the foreground plane of the closing scene of a website. It must match Input image 1 exactly in camera angle, framing, desk shape, edge position and the card reader, memory cards, cable and laptop edge on the left third: the same oblique close view, the same diagonal front edge, the same dark falloff in the top quarter.
+Change only the light and one detail: soft overcast morning daylight from the upper right, a little brighter and cooler than the lamp-lit version, a gentle pale highlight along the front edge. On the empty right half of the desk lies a short, neat stack of freshly printed photos, face down, plain white backs showing.
+Framing: wide landscape 16:9, full bleed, no letterbox bars.
+Constraints: no readable text, no letters, numbers or words anywhere, no screens showing an interface or app (any screen is off or dark), no logos, no brand marks, no watermark, no people, no lens flare, no orange cast, no purple or magenta cast. No glossy CGI look.
+```

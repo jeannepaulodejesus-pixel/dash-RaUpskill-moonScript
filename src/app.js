@@ -1,15 +1,16 @@
-/* PressRun page logic.
+/* OneTap page logic.
    Everything bespoke lives here; the scrollcraft engine is untouched and only
    publishes --sc-p on each act. The signature move is the Program Counter, shown
-   as a register: in a lesson act, scroll progress selects one step, and that
-   step lights the same instruction in three lanes at once (procedure, code,
-   consequence), like three plates printing in register, joined by a thin
-   bridge that ends in registration marks. Every consequence is computed by PressRoster from the
-   labelled sample roster; nothing on the page is a painted result. */
+   as a sync: in a lesson act, scroll progress selects one step, and that step
+   lights the same instruction in three lanes at once (procedure, code,
+   consequence), like one adjustment synced across three photos, joined by a
+   thin bridge that ends in slider knobs. Every consequence is computed by
+   OneTapRoster from the labelled sample roster; nothing on the page is a
+   painted result. */
 (function () {
   'use strict';
 
-  var R = window.PressRoster, D = window.PressData, E = window.PressEnv;
+  var R = window.OneTapRoster, D = window.OneTapData, E = window.OneTapEnv;
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var smallMQ = matchMedia('(max-width: 860px)');
   var doc = document;
@@ -265,10 +266,9 @@
     var target = lit.offsetTop - win.clientHeight / 2 + lit.offsetHeight / 2;
     win.scrollTo({ top: Math.max(0, target), behavior: reduce ? 'auto' : 'smooth' });
   };
-  /* The register: two quiet curves joining the lit instruction, the lit code
-     line and the lit consequence, each end a registration mark, because the
-     three lanes are plates that must print the same step in register. Pure
-     SVG, recomputed per step. */
+  /* The sync: two quiet curves joining the lit instruction, the lit code line
+     and the lit consequence, each end a slider knob, because the three lanes
+     are three views of the same adjustment. Pure SVG, recomputed per step. */
   Lesson.prototype.drawBridge = function () {
     var svg = this.q.bridge, tri = this.q.tri;
     if (!svg || smallMQ.matches) { if (svg) svg.innerHTML = ''; return; }
@@ -286,13 +286,13 @@
       if (el.classList.contains('ln')) return { x: (side === 'l' ? r.left : Math.min(r.right, win.right)) - T.left, y: y - T.top };
       return { x: (side === 'l' ? r.left : r.right) - T.left, y: r.top + r.height / 2 - T.top };
     }
-    function reg(o) {
-      return '<g class="reg" transform="translate(' + o.x.toFixed(1) + ' ' + o.y.toFixed(1) + ')"><circle r="3.6"/><path d="M-6.5 0H6.5M0-6.5V6.5"/></g>';
+    function knob(o) {
+      return '<g class="knob" transform="translate(' + o.x.toFixed(1) + ' ' + o.y.toFixed(1) + ')"><circle r="5.2"/><circle class="knob__dot" r="2"/></g>';
     }
     function curve(p, q) {
       var dx = Math.max(24, (q.x - p.x) * 0.5);
       return '<path d="M' + p.x + ' ' + p.y + ' C ' + (p.x + dx) + ' ' + p.y + ', ' + (q.x - dx) + ' ' + q.y + ', ' + q.x + ' ' + q.y + '"/>' +
-        reg(p) + reg(q);
+        knob(p) + knob(q);
     }
     var h = '';
     if (a && b) h += curve(mid(a, 'r'), mid(b, 'l'));
@@ -606,12 +606,12 @@
   }
 
   /* ------------------------------------------------------------- hero
-     One camera idea: walk into the shop toward the press. Three beats share
-     the pinned scroll. (a) The approach: the stone and the brayer drop away,
-     the proof lifts off the stone, the press comes toward you and slides
+     One camera idea: lean into the edit. Three beats share the pinned
+     scroll. (a) The approach: the desk and the phone drop away, the sheet
+     lifts off the desk, the camera on its tripod comes toward you and slides
      past on the right faster than the wall behind it. (b) The headline
-     recedes into the wall and the press leaves the frame. (c) The shop
-     dissolves into the blurred world behind every lesson. Each plane has its
+     recedes into the wall and the camera leaves the frame. (c) The room
+     dissolves into the shot behind every lesson. Each plane has its
      own rate, which is where the depth comes from. A fine pointer adds a few
      pixels of parallax on top; nothing depends on it. */
   var hero = $('[data-ms-hero]'), planes = {};
@@ -652,22 +652,22 @@
     var wallS = 1 + 0.1 * a + 0.4 * b, W = planes.far.offsetWidth, H = planes.far.offsetHeight;
     var wall = shift(4) + ' scale(' + wallS.toFixed(4) + ')';
     put(planes.far, wall, 1 - c);
-    put(planes.glow, shift(4) + ' translate3d(' + ((0.834 - 0.3) * W * (wallS - 1)).toFixed(1) + 'px,' + ((0.165 - 0.4) * H * (wallS - 1)).toFixed(1) + 'px,0) scale(' + wallS.toFixed(4) + ')', (1 - c) * (1 - 0.3 * a));
+    put(planes.glow, shift(4) + ' translate3d(' + ((0.84 - 0.3) * W * (wallS - 1)).toFixed(1) + 'px,' + ((0.215 - 0.4) * H * (wallS - 1)).toFixed(1) + 'px,0) scale(' + wallS.toFixed(4) + ')', (1 - c) * (1 - 0.3 * a));
 
     var headO = 1 - smooth((p - 0.34) / 0.2);
     // The headline recedes with the wall but a little faster, from its own
-    // left edge, so it never drifts under the press.
+    // left edge, so it never drifts under the camera.
     put(planes.head, m ? 'translate3d(0,' + (-3 * a).toFixed(2) + 'vh,0)' : shift(5) + ' scale(' + (1 + 0.12 * a + 0.3 * b).toFixed(4) + ')', headO);
     put(planes.scrim, 'none', headO);
-    // The press is nearer than the wall: it grows faster and slides out of
+    // The camera is nearer than the wall: it grows faster and slides out of
     // frame to the right as you pass it.
     // It leaves the frame before it fades, so it never shows through itself.
-    var press = shift(16) + ' translate3d(' + (8 * a + 46 * b).toFixed(2) + 'vw,' + (5 * a + 10 * b).toFixed(2) + 'vh,0) scale(' + (1 + 0.3 * a + 0.7 * b).toFixed(4) + ')';
-    put(planes.press, press, 1 - smooth((p - 0.58) / 0.1));
-    put(planes.beam, press, 0.95 - 0.9 * smooth(p / 0.5));
+    var camera = shift(16) + ' translate3d(' + (8 * a + 46 * b).toFixed(2) + 'vw,' + (5 * a + 10 * b).toFixed(2) + 'vh,0) scale(' + (1 + 0.3 * a + 0.7 * b).toFixed(4) + ')';
+    put(planes.camera, camera, 1 - smooth((p - 0.58) / 0.1));
+    put(planes.beam, camera, 0.95 - 0.9 * smooth(p / 0.5));
 
     put(planes.desk, shift(22) + ' translate3d(0,' + (46 * a).toFixed(2) + 'vh,0) scale(' + (1 + 0.08 * a).toFixed(4) + ')', 1 - smooth((p - 0.28) / 0.24));
-    put(planes.mug, shift(34) + ' translate3d(' + (10 * a).toFixed(2) + 'vw,' + (62 * a).toFixed(2) + 'vh,0)', 1 - smooth((p - 0.1) / 0.24));
+    put(planes.phone, shift(34) + ' translate3d(' + (10 * a).toFixed(2) + 'vw,' + (62 * a).toFixed(2) + 'vh,0)', 1 - smooth((p - 0.1) / 0.24));
     put(planes.act, 'translate3d(0,' + (7 * a).toFixed(2) + 'vh,0)', 1 - smooth(p / 0.14));
 
     // The sheet lifts off the desk and comes to face you, centred.
@@ -680,10 +680,10 @@
   }
 
   /* ------------------------------------------------------------ the world
-     The shop behind the panes drifts with the whole page, and daylight
-     comes in over the Verify chapter, fully at the close: the morning of
-     the run. */
-  var world = $('[data-ms-world]'), worldShop = world && $('.world__shop', world), worldDay = world && $('.world__day', world);
+     The shot behind the panes drifts with the whole page. It is the RAW file
+     until the Verify chapter, where the preset starts to come in, and fully
+     applied at the close: the edit, checked and done. */
+  var world = $('[data-ms-world]'), worldRaw = world && $('.world__raw', world), worldEdit = world && $('.world__edit', world);
   var verifyEl = $('#verify'), closeEl = $('#day2'), lastWorldY = -1;
   function worldFrame() {
     if (!world) return;
@@ -691,10 +691,12 @@
     if (y === lastWorldY) return;
     lastWorldY = y;
     var g = clamp(y / Math.max(1, doc.documentElement.scrollHeight - innerHeight), 0, 1);
-    if (!reduce) worldShop.style.transform = 'translate3d(0,' + (-5 * g).toFixed(3) + 'vh,0) scale(1.1)';
+    var tf = 'translate3d(0,' + (-5 * g).toFixed(3) + 'vh,0) scale(1.1)';
+    // Both plates move together: the edit lies exactly over the RAW file.
+    if (!reduce) { worldRaw.style.transform = tf; worldEdit.style.transform = tf; }
     var vt = verifyEl ? topOf(verifyEl) : Infinity, ct = closeEl ? topOf(closeEl) : Infinity;
-    var day = 0.3 * smooth((y - vt) / Math.max(1, ct - vt)) + 0.7 * smooth((y - (ct - innerHeight)) / innerHeight);
-    worldDay.style.opacity = day.toFixed(3);
+    var edit = 0.3 * smooth((y - vt) / Math.max(1, ct - vt)) + 0.7 * smooth((y - (ct - innerHeight)) / innerHeight);
+    worldEdit.style.opacity = edit.toFixed(3);
   }
 
   /* ----------------------------------------------------------- pane sheen
@@ -899,21 +901,20 @@
   }
 
   /* Transitions between sections, all read from scroll position.
-     Passages: each chapter word starts as a blind impression (pressed, not
-     inked). A brayer rolls across it with the scroll and the word is inked
-     behind the roller, while a forme of type drifts out of focus behind it.
-     Assertions in the flowing sections lag a little behind their section, so
-     heading and pane part as you pass. Rects are read first, then everything
-     is written. */
+     Passages: each chapter word starts flat, like an unedited RAW file. A
+     before/after divider is dragged across it by the scroll and the word is
+     edited behind the divider, while a wall of prints drifts out of focus
+     behind it. Assertions in the flowing sections lag a little behind their
+     section, so heading and pane part as you pass. Rects are read first,
+     then everything is written. */
   var passages = [], depthHeads = [], lastTY = -1, lastTW = -1;
-  var ROLLER_LINE = 0.74; // the cylinder's contact line, as a fraction of the roller image's width
   function bindTransitions() {
     passages = $$('[data-ms-passage]').map(function (sec) {
       var word = $('.chapter__word', sec), text = word.textContent.trim();
-      // The blind impression is decoration, hidden from assistive technology;
-      // the inked copy is the heading's text.
-      word.innerHTML = '<span class="chapter__blind" aria-hidden="true">' + esc(text) + '</span><span class="chapter__inked">' + esc(text) + '</span>';
-      return { sec: sec, far: $('[data-ms-type]', sec), roller: $('[data-ms-roller]', sec), word: word, inked: $('.chapter__inked', word) };
+      // The RAW copy is decoration, hidden from assistive technology; the
+      // edited copy is the heading's text.
+      word.innerHTML = '<span class="chapter__raw" aria-hidden="true">' + esc(text) + '</span><span class="chapter__edit">' + esc(text) + '</span>';
+      return { sec: sec, far: $('[data-ms-far]', sec), split: $('[data-ms-split]', sec), word: word, edited: $('.chapter__edit', word) };
     });
     depthHeads = $$('main .assert').filter(function (h) { return !h.closest('[data-sc-stage]'); });
   }
@@ -923,24 +924,24 @@
     lastTY = y; lastTW = innerWidth;
     var vh = innerHeight, vw = innerWidth;
     var pr = passages.map(function (o) { return o.sec.getBoundingClientRect(); });
-    var wr = passages.map(function (o) { return o.inked.getBoundingClientRect(); });
+    var wr = passages.map(function (o) { return o.edited.getBoundingClientRect(); });
     var hr = reduce ? [] : depthHeads.map(function (h) { return h.getBoundingClientRect(); });
     passages.forEach(function (o, i) {
       var r = pr[i], w = wr[i];
       if (r.bottom < -vh * 0.2 || r.top > vh * 1.2) return;
-      if (reduce) { o.word.style.setProperty('--ink', '100%'); return; }
+      if (reduce) { o.word.style.setProperty('--edit', '100%'); return; }
       var q = clamp((vh - r.top) / (vh + r.height), 0, 1);       // 0 entering below, 1 gone above
       o.far.style.transform = 'translate3d(' + (3 - 6 * q).toFixed(2) + 'vw,' + (12 - 24 * q).toFixed(2) + 'vh,0) scale(1.12)';
       o.far.style.opacity = (0.9 * Math.sin(Math.PI * clamp(q * 1.1, 0, 1))).toFixed(3);
-      // The roller: its height covers the word; its contact line travels from
-      // off the left edge to off the right edge, and the ink follows it.
-      var rh = w.height * 1.25, rw = rh * (752 / 900);
-      var line = -0.2 * vw + 1.45 * vw * smooth((q - 0.1) / 0.5);
-      o.roller.style.height = rh.toFixed(0) + 'px';
-      o.roller.style.transform = 'translate3d(' + (line - ROLLER_LINE * rw).toFixed(1) + 'px,' + (w.top - r.top + w.height / 2 - rh / 2).toFixed(1) + 'px,0)';
-      o.roller.style.opacity = (smooth(q / 0.12) * (1 - smooth((q - 0.62) / 0.1))).toFixed(3);
-      var ink = clamp((line - w.left) / Math.max(1, w.width), 0, 1);
-      o.word.style.setProperty('--ink', (ink * 100).toFixed(2) + '%');
+      // The divider: a little taller than the word; it travels from off the
+      // left edge to off the right edge, and the edit follows it.
+      var dh = w.height * 1.5;
+      var line = -0.05 * vw + 1.1 * vw * smooth((q - 0.1) / 0.5);
+      o.split.style.height = dh.toFixed(0) + 'px';
+      o.split.style.transform = 'translate3d(' + line.toFixed(1) + 'px,' + (w.top - r.top + w.height / 2 - dh / 2).toFixed(1) + 'px,0)';
+      o.split.style.opacity = (smooth(q / 0.12) * (1 - smooth((q - 0.62) / 0.1))).toFixed(3);
+      var edit = clamp((line - w.left) / Math.max(1, w.width), 0, 1);
+      o.word.style.setProperty('--edit', (edit * 100).toFixed(2) + '%');
     });
     hr.forEach(function (r, i) {
       if (r.bottom < -100 || r.top > vh + 100) return;

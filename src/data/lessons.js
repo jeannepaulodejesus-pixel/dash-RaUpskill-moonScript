@@ -1,4 +1,4 @@
-/* PressRun content. Headlines are the deck's assertion headlines verbatim.
+/* OneTap content. Headlines are the deck's assertion headlines verbatim.
    Notes follow the deck's speaker-note structure: point, misconception, cue,
    bridge. Minutes come from the Day 1 outline (115 minutes in total). */
 (function (root) {
@@ -20,22 +20,22 @@
     1: { min: 2, title: 'A reporting routine can become a reusable instruction.',
       notes: n('Day 1 outcome: explain what a small Apps Script does, trace its input and output, and say where a person still has to check.',
         'That this is a programming course. It is a reporting course that ends in a script.',
-        'Point at the procedure sheet on the stone: the proof. It stays with us all day.',
+        'Point at the checklist on the desk. Today it becomes a preset: an edit you save once and apply in one tap. It stays with us all day.',
         'Before any code, look at how often we already repeat this card.') },
     2: { min: 4, title: 'Repeated reporting requires us to repeat the same instructions.',
       notes: n('The same five steps recur every workday. The recurrence, not the difficulty, is what makes it a candidate.',
         'That automation is justified by a time-saving figure. We are not claiming one.',
-        'Let the week slide past. Ask who has done this exact list this week.',
+        'Let the week slide past. Ask who has done this exact list this week. It is editing every photo by hand, slider by slider.',
         'If we repeat it, it has to be written down well enough for someone else to follow.') },
     3: { min: 3, title: 'Automation starts with a procedure another person could follow.',
       notes: n('Ambiguous words (current, usual, looks right) hide business rules. A script cannot guess them.',
         'That the script will work out what "current" means.',
-        'Reveal each amber word, then its explicit replacement.',
+        'Reveal each amber word, then its explicit replacement. "Make it pop" is not a setting; "exposure +0.3" is.',
         'An explicit procedure is already most of a program.') },
     4: { min: 3, title: 'A script expresses that procedure in executable steps.',
       notes: n('Introduce the SOP-to-code mapping once, then use real terms from here on.',
         'That the analogy is exact. A script executes encoded instructions; it does not infer missing rules or check that the reporting definition is right.',
-        'Keep the checklist in place and let the code appear beside it.',
+        'Keep the checklist in place and let the code appear beside it: the same edit, saved as a preset.',
         'Where does this kind of instruction belong among the tools we already use?') },
     5: { min: 4, title: 'The workflow determines the appropriate tool.',
       notes: n('Match tool to task: formulas calculate, Excel workflows prepare data, Apps Script coordinates Workspace.',
@@ -102,12 +102,12 @@
     17: { min: 7, title: 'The script follows the procedure we already understand.',
       notes: n('Guided live run. Pause at each SOP step as its lines execute.',
         'That the script is doing something new. It is the same five steps.',
-        'Let the register travel. Stop on the status rule and on the write.',
+        'Let the sync travel. Stop on the status rule and on the write: that is the preset being applied to the whole batch.',
         'A completed execution is not yet a correct result.') },
     18: { min: 5, title: 'A completed execution still requires an output check.',
       notes: n('Compare against a manual filter: included IDs, excluded records, field order, and a rerun that replaces rather than duplicates.',
         'That "Execution completed" means the output is right.',
-        'Press Run again and watch the row count stay the same.',
+        'Treat it like a before/after: hold the output against the manual filter. Press Run again and watch the row count stay the same.',
         'The same verified output can feed a wider workflow.') },
     19: { min: 5, title: 'The same procedure can support a wider reporting workflow.',
       notes: n('A Gmail draft can carry a summary or link. Forms intake and Drive storage are adjacent examples.',
@@ -122,7 +122,7 @@
     21: { min: 4, title: 'Triggers change when a function runs and whose authority it uses.',
       notes: n('Manual, simple and installable triggers differ in timing, authorization and ownership.',
         'That a scheduled trigger runs at an exact second, or as the person who opens the file.',
-        'Walk the three rows; stop on "runs as".',
+        'Walk the three rows; stop on "runs as". A preset set to auto-apply on import is the same idea, except a trigger acts with someone\'s authority.',
         'Unattended automation brings operating responsibilities.') },
     22: { min: 4, title: 'Reliable automation depends on controlled inputs and maintained rules.',
       notes: n('Each advantage comes with a condition: validation, permissions, monitoring, quotas, safe reruns.',
@@ -137,7 +137,7 @@
     24: { min: 2, title: 'Day 2 turns this demonstrated procedure into your own script.',
       notes: n('Return to the opening procedure, now paired with verified output. Day 2: read, modify, run, inspect, troubleshoot.',
         'That Day 2 starts from a blank editor. It starts from this script in the sandbox.',
-        'Let the room change the rule and run it once.',
+        'Let the room change the rule and run it once: move one slider, apply the preset again.',
         'Close.') }
   };
 
@@ -159,7 +159,7 @@
   ];
 
   /* The Read chapter: six beats on one pinned triptych.
-     code: either script line numbers (from PressRoster.SCRIPT) or a teaching
+     code: either script line numbers (from OneTapRoster.SCRIPT) or a teaching
      excerpt given as { excerpt: [...] } with its own numbering.
      Each step lights sop (index), code (line numbers) and a consequence state. */
   var read = [
@@ -246,7 +246,7 @@
       why: "Only the rule changes: row[3] === 'Inactive'. Reading and writing stay the same." }
   ];
 
-  root.PressData = {
+  root.OneTapData = {
     chapters: chapters, slides: slides, sop: sop, dailyChecklist: dailyChecklist,
     read: read, sortTasks: sortTasks, terms: terms, predict: predict
   };

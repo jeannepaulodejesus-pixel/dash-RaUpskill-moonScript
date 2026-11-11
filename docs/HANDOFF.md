@@ -285,3 +285,31 @@ Branch `claude/cdn-v1.1.0`.
 
 - The live page needs Google sign-in, so it was not loaded here. The user should hard-refresh it to confirm the images.
 - PressRun deployment @1 (`AKfycbwXzsSy…l8GwhA`) still serves the v1.0.0 build, so its images 404. Retire it or move it to @3 if anyone has that link.
+
+## 2026-11-11 · Claude Code: The Preset (Revision 6), for review
+
+Branch `claude/preset-analogy` in worktree `.claude/worktrees/preset-analogy`, branched from `claude/cdn-v1.1.0`. Not merged, not pushed, not tagged, not deployed: the user asked to check and approve it first.
+
+**Changed**
+
+- Request: "revise the analogy used. Old printing press looks too old school, i need something a gen z and a millenial would relate to". The user chose The Preset (from The Preset, The Speedrun, The Choreo) and renamed the product **OneTap**. Rationale and lesson mapping in `BRIEF.md` (Revision 6); row and two "taken" bullets in `scrollcraft/FINGERPRINTS.md`.
+- 9 Codex imagegen images (prompts verbatim in `docs/ASSET-PROMPTS.md`; raw PNGs and the runner in `lab/gen/preset/`). Exported by the rewritten `tools/export-assets.py` to 10 WebP files: `room`, `room-day`, `desk`, `desk-day`, `prints-far`, `rest`, cutouts `camera` and `phone`, and `shot-raw` / `shot-edit` (one photograph, flattened and preset-graded in code). Removed the 11 print-shop images (they stay in tag `v1.1.0`).
+- `index.html`: name, favicon and wordmark (two sliders), world plates (RAW and edit), hero planes (camera, desk, phone), passages (prints plate, `data-ms-edit` word, `data-ms-split` divider), peak sweep line, close plates, Read intertitle line ("Watch the sync").
+- `app.js`: globals renamed `OneTapRoster` / `OneTapData` / `OneTapEnv` (also `roster.js`, `env.js`, `lessons.js`, `build.mjs`); bridge ends are slider knobs; hero planes `camera` / `phone`, lamp glow re-measured; world crossfades RAW to edit with both plates moving together; passages drag a before/after divider instead of a roller.
+- `styles.css`: graphite room tokens (`--shop-*` renamed `--room-*`), cooler pane tint and rim, hero re-measured on `room.webp`, passage word raw/edit and the divider, peak grade line and `rowDevelop`, reduced-motion hides the divider.
+- `lessons.js`: six speaker-note cues reworded to the preset (slides 1 to 4, 17, 18, 21, 24). Headlines untouched. `docs/PRESENTER-SCRIPT.md`: the analogy table and every print-shop line rewritten.
+- Version 1.1.0 to 1.2.0 (`package.json`, `package-lock.json`), so the Apps Script build points at `v1.2.0`. AGENTS.md, README, `gas/Code.gs` title updated.
+
+**Verified**
+
+- `npm test` 14/14, `npm run build`.
+- Screenshots at 1440 x 900 and 390 x 844, plus reduced motion: hero (rest, approach, sheet facing), all three passages mid-sweep, Read, break, peak (loop and written), check, predict (world taking the grade), close. No console errors, no failed requests on the static build.
+- `npm run check:contrast`: only the 4 known `mark.warn` underline false positives.
+- `npm run check:gas`: no console errors; the 8 new images 404 from jsDelivr because tag `v1.2.0` does not exist yet. Expected until approval.
+- `npm run shots` not run (scroll-craft harness not used this session).
+
+**Open (after the user approves)**
+
+- Merge, then tag `v1.2.0` on a commit that contains the images and push it; check the images return 200 from jsDelivr; then `npm run gas:deploy`.
+- The Apps Script project is still titled "PressRun: Routine…" in Drive; the page title (`doGet`) now says OneTap. Rename the project in the editor if wanted.
+- The storage key prefix `moonscript:` and the package name are unchanged on purpose.
