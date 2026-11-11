@@ -16,7 +16,7 @@
     "shots:mobile": "node tools/shoot.mjs --out lab/mobile --width 390 --height 844 --steps 2",
     "shots:reduced": "node tools/shoot.mjs --out lab/reduced --reduced-motion --steps 2",
     "gas:push": "node build.mjs && cd dist/gas && clasp push -f",
-    "gas:deploy": "node build.mjs && cd dist/gas && clasp push -f && clasp deploy -i AKfycbxwGWUecT_vHEIOXfGKNqOaXzXQ2CIiEXloY0z7dHKJBZ0fwCppmFZ08Zh2wkX0IjGXzg -d \"update\""
+    "gas:deploy": "node build.mjs && cd dist/gas && clasp push -f && clasp deploy -i AKfycbxRPiE6QauqDbq3QAxPmGfii4-bxMojCsfyC5ZZRd0LkKe7fdswyn9B98T0z5VhxVFa -d \"update\""
   },
   "devDependencies": {
     "playwright-core": "^1.63.0"

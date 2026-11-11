@@ -313,3 +313,22 @@ Branch `claude/preset-analogy` in worktree `.claude/worktrees/preset-analogy`, b
 - Merge, then tag `v1.2.0` on a commit that contains the images and push it; check the images return 200 from jsDelivr; then `npm run gas:deploy`.
 - The Apps Script project is still titled "PressRun: Routine…" in Drive; the page title (`doGet`) now says OneTap. Rename the project in the editor if wanted.
 - The storage key prefix `moonscript:` and the package name are unchanged on purpose.
+
+## 2026-11-12 · Claude Code: OneTap deployed as its own Apps Script project
+
+Branch `claude/preset-analogy`, pushed. Tag `v1.2.0` pushed. Not merged into `main`.
+
+**Changed**
+
+- Request: "deploy the new analogy into appscript as a separate appscript project". Created the standalone project "OneTap: From Routine to Run" (script `17YWR_B3…h7s-51a`) with `clasp create-script`, pushed the build and created deployment `AKfycbxRPiE6…z5VhxVFa` @1 ("v1.2.0: OneTap (The Preset)"). Access and execute-as come from `gas/appsscript.json` as before.
+- `package.json` `gas:deploy` and AGENTS.md now target the OneTap deployment on this branch. The PressRun project and its deployment are untouched and still serve the print-shop build.
+- Tag `v1.2.0` on this branch so jsDelivr serves The Preset images to the Apps Script build.
+
+**Verified**
+
+- `npm test` 14/14, `npm run build` (gas assets point at `@v1.2.0`), `clasp push` sent 5 files.
+
+**Open**
+
+- The live page needs Google sign-in, so it was not loaded here. The user should open the deployment URL and confirm the images.
+- Branch still needs merging into `main` if OneTap replaces PressRun as the main line. Until then, `gas:deploy` on `claude/cdn-v1.1.0` still targets PressRun, and on this branch it targets OneTap.

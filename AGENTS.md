@@ -14,8 +14,9 @@ Day 1 of the OneTap Apps Script upskilling track for Reporting Analysts (renamed
 Live references:
 
 - Repo: https://github.com/jeannepaulodejesus-pixel/dash-RaUpskill-moonScript
-- Release tag `v1.2.0` (from `package.json` version): jsDelivr serves `assets/img/` from this tag to the Apps Script build. `v1.1.0` holds the Press Run images. `v1.2.0` (The Preset images) is not pushed until the user approves the `claude/preset-analogy` branch.
-- Apps Script deployment ID: `AKfycbxwGWUecT_vHEIOXfGKNqOaXzXQ2CIiEXloY0z7dHKJBZ0fwCppmFZ08Zh2wkX0IjGXzg` (project "PressRun: Routine…", script `1W3PMUOlgY1hRGh0DnDwxCeNickK7P64K3-xBLOPp9ALnU31nL8vEy8B_`). The script ID goes in `.clasp.json`, which is local and gitignored: `{"scriptId":"<id>"}` at the repo root. The old MoonScript project (`AKfycbyGfoGtxYVlMfFjAVm49ZABsSBmGQW8lNi8L5WUCMHj1tmMKxfQSeco9LW0VhENI044`) is retired.
+- Release tag `v1.2.0` (from `package.json` version): jsDelivr serves `assets/img/` from this tag to the Apps Script build. `v1.1.0` holds the Press Run images.
+- Apps Script deployment ID: `AKfycbxRPiE6QauqDbq3QAxPmGfii4-bxMojCsfyC5ZZRd0LkKe7fdswyn9B98T0z5VhxVFa` (project "OneTap: From Routine to Run", script `17YWR_B3SX9_C6VUP_macNCW9YdkkzIb1KOQrIB1X7K9q-Mel9h7s-51a`). The script ID goes in `.clasp.json`, which is local and gitignored: `{"scriptId":"<id>"}` at the repo root.
+- OneTap is a separate Apps Script project. The PressRun project (deployment `AKfycbxwGWUecT_vHEIOXfGKNqOaXzXQ2CIiEXloY0z7dHKJBZ0fwCppmFZ08Zh2wkX0IjGXzg`, script `1W3PMUOlgY1hRGh0DnDwxCeNickK7P64K3-xBLOPp9ALnU31nL8vEy8B_`) stays live with the print-shop build from branch `claude/cdn-v1.1.0` / tag `v1.1.0`. Don't push this branch's build to it. The old MoonScript project (`AKfycbyGfoGtxYVlMfFjAVm49ZABsSBmGQW8lNi8L5WUCMHj1tmMKxfQSeco9LW0VhENI044`) is retired.
 
 Design intent and the feeling curve live in `BRIEF.md`. Read it before changing anything visual.
 
