@@ -750,7 +750,7 @@ Answer: **2** (Jonah Park and Lea Dizon).
 
 ## Slide 24 · Day 2 turns this demonstrated procedure into your own script. (2 min)
 
-The slide is the headline drawn as a pair. Read it left to right: **this demonstrated procedure** is the paper card on the left (**Day 2 · in plain steps**), the arrow is **turns into**, and **your own script** is the pane on the right (**Day 2 · your script**). On a phone only the right pane shows.
+The slide is the headline drawn as a pair. Read it left to right: the paper card on the left (**Day 2 · in plain steps**) is tomorrow's procedure, written the way today's was demonstrated on slide 3; the arrow is **turns into**; and **your own script** is the pane on the right (**Day 2 · your script**). On a phone the card and the tool chips are hidden: only the workbook title and the sheet with its tabs show.
 
 **DO.** Start on the left card. It is tomorrow's procedure, written as plainly as slide 3's: read Raw Data without editing it, build Cleaned Data, Daily Summary and Agent Summary, then confirm the run. The steps come from the workbook's exercise rules and acceptance criteria. Its last line is exercise rule 9: the script creates the output tabs, not you.
 
@@ -785,7 +785,12 @@ The page shows what each tab must contain, never the computed answers. Counts ab
 **SAY** (close):
 > "This morning we started with a checklist on a desk. Now it's saved as a preset, checked against a manual filter, and you've watched it run. Day 2: you read, modify, run, inspect, and troubleshoot your own. And you won't start from nothing. You start from the moves you traced today."
 
-**DO.** Point at the parking lot. "These are what we start with on Day 2." Then close.
+**DO.** Bring back one of the reports you wrote on the parking lot at slide 2.
+
+**SAY.**
+> "Remember this one? Does it have the same shape as the Day 2 workbook: read the raw data, never touch it, build the tabs, check the run? If it does, after Day 2 you'll have written a script with that shape yourself."
+
+**DO.** Point at the rest of the parking lot. "These are what we start with on Day 2." Then close.
 
 **WATCH OUT.** "Day 2 needs new tools." Almost none: every tool on the list except `else` is already in today's script, at the line the chip shows.
 

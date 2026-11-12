@@ -425,3 +425,12 @@ Branch `claude/day2-procedure`, off `main`. Not merged, not deployed.
 ## 2026-11-12 · Claude Code: day2-procedure merged and deployed
 
 Request: "merge day2-procedure into main and deploy it". `main` fast-forwarded from `590ba86` to `bb84675` after `npm test` 18/18 and `npm run build`. `npm run gas:deploy`: OneTap deployment `AKfycbxRPiE6…z5VhxVFa` is now @5 (images still from `v1.2.0`). Open: check slide 24 on the live page (Google sign-in); the Modify wording question.
+
+## 2026-11-12 · Claude Code: presenter script aligned with slide 24
+
+Branch `claude/script-align`, off `main`. Not merged. Docs only, so no deploy is needed.
+
+- Request: "is the presenter script is also aligned?" Checked the slide 24 section line by line against the slide: the card steps, the tool chips, the four tabs and their counts, and the Becky and Diane rows all match. Fixed three gaps in `docs/PRESENTER-SCRIPT.md`:
+  - The opening mapped the card to the headline's "this demonstrated procedure", but the card is now tomorrow's procedure. It now says the card is written the way today's was demonstrated on slide 3.
+  - On phones the tool chips are hidden too, not only the card.
+  - Slide 2 promises "You will reuse one of them at slide 24" (a report on the parking lot), but slide 24 never did. Added the callback, phrased as a question so it claims nothing about the room's report. This gap predates today's changes.
