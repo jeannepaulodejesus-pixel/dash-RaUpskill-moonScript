@@ -496,3 +496,7 @@ Branch `main`, pushed.
 **Open**
 
 - To rebuild PressRun: `git worktree add ../pressrun 18f80be`, then build there. No tag marks that commit; ask the user before adding one.
+
+## 2026-11-13 · Claude Code: pressrun-live tag
+
+Request: "go" (to tagging the PressRun commit). Annotated tag `pressrun-live` on `18f80be`, pushed; AGENTS.md now names the tag. Rebuild PressRun with `git worktree add ../pressrun pressrun-live`. Closes the open item in the previous entry.
