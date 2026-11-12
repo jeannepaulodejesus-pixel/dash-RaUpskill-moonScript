@@ -135,9 +135,9 @@
         'Collect predictions before revealing each answer.',
         'Tomorrow you write one like it yourself.') },
     24: { min: 2, title: 'Day 2 turns this demonstrated procedure into your own script.',
-      notes: n('Return to the opening procedure, now paired with the Day 2 workbook: one function, buildWfmBeginnerReport(), reads the sandbox calls in Raw Data and writes Cleaned Data, Daily Summary and Agent Summary. Day 2: read, modify, run, inspect, troubleshoot.',
+      notes: n('The Day 2 procedure in plain steps, like slide 3, next to the workbook it runs on: one function, buildWfmBeginnerReport(), reads the sandbox calls in Raw Data and writes Cleaned Data, Daily Summary and Agent Summary. Day 2: read, modify, run, inspect, troubleshoot.',
         'That Day 2 needs new tools. The tool list shows the line where today\'s script already used each one, and marks what is new.',
-        'Read the pair left to right: the Day 1 card, the arrow, the Day 2 pane. Then click through the four tabs. Raw Data is read only; the script creates the other three. Point out the abandoned call\'s empty cells: today\'s NULL lesson again.',
+        'Read the pair left to right: the procedure card, the arrow, the workbook. Then click through the four tabs. Raw Data is read only; the script creates the other three. Point out the abandoned call\'s empty cells: today\'s NULL lesson again.',
         'Close.') }
   };
 

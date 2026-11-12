@@ -750,17 +750,19 @@ Answer: **2** (Jonah Park and Lea Dizon).
 
 ## Slide 24 · Day 2 turns this demonstrated procedure into your own script. (2 min)
 
-The slide is the headline drawn as a pair. Read it left to right: **this demonstrated procedure** is the paper card on the left (**Day 1 · traced today**), the arrow is **turns into**, and **your own script** is the pane on the right (**Day 2 · your script**). On a phone only the right pane shows.
+The slide is the headline drawn as a pair. Read it left to right: **this demonstrated procedure** is the paper card on the left (**Day 2 · in plain steps**), the arrow is **turns into**, and **your own script** is the pane on the right (**Day 2 · your script**). On a phone only the right pane shows.
 
-**DO.** Start on the left card. It is the procedure from slide 3, and its last line names what it became: `buildActiveRoster()`, 20 lines.
+**DO.** Start on the left card. It is tomorrow's procedure, written as plainly as slide 3's: read Raw Data without editing it, build Cleaned Data, Daily Summary and Agent Summary, then confirm the run. The steps come from the workbook's exercise rules and acceptance criteria. Its last line is exercise rule 9: the script creates the output tabs, not you.
 
 **SAY.**
-> "This is where we started this morning: five steps on paper. By now it's one function, twenty lines, and you can trace every one of them."
+> "This morning we started from five plain steps and turned them into a script. Tomorrow starts the same way: here are five plain steps. Read the raw calls, don't touch them, build three tabs, check the run."
+
+**ASK.** "What did slide 3's procedure have that this one also needs?" (A step that checks the result. Here it's step 5.)
 
 **DO.** Follow the arrow to the right pane. Point at the **Sandbox extract** label: a beginner-safe extract adapted to a public call-center dataset's schema, not real calls.
 
 **SAY.**
-> "Tomorrow you write one yourself: `buildWfmBeginnerReport()`. Same moves, new data: call-center calls instead of a roster."
+> "And that's what you'll turn those steps into: `buildWfmBeginnerReport()`. Same moves as today, new data: call-center calls instead of a roster."
 
 **DO.** Point at the tool chips. Each one shows the line where today's script already used it. Only `else` is marked new.
 

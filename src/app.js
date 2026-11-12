@@ -580,7 +580,7 @@
   }
 
   /* ------------------------------------------------------ Slide 24 · close
-     The opening procedure next to the Day 2 workbook. Counts come from the
+     The Day 2 procedure next to the Day 2 workbook. Counts come from the
      workbook's Raw Data and tool lines from the Day 1 script; the output tabs
      show what the exercise asks for, never its answers. */
   function buildClose() {
@@ -591,7 +591,6 @@
     var abandoned = raw.slice(1).filter(function (r) { return r[ans] === 'N'; });
     var blank = abandoned.every(function (r) { return r[spd] === '' && r[sat] === ''; });
     var rowsFor = { call: calls, Date: dates.length, Agent: agents.length };
-    var day1Fn = R.SCRIPT[0].replace(/^function (\w+).*$/, '$1');
 
     var tools = W.TOOLS.map(function (t) {
       var hits = W.toolLines(R.SCRIPT, t), known = hits.filter(function (h) { return h.line; });
@@ -617,8 +616,8 @@
     }));
 
     el.innerHTML =
-      '<div class="card-sheet card-sheet--sm close__day1"><p class="sheet__kicker">Day 1 · traced today</p><p class="sheet__title">The procedure</p><ol class="sheet__steps">' + D.sop.map(function (s) { return '<li>' + esc(s.clear) + '</li>'; }).join('') + '</ol>' +
-        '<p class="sheet__foot">Written as <code>' + esc(day1Fn) + '()</code>, ' + R.SCRIPT.length + ' lines.</p></div>' +
+      '<div class="card-sheet card-sheet--sm close__proc"><p class="sheet__kicker">Day 2 · in plain steps</p><p class="sheet__title">The procedure</p><ol class="sheet__steps">' + W.PROCEDURE.map(function (s) { return '<li>' + esc(s) + '</li>'; }).join('') + '</ol>' +
+        '<p class="sheet__foot">' + esc(W.RULE) + '</p></div>' +
       '<span class="close__arrow" aria-hidden="true">&rarr;</span>' +
       '<div class="d2 glass">' +
         '<div class="d2__head"><p class="d2__kicker">Day 2 · your script <span class="tag">Sandbox extract</span></p>' +

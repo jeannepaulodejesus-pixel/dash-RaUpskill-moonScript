@@ -25,3 +25,8 @@ test('tool lines point at the Day 1 script, and missing parts read as new', () =
   assert.equal(ifPart.line, 10);
   assert.equal(elsePart.line, 0);
 });
+
+test('the Day 2 procedure names every output tab and keeps Raw Data read only', () => {
+  for (const o of W.OUTPUTS) assert.ok(W.PROCEDURE.some((s) => s.includes(o.name)), o.name);
+  assert.match(W.PROCEDURE[0], /Raw Data.*Do not edit/);
+});

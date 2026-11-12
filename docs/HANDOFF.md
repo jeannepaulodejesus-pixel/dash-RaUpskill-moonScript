@@ -412,3 +412,12 @@ Branch `claude/close-fit`. Request: omit "Adapted from a public call-center data
 ## 2026-11-12 · Claude Code: close-fit merged and deployed
 
 Request: "merge close-fit into main and deploy it". `main` fast-forwarded from `698a551` to `7b89344` after `npm test` 17/17 and `npm run build`. `npm run gas:deploy`: OneTap deployment `AKfycbxRPiE6…z5VhxVFa` is now @4 (images still from `v1.2.0`). Open: check slide 24 on the live page (Google sign-in); the Modify wording question.
+
+## 2026-11-12 · Claude Code: slide 24 card shows the Day 2 procedure
+
+Branch `claude/day2-procedure`, off `main`. Not merged, not deployed.
+
+- Request: "tailor the 'The Procedure' to the day 2, it's misleading". The card showed the Day 1 roster steps next to the Day 2 workbook.
+- New `PROCEDURE` and `RULE` in `src/data/day2.js`: five plain steps built from the workbook's exercise rules 5 to 10 and acceptance criteria 1 to 3, and exercise rule 9 word for word as the card's last line. The card is now labelled **Day 2 · in plain steps**; class `close__day1` renamed `close__proc`.
+- Slide 24 speaker notes and `docs/PRESENTER-SCRIPT.md` slide 24 opening rewritten for the new card. Test added: the procedure names every output tab and keeps Raw Data read only.
+- Verified: `npm test` 18/18, `npm run check:gas` (no console errors, no failed requests), `npm run check:contrast` (only the 4 known `mark.warn` false positives), screenshots at 1440 x 900 and 1280 x 720.

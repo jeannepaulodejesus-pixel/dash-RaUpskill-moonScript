@@ -154,6 +154,17 @@
     { label: 'Logger.log()', find: ['Logger.log('] }
   ];
 
+  // The Day 2 procedure as plain steps, like slide 3's: exercise rules 5 to 10
+  // and acceptance criteria 1 to 3. RULE is exercise rule 9, word for word.
+  var PROCEDURE = [
+    'Read the Raw Data tab. Do not edit it.',
+    'Create or clear a tab named Cleaned Data: all raw rows plus calculated fields.',
+    'Create or clear a tab named Daily Summary: one row per date.',
+    'Create or clear a tab named Agent Summary: one row per agent.',
+    'Confirm the script runs without errors and Raw Data is unchanged.'
+  ];
+  var RULE = 'Do not manually create the output tabs. The script must create them.';
+
   // The three tabs the script must create or clear. per: what one output row stands for.
   var OUTPUTS = [
     { name: 'Cleaned Data', per: 'call', add: [
@@ -184,7 +195,7 @@
   }
 
   return {
-    TITLE: TITLE, PURPOSE: PURPOSE, SOURCE_REPO: SOURCE_REPO, FN: FN,
+    TITLE: TITLE, PURPOSE: PURPOSE, SOURCE_REPO: SOURCE_REPO, FN: FN, PROCEDURE: PROCEDURE, RULE: RULE,
     RAW: RAW, TOOLS: TOOLS, OUTPUTS: OUTPUTS, distinct: distinct, toolLines: toolLines
   };
 });
