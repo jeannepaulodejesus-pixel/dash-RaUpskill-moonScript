@@ -353,3 +353,26 @@ Branch `claude/preset-analogy`, fast-forwarded into `main`.
 
 - The live page needs Google sign-in, so it was not loaded here. The user should open the deployment URL and confirm it renders with images.
 - The Drive project title and the `moonscript:` storage prefix are unchanged (see the entries above).
+
+## 2026-11-12 · Claude Code: slide 24 previews the Day 2 workbook
+
+Branch `claude/day2-close`, off `main`. Not merged, not deployed.
+
+**Changed**
+
+- Request: "check the gs_data.json in the downloads folder. these is the supposed training data for the Day 2, tailor the last slide of the deck with it". The file is the Day 2 exercise workbook: the WFM Apps Script Beginner Playground (Instructions plus 120 Raw Data calls, a sandbox extract adapted to a public call-center dataset).
+- New `src/data/day2.js` (`OneTapDay2`): Raw Data copied unchanged, the nine tools exercise rule 4 asks for, and the three output tabs with their required columns. Loaded by `build.mjs` before `app.js`.
+- Slide 24 (`buildClose` in `app.js`): the "Change the rule" demo is replaced by a Day 2 workbook pane next to the procedure sheet. It shows a **Sandbox extract** label, the source link, the function name `buildWfmBeginnerReport()`, each tool with the line where the Day 1 script used it (only `else` is new), and a sheet with four tabs (Raw Data, then the three tabs the script creates). Counts are computed from the data: 120 calls, 8 agents, 5 days, 15 abandoned with empty speed and rating. The output tabs show what is required, never the answers.
+- Tabs follow the ARIA tab pattern (arrow keys, Home, End); arrows don't step slides in presenter mode. Panels share one grid cell so the pinned slide doesn't change height.
+- Speaker notes for slides 23 and 24, and `docs/PRESENTER-SCRIPT.md` (Verify row, checklist, slide 23 bridge and rule table, slide 24 rewritten). AGENTS.md: map entry and a fifth honesty label.
+- `test/day2.test.js` added to `npm test`.
+
+**Verified**
+
+- `npm test` 17/17, `npm run build`, `npm run check:gas` (no console errors, no failed requests), `npm run check:contrast` (only the 4 known `mark.warn` false positives).
+- Screenshots of slide 24 at 1440 x 900 and 390 x 844, every tab, keyboard switching. Everything fits on one desktop screen; mobile hides the procedure sheet (as before) and the tool list.
+
+**Open**
+
+- The Day 2 sequence pills (Read, Modify, Run, Inspect, Troubleshoot) are deck copy and unchanged, but the workbook asks learners to write a new function, not modify one. Confirm with the user.
+- Merge into `main` and `npm run gas:deploy` when approved. No image changes, so no new tag is needed.

@@ -59,6 +59,7 @@ src/styles.css          all theming and layout: graphite room tokens, .world (RA
 src/engine/             scrollcraft engine (scrollcraft.js / .css). VENDORED: do not edit
 src/roster.js           the teaching logic: SAMPLE roster, SCRIPT (the 20-line Day 1 script), run(), compare()
 src/data/lessons.js     slide headlines, minutes, speaker notes, Read-chapter step maps, quiz data
+src/data/day2.js        Day 2 workbook preview for slide 24: Raw Data copied from the facilitator's gs_data.json (sandbox extract), tools, output tabs
 src/env.js              platform adapter: static vs Apps Script (history, location, storage, clipboard)
 src/app.js              Program Counter (the sync, slider-knob ends), lessons, hero choreography, before/after passages, world RAW-to-edit crossfade, pane sheen, interactions, presenter mode
 gas/Code.gs             doGet() + include(); gas/appsscript.json manifest (no OAuth scopes)
@@ -84,6 +85,7 @@ scrollcraft/FINGERPRINTS.md  scroll-craft uniqueness registry (append-only)
    - the simulated execution log
    - the editor schematic on slide 16
    - adjacent examples on slide 19
+   - the Day 2 workbook on slide 24 (sandbox extract of a public call-center dataset)
 
    No invented statistics or time savings.
 5. **Deck copy is verbatim.** Headlines in `lessons.js` and `index.html` are the deck's assertion headlines. No em dashes in visible copy.

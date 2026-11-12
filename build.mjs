@@ -42,7 +42,7 @@ let html = read(src('index.html'))
 // Content hashes on the static build's URLs, so a redeploy is never served stale.
 const hash = (f) => createHash('sha1').update(readFileSync(src(f))).digest('hex').slice(0, 8);
 const CSS = ['engine/scrollcraft.css', 'styles.css'];
-const JS = ['engine/scrollcraft.js', 'roster.js', 'data/lessons.js', 'env.js', 'app.js'];
+const JS = ['engine/scrollcraft.js', 'roster.js', 'data/lessons.js', 'data/day2.js', 'env.js', 'app.js'];
 
 // ---------------------------------------------------------------- web
 const web = join(root, 'dist', 'web');

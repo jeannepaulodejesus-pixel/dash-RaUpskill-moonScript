@@ -7,7 +7,7 @@
     "repo": "jeannepaulodejesus-pixel/dash-RaUpskill-moonScript"
   },
   "scripts": {
-    "test": "node --test test/roster.test.js test/env.test.js",
+    "test": "node --test test/roster.test.js test/env.test.js test/day2.test.js",
     "build": "node build.mjs",
     "serve": "node build.mjs && node tools/serve.mjs --root dist/web --port 4500",
     "check:gas": "node build.mjs && node tools/gas-sim.mjs",

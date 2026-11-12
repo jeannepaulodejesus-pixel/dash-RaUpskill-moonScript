@@ -579,30 +579,77 @@
     });
   }
 
-  /* ------------------------------------------------------ Slide 24 · close */
+  /* ------------------------------------------------------ Slide 24 · close
+     The opening procedure next to the Day 2 workbook. Counts come from the
+     workbook's Raw Data and tool lines from the Day 1 script; the output tabs
+     show what the exercise asks for, never its answers. */
   function buildClose() {
-    var el = $('[data-ms-close]'); if (!el) return;
+    var el = $('[data-ms-close]'), W = window.OneTapDay2; if (!el || !W) return;
+    var raw = W.RAW, head = raw[0], calls = raw.length - 1;
+    var dates = W.distinct('Date'), agents = W.distinct('Agent');
+    var ans = head.indexOf('Answered (Y/N)'), spd = head.indexOf('Speed of answer in seconds'), sat = head.indexOf('Satisfaction rating');
+    var abandoned = raw.slice(1).filter(function (r) { return r[ans] === 'N'; });
+    var blank = abandoned.every(function (r) { return r[spd] === '' && r[sat] === ''; });
+    var rowsFor = { call: calls, Date: dates.length, Agent: agents.length };
+
+    var tools = W.TOOLS.map(function (t) {
+      var hits = W.toolLines(R.SCRIPT, t), known = hits.filter(function (h) { return h.line; });
+      var chip = hits.map(function (h) {
+        var part = hits.length > 1 ? esc(h.find.replace(' (', '')) + ' ' : '';
+        return h.line ? '<span class="chip chip--true">' + part + 'line ' + h.line + '</span>' : '<span class="chip chip--false">' + part + 'new</span>';
+      }).join('');
+      return '<li' + (known.length ? '' : ' class="is-new"') + '><code>' + esc(t.label) + '</code>' + chip + '</li>';
+    }).join('');
+
+    var tabs = ['Raw Data'].concat(W.OUTPUTS.map(function (o) { return o.name; }));
+    var panels = [
+      '<div class="ws-frame">' + wsHTML(raw.slice(0, 4), { compact: true }) + '</div>' +
+      '<p class="d2__cap">' + calls + ' calls, ' + agents.length + ' agents, ' + dates.length + ' days (' + esc(dates[0]) + ' to ' + esc(dates[dates.length - 1]) + '). ' +
+        abandoned.length + ' abandoned (Answered = N)' + (blank ? ', each with an empty speed and rating' : '') + '. Read only.</p>'
+    ].concat(W.OUTPUTS.map(function (o) {
+      var per = rowsFor[o.per], what = o.per === 'call' ? 'call' : o.per;
+      return '<div class="d2__well">' +
+        '<p class="d2__cap">The script creates this tab: one row per ' + esc(what) + ', so ' + per + ' rows' + (o.add ? '. All ' + head.length + ' Raw Data columns, plus:' : '. Columns:') + '</p>' +
+        (o.add ? '<ol class="d2__rules">' + o.add.map(function (a) { return '<li>' + esc(a) + '</li>'; }).join('') + '</ol>'
+               : '<ul class="d2__metrics">' + o.metrics.map(function (m) { return '<li>' + esc(m) + '</li>'; }).join('') + '</ul>') +
+      '</div>';
+    }));
+
     el.innerHTML =
       '<div class="card-sheet card-sheet--sm"><p class="sheet__title">The procedure</p><ol class="sheet__steps">' + D.sop.map(function (s) { return '<li>' + esc(s.clear) + '</li>'; }).join('') + '</ol></div>' +
-      '<div class="try glass">' +
-        '<div class="try__row"><label class="field field--inline"><span>Change the rule</span><select data-try-status><option>Active</option><option>Inactive</option><option>NULL</option></select></label>' +
-        '<button type="button" class="btn btn--paper btn--sm" data-try-run>Run</button></div>' +
-        '<pre class="code code--sm" data-try-code></pre>' +
-        '<div class="try__out" role="status" aria-live="polite"></div>' +
+      '<div class="d2 glass">' +
+        '<div class="d2__head"><p class="d2__kicker">Day 2 workbook <span class="tag">Sandbox extract</span></p>' +
+          '<p class="d2__title">' + esc(W.TITLE) + '</p>' +
+          '<p class="d2__src">Adapted from a <a href="' + esc(W.SOURCE_REPO) + '" target="_blank" rel="noopener">public call-center dataset</a>. Your function: <code>' + esc(W.FN) + '()</code></p></div>' +
+        '<div class="d2__tools"><p class="d2__label">Tools it asks for, and where today\'s script used them</p><ul>' + tools + '</ul></div>' +
+        '<div class="d2__book">' +
+          '<div class="d2__panels">' + panels.map(function (p, i) {
+            return '<div class="d2__panel" role="tabpanel" id="d2-p' + i + '" aria-labelledby="d2-t' + i + '"' + (i ? ' hidden' : '') + '>' + p + '</div>';
+          }).join('') + '</div>' +
+          '<div class="ws__tabs d2__tabs" role="tablist" aria-label="Day 2 workbook tabs">' + tabs.map(function (t, i) {
+            return '<button type="button" role="tab" class="ws__tab' + (i ? ' is-proposed' : ' is-active') + '" id="d2-t' + i + '" aria-controls="d2-p' + i + '" aria-selected="' + !i + '" tabindex="' + (i ? -1 : 0) + '">' +
+              esc(t) + (i ? ' <em>script creates</em>' : '') + '</button>';
+          }).join('') + '</div>' +
+        '</div>' +
       '</div>';
-    var sel = $('[data-try-status]', el), pre = $('[data-try-code]', el), out = $('.try__out', el);
-    function lines() { var s = R.SCRIPT.slice(); s[9] = "    if (row[3] === '" + sel.value + "') {"; return s; }
-    function draw() { pre.innerHTML = codeHTML([10, 11], lines()); litLines(pre, [10]); }
-    function run() {
-      var r = R.run(R.makeWorkbook(), { status: sel.value });
-      var v = R.compare(r.output, R.manualFilter(R.SAMPLE, sel.value));
-      out.innerHTML = wsHTML(r.output, { compact: true, tabs: [{ name: R.TARGET, active: true }] }) +
-        '<p class="try__v"><span class="tag ' + (v.sameIds ? 'tag--ok' : 'tag--warn') + '">' + (v.sameIds ? 'Verified' : 'Mismatch') + '</span> ' +
-        (r.output.length - 1) + ' rows, checked against a manual filter for Status ' + esc(literal(sel.value)) + '.</p>';
+
+    var tabEls = $$('[role="tab"]', el), panelEls = $$('[role="tabpanel"]', el);
+    function select(i, focus) {
+      tabEls.forEach(function (t, k) {
+        t.setAttribute('aria-selected', String(k === i)); t.tabIndex = k === i ? 0 : -1; t.classList.toggle('is-active', k === i);
+        panelEls[k].hidden = k !== i;
+      });
+      if (focus) tabEls[i].focus();
     }
-    draw(); run();
-    sel.addEventListener('change', draw);
-    $('[data-try-run]', el).addEventListener('click', run);
+    tabEls.forEach(function (t, i) {
+      t.addEventListener('click', function () { select(i); });
+      t.addEventListener('keydown', function (e) {
+        var n = e.key === 'ArrowRight' ? i + 1 : e.key === 'ArrowLeft' ? i - 1 : e.key === 'Home' ? 0 : e.key === 'End' ? tabEls.length - 1 : -2;
+        if (n === -2) return;
+        // Arrows move between tabs here, not slides in presenter mode.
+        e.preventDefault(); e.stopPropagation(); select((n + tabEls.length) % tabEls.length, true);
+      });
+    });
   }
 
   /* ------------------------------------------------------------- hero

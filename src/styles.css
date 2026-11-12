@@ -736,12 +736,38 @@ mark.warn { background: var(--warn-bg); color: var(--amber-lit); padding: 0 .2em
 .close__shade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(14, 11, 9, .66) 0%, rgba(14, 11, 9, .34) 48%, transparent 78%); }
 .close__inner { position: relative; z-index: 2; width: 100%; max-width: var(--sc-maxw); margin-inline: auto; padding: calc(var(--rail-h) + 4vh) var(--sc-gutter) 2.4vh; display: grid; gap: clamp(.9rem, 2.2vh, 1.5rem); }
 .close__inner .assert { margin: 0; max-width: 22ch; color: #F4EFE6; }
-.close__pair { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(1.2rem, 3vw, 2.6rem); align-items: start; }
+.close__pair { display: grid; grid-template-columns: minmax(0, .62fr) minmax(0, 1.38fr); gap: clamp(1.2rem, 3vw, 2.6rem); align-items: start; }
 .close .sheet__steps { font-size: .86rem; }
-.try { display: grid; gap: 12px; padding: 16px; border-radius: var(--r-pane); --glass-tint: linear-gradient(180deg, rgba(34, 29, 24, .66), rgba(16, 13, 11, .74)); }
-.try__row { display: flex; gap: 10px; align-items: end; flex-wrap: wrap; }
-.try__out { border-radius: 12px; overflow: hidden; background: var(--inset); box-shadow: inset 0 0 0 1px var(--glass-line); }
-.try__v { margin: 0; padding: 10px 12px; font-size: .84rem; color: var(--ink-2); border-top: 1px solid var(--glass-line); }
+/* The Day 2 workbook: one pane, a tool list and a sheet whose tabs switch. */
+.d2 { display: grid; gap: 12px; padding: 16px; border-radius: var(--r-pane); min-width: 0; --glass-tint: linear-gradient(180deg, rgba(34, 29, 24, .66), rgba(16, 13, 11, .74)); }
+.d2 p { margin: 0; }
+.d2__kicker { font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color: var(--teal-lit); font-weight: 600; }
+.d2__kicker .tag { margin: 0 0 0 .6em; }
+.d2__title { font-weight: 600; font-size: 1.05rem; letter-spacing: -0.015em; color: var(--ink); margin-top: 4px !important; }
+.d2__src { font-size: .82rem; color: var(--ink-2); margin-top: 2px !important; }
+.d2__src a { color: var(--ink); }
+.d2__src code, .d2__tools code { font-family: var(--sc-font-mono); color: var(--ink); }
+.d2__label { font-size: .76rem; color: var(--ink-3); margin-bottom: 6px !important; }
+.d2__tools ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.d2__tools li { font-size: .76rem; padding: .3em .5em; border-radius: var(--r-ctl); background: var(--inset); box-shadow: inset 0 0 0 1px var(--glass-line); white-space: nowrap; }
+.d2__tools .chip { font-size: .68rem; }
+.d2__book { border-radius: 12px; overflow: hidden; background: var(--inset); box-shadow: inset 0 0 0 1px var(--glass-line); min-width: 0; }
+/* Panels share one cell, so the sheet keeps the tallest panel's height and the pinned slide never jumps. */
+.d2__panels { display: grid; }
+.d2__panel { grid-area: 1 / 1; min-width: 0; }
+.d2__panel[hidden] { display: block; visibility: hidden; }
+.d2__panel .ws-frame { border-radius: 0; background: transparent; box-shadow: none; }
+.d2 .ws--compact td { white-space: nowrap; }
+.d2 .ws--compact .ws__head td { white-space: normal; min-width: 4.5em; }
+.d2 .ws--compact { font-size: .74rem; }
+.d2__cap { padding: 8px 12px; font-size: .8rem; color: var(--ink-2); line-height: 1.45; }
+.d2__panel > .d2__cap { border-top: 1px solid var(--glass-line); }
+.d2__well { padding: 4px 0 10px; }
+.d2__rules { margin: 0; padding: 0 12px 0 34px; font-size: .8rem; color: var(--ink); line-height: 1.5; }
+.d2__metrics { list-style: none; margin: 0; padding: 0 12px; display: flex; flex-wrap: wrap; gap: 6px; }
+.d2__metrics li { font-family: var(--sc-font-mono); font-size: .72rem; padding: .3em .55em; border-radius: 7px; color: var(--ink); background: rgba(255, 255, 255, .06); box-shadow: inset 0 0 0 1px var(--glass-line); }
+button.ws__tab { appearance: none; background: transparent; border: 0; cursor: pointer; font-family: var(--sc-font-mono); }
+button.ws__tab:hover { color: var(--ink); }
 .day2 { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; counter-reset: d2; }
 .day2 li {
   counter-increment: d2; padding: .55em 1em .55em .8em; border-radius: var(--r-ctl); color: var(--ink); font-weight: 500; font-size: .9rem;
@@ -870,6 +896,8 @@ mark.warn { background: var(--warn-bg); color: var(--amber-lit); padding: 0 .2em
   .close__pair .card-sheet { display: none; }
   .close__inner .assert { font-size: 1.5rem; }
   .day2 li { font-size: .78rem; padding: .4em .6em; }
+  .d2 { padding: 12px; gap: 10px; }
+  .d2__tools { display: none; }
   .notes { top: auto; height: 55svh; left: 8px; right: 8px; width: auto; }
   .hud { display: none; }
   .folio { right: 10px; bottom: 10px; }

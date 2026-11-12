@@ -33,7 +33,7 @@ Times are the slide minutes from the Day 1 outline. They add up to 105 minutes. 
 | Read | 10 to 15 | 29 | How to trace a script: function, variables, rows, condition, loop, services. | Predict each trace step before revealing it. |
 | Break | | 5 | | Timer on screen. |
 | Run | 16 to 19 | 22 | The run is the same five steps. Completed is not the same as correct. | Narrate the run as a room. Rerun vs append. |
-| Verify | 20 to 24 | 19 | Errors have locations. Triggers have owners. Understanding means tracing. | Break it on purpose. Three predictions. Change the rule. |
+| Verify | 20 to 24 | 19 | Errors have locations. Triggers have owners. Understanding means tracing. | Break it on purpose. Three predictions. Preview the Day 2 workbook. |
 
 ---
 
@@ -41,7 +41,7 @@ Times are the slide minutes from the Day 1 outline. They add up to 105 minutes. 
 
 **Two days before**
 
-- [ ] Open the page and click through every interactive piece once: the sort (slide 7), term matching (slide 9), the Read chapter, the full run (17), the check and rerun buttons (18), the error lab (20), predictions (23) and the rule changer (24).
+- [ ] Open the page and click through every interactive piece once: the sort (slide 7), term matching (slide 9), the Read chapter, the full run (17), the check and rerun buttons (18), the error lab (20), predictions (23) and the Day 2 workbook tabs (24).
 - [ ] Prepare the sandbox copy of the workbook with its bound script. Check the sheet names match exactly: `employees.master_roster` and `training.active_roster`.
 - [ ] Run the script once yourself in the sandbox so you have seen the authorization prompt and know what it looks like on your account.
 - [ ] Decide how people will answer: hands, sticky notes, a shared doc, or the meeting chat. Pick one and tell people at the start.
@@ -734,24 +734,53 @@ This is **the peak**. On the page, the whole script runs against the sample rost
 
 **DO.** After question 3, ask the follow-up:
 > "If it's Inactive instead, how many rows do you expect?"
-Answer: **2** (Jonah Park and Lea Dizon). You'll confirm it on the next slide.
+Answer: **2** (Jonah Park and Lea Dizon).
+
+| Rule | Rows | Who |
+|---|---|---|
+| Active | 6 | Amara, Priya, Grace, Rafael, Marco, Kai |
+| Inactive | 2 | Jonah, Lea |
+| NULL | 1 | Tomas |
 
 **DO** (fist to five, the last one of the day): "Could you trace this script for a colleague tomorrow?" Note the room. If most are fours and fives, say so out loud. They earned it.
 
 **WATCH OUT.** "Reading code means memorising it."
 
-**BRIDGE.** "Tomorrow you change the rule yourself. Let's do it once now."
+**BRIDGE.** "Tomorrow you write one like it yourself. Here's what you'll work on."
 
 ## Slide 24 · Day 2 turns this demonstrated procedure into your own script. (2 min)
 
-**DO.** The page returns to the opening procedure, now paired with verified output, in daylight. Use the **Change the rule** selector.
+**DO.** The page returns to the opening procedure, in daylight, next to the **Day 2 workbook**: the WFM Apps Script Beginner Playground. It is labelled **Sandbox extract**: a beginner-safe extract adapted to a public call-center dataset's schema, not real calls.
 
-**ASK** (the room decides): "What rule do you want to run? Active, Inactive, or NULL?"
+**SAY.**
+> "This morning's procedure became one function. Tomorrow you write one: `buildWfmBeginnerReport()`. Same moves, new data: call-center calls instead of a roster."
 
-**DO.** Let them choose. Predict first, then **Run**. Each result is checked against a manual filter and shows **Verified**.
+**DO.** Point at the tool list. Each tool shows the line where today's script already used it. Only `else` is marked new.
 
-| Rule | Rows | Who |
-|---|---|---|
+**ASK.** "Which of these did you trace today?" (All but `else`.)
+
+**DO.** Click through the four tabs (arrow keys work too):
+
+| Tab | What the page shows |
+|---|---|
+| Raw Data | The first rows, and the counts: 120 calls, 8 agents, 5 days (2021-01-04 to 2021-01-08), 15 abandoned. Read only. |
+| Cleaned Data | One row per call: all 10 Raw Data columns plus six flags and fields (Answered, Abandoned, Resolved, SLA, Talk Seconds, Wait Bucket). |
+| Daily Summary | One row per date, 5 rows, and its ten columns. |
+| Agent Summary | One row per agent, 8 rows, and its nine columns. |
+
+The page shows what each tab must contain, never the computed answers. Counts above come from `src/data/day2.js`; if the workbook changes, the page follows it and this table must be updated.
+
+**SAY** (on Raw Data):
+> "Row 2 is Diane's call, ID0001. Abandoned, so the speed and rating cells are empty. All 15 abandoned calls look like that. Sound familiar? Empty is a value you have to decide about. That's Tomas's NULL all over again."
+
+**SAY** (close):
+> "This morning we started with a checklist on a desk. Now it's saved as a preset, checked against a manual filter, and you've watched it run. Day 2: you read, modify, run, inspect, and troubleshoot your own. And you won't start from nothing. You start from the moves you traced today."
+
+**DO.** Point at the parking lot. "These are what we start with on Day 2." Then close.
+
+**WATCH OUT.** "Day 2 needs new tools." It doesn't: the tool list shows them already in today's script.
+
+---|---|---|
 | Active | 6 | Amara, Priya, Grace, Rafael, Marco, Kai |
 | Inactive | 2 | Jonah, Lea |
 | NULL | 1 | Tomas |

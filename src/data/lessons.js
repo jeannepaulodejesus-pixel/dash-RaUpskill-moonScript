@@ -133,11 +133,11 @@
       notes: n('Predict inclusion, locate the output destination, and find the line a rule change touches.',
         'That reading code means memorising it. It means tracing it.',
         'Collect predictions before revealing each answer.',
-        'Tomorrow you change the rule yourself.') },
+        'Tomorrow you write one like it yourself.') },
     24: { min: 2, title: 'Day 2 turns this demonstrated procedure into your own script.',
-      notes: n('Return to the opening procedure, now paired with verified output. Day 2: read, modify, run, inspect, troubleshoot.',
-        'That Day 2 starts from a blank editor. It starts from this script in the sandbox.',
-        'Let the room change the rule and run it once: move one slider, apply the preset again.',
+      notes: n('Return to the opening procedure, now next to the Day 2 workbook: one function, buildWfmBeginnerReport(), reads the sandbox calls in Raw Data and writes Cleaned Data, Daily Summary and Agent Summary. Day 2: read, modify, run, inspect, troubleshoot.',
+        'That Day 2 needs new tools. The tool list shows the line where today\'s script already used each one, and marks what is new.',
+        'Click through the four tabs. Raw Data is read only; the script creates the other three. Point out the abandoned calls with empty cells: today\'s NULL lesson again.',
         'Close.') }
   };
 
