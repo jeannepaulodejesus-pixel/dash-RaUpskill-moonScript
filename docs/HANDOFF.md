@@ -376,3 +376,9 @@ Branch `claude/day2-close`, off `main`. Not merged, not deployed.
 
 - The Day 2 sequence pills (Read, Modify, Run, Inspect, Troubleshoot) are deck copy and unchanged, but the workbook asks learners to write a new function, not modify one. Confirm with the user.
 - Merge into `main` and `npm run gas:deploy` when approved. No image changes, so no new tag is needed.
+
+## 2026-11-12 · Claude Code: Day 2 close merged and deployed
+
+- Request: "merge day2-close into main and deploy it". `main` fast-forwarded from `2a407bd` to `cf5cdb9`; `npm test` 17/17 and `npm run build` passed first.
+- `npm run gas:deploy` (script `17YWR_B3…h7s-51a`): OneTap deployment `AKfycbxRPiE6…z5VhxVFa` is now @3. No image changes, so it still loads from tag `v1.2.0`.
+- Open: the user should load the live page (it needs Google sign-in) and check slide 24. The Read / Modify / Run / Inspect / Troubleshoot wording question from the previous entry is still open.
