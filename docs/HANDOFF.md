@@ -332,3 +332,24 @@ Branch `claude/preset-analogy`, pushed. Tag `v1.2.0` pushed. Not merged into `ma
 
 - The live page needs Google sign-in, so it was not loaded here. The user should open the deployment URL and confirm the images.
 - Branch still needs merging into `main` if OneTap replaces PressRun as the main line. Until then, `gas:deploy` on `claude/cdn-v1.1.0` still targets PressRun, and on this branch it targets OneTap.
+
+## 2026-11-12 · Claude Code: OneTap merged into `main` and redeployed
+
+Branch `claude/preset-analogy`, fast-forwarded into `main`.
+
+**Changed**
+
+- Request: "merge the preset analogy to main", then "add the handoff entry and deploy OneTap". `origin/main` fast-forwarded from `1f5e3a4` to `5fa385d`. This also brought the `claude/cdn-v1.1.0` commits (Apps Script image fix, PressRun deployment target) into `main`, since the preset branch was built on them.
+- `main` is now OneTap: `gas:deploy` from `main` targets the OneTap deployment. The PressRun source lives on `claude/cdn-v1.1.0` and tag `v1.1.0`; keep both while the PressRun deployment stays live.
+- `npm run gas:deploy`: OneTap deployment `AKfycbxRPiE6…z5VhxVFa` is now @2.
+
+**Verified**
+
+- `npm test` 14/14 and `npm run build` before the merge.
+- All 10 images return 200 from jsDelivr at `@v1.2.0`.
+- `clasp push` sent 5 files; `clasp deploy` reported @2.
+
+**Open**
+
+- The live page needs Google sign-in, so it was not loaded here. The user should open the deployment URL and confirm it renders with images.
+- The Drive project title and the `moonscript:` storage prefix are unchanged (see the entries above).
