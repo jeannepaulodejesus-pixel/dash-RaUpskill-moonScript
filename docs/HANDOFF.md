@@ -434,3 +434,47 @@ Branch `claude/script-align`, off `main`. Not merged. Docs only, so no deploy is
   - The opening mapped the card to the headline's "this demonstrated procedure", but the card is now tomorrow's procedure. It now says the card is written the way today's was demonstrated on slide 3.
   - On phones the tool chips are hidden too, not only the card.
   - Slide 2 promises "You will reuse one of them at slide 24" (a report on the parking lot), but slide 24 never did. Added the callback, phrased as a question so it claims nothing about the room's report. This gap predates today's changes.
+
+## 2026-11-12 · Claude Code: sandbox workbook with bound script
+
+Branch `main`, uncommitted. No repo source changed.
+
+**Changed**
+
+- Request: "prepare the sandbox copy with the bound script in google sheet" (presenter checklist, `docs/PRESENTER-SCRIPT.md`).
+- New Google Sheet "PressRun Day 1 Sandbox" in the owner's My Drive: https://docs.google.com/spreadsheets/d/1tWwo0KTLHWPfBGgmORiLDg3fWjDnkMSv9M3-Iw6MkRY/edit
+  - Tab `employees.master_roster`: `R.SAMPLE` from `src/roster.js`, all cells plain text, `"NULL"` in row 5 and the empty Status cell in row 10 kept.
+  - Tab `training.active_roster`: empty, so the first run visibly fills it.
+- Bound Apps Script project, script ID `1kJt0yulaCOrlh9pAhZ4JchLHSb7VJ2xNfO8XlDmulQND90WwGraxAY8F`: `Code.gs` is `R.SCRIPT` joined verbatim (20 lines, so `Code.gs:5` in the error lab matches), manifest `Asia/Manila`, V8, no explicit scopes.
+- Route: .xlsx generated from `roster.js`, uploaded through the Drive connector with conversion, then `clasp create-script --parentId <sheet>` and `clasp push`. The working folder was the session scratchpad and was not kept.
+
+**Verified**
+
+- `clasp clone` of the bound project diffs clean against `R.SCRIPT`.
+- Drive read of the sheet shows both tab names exactly and all 11 rows.
+- Expected first run (from `R.run`): `Wrote 6 active employees`, IDs E-1041, E-1042, E-1045, E-1046, E-1048, E-1050.
+
+**Open**
+
+- Not run yet. The presenter should run `buildActiveRoster` once from the editor to see the authorization prompt (checklist item) and confirm the log line above.
+- Slides 16 and 20 can now get real editor screenshots from this project.
+- If `R.SAMPLE` or `R.SCRIPT` changes, the sandbox must be regenerated or edited to match.
+
+## 2026-11-13 · Claude Code: presenter-mode PDF
+
+Branch `main`, uncommitted. No repo source changed.
+
+**Changed**
+
+- Request: "create a pdf file version of the deck (preset)". Read as presenter mode (`?mode=present`).
+- `~/Downloads/PressRun-Day1-present.pdf`: 66 pages, 16:9, one page per presenter stop (what the arrow keys step through), captured at 1920x1080 from the local build. All 24 slides plus the Break; stepped slides (10 to 15 in Read, 17 in Run) get one page per step. The HUD (key hints) is hidden; the folio stays so each page names its slide. PDF bookmarks per slide.
+- Route: Playwright with Chrome, screenshots bound into a PDF by Chrome's print. The script lived in the session scratchpad and was not kept.
+
+**Verified**
+
+- No page errors during capture. 66 pages, outline present. Contact sheets of every page checked by eye.
+
+**Open**
+
+- Some stops show the next section's headline peeking at the bottom edge (slides 8, 10, 23). That is how presenter mode frames them, not a capture fault.
+- Pages are images, so text is not selectable or searchable. Regenerate if the page changes.
