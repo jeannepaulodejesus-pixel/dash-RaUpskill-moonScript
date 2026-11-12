@@ -623,7 +623,7 @@
       '<div class="d2 glass">' +
         '<div class="d2__head"><p class="d2__kicker">Day 2 · your script <span class="tag">Sandbox extract</span></p>' +
           '<p class="d2__title">' + esc(W.TITLE) + '</p>' +
-          '<p class="d2__src">Adapted from a <a href="' + esc(W.SOURCE_REPO) + '" target="_blank" rel="noopener">public call-center dataset</a>. Your function: <code>' + esc(W.FN) + '()</code></p></div>' +
+        '</div>' +
         '<div class="d2__tools"><p class="d2__label">Tools it asks for, and the line where today\'s script used each</p><ul>' + tools + '</ul></div>' +
         '<div class="d2__book">' +
           '<div class="d2__panels">' + panels.map(function (p, i) {

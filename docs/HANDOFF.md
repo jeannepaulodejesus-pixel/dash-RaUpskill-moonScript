@@ -404,3 +404,7 @@ Branch `claude/close-fit`, off `main`. Not merged, not deployed.
 
 - Merge into `main` and `npm run gas:deploy` when approved.
 - The Modify wording question from the earlier entry is still open.
+
+## 2026-11-12 · Claude Code: slide 24 pane drops the source line
+
+Branch `claude/close-fit`. Request: omit "Adapted from a public call-center dataset. Your function: buildWfmBeginnerReport()". Removed from the pane (`app.js`) with its `.d2__src` styles. The **Sandbox extract** label stays, so the honesty label holds; `SOURCE_REPO` and `FN` stay in `src/data/day2.js` as provenance. The presenter script still gives the function name aloud. `npm test` 17/17; screenshots at 1440 x 900 and 1280 x 720. Still not merged or deployed.
