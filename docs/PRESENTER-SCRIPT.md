@@ -750,50 +750,42 @@ Answer: **2** (Jonah Park and Lea Dizon).
 
 ## Slide 24 · Day 2 turns this demonstrated procedure into your own script. (2 min)
 
-**DO.** The page returns to the opening procedure, in daylight, next to the **Day 2 workbook**: the WFM Apps Script Beginner Playground. It is labelled **Sandbox extract**: a beginner-safe extract adapted to a public call-center dataset's schema, not real calls.
+The slide is the headline drawn as a pair. Read it left to right: **this demonstrated procedure** is the paper card on the left (**Day 1 · traced today**), the arrow is **turns into**, and **your own script** is the pane on the right (**Day 2 · your script**). On a phone only the right pane shows.
+
+**DO.** Start on the left card. It is the procedure from slide 3, and its last line names what it became: `buildActiveRoster()`, 20 lines.
 
 **SAY.**
-> "This morning's procedure became one function. Tomorrow you write one: `buildWfmBeginnerReport()`. Same moves, new data: call-center calls instead of a roster."
+> "This is where we started this morning: five steps on paper. By now it's one function, twenty lines, and you can trace every one of them."
 
-**DO.** Point at the tool list. Each tool shows the line where today's script already used it. Only `else` is marked new.
+**DO.** Follow the arrow to the right pane. Point at the **Sandbox extract** label: a beginner-safe extract adapted to a public call-center dataset's schema, not real calls.
 
-**ASK.** "Which of these did you trace today?" (All but `else`.)
+**SAY.**
+> "Tomorrow you write one yourself: `buildWfmBeginnerReport()`. Same moves, new data: call-center calls instead of a roster."
 
-**DO.** Click through the four tabs (arrow keys work too):
+**DO.** Point at the tool chips. Each one shows the line where today's script already used it. Only `else` is marked new.
+
+**ASK.** "Which of these did you trace today?" (All but `else`. The `if` half of if/else is line 10.)
+
+**DO.** Click through the four tabs under the sheet (arrow keys work too). The pane stays the same size, so the slide doesn't move.
 
 | Tab | What the page shows |
 |---|---|
-| Raw Data | The first rows, and the counts: 120 calls, 8 agents, 5 days (2021-01-04 to 2021-01-08), 15 abandoned. Read only. |
-| Cleaned Data | One row per call: all 10 Raw Data columns plus six flags and fields (Answered, Abandoned, Resolved, SLA, Talk Seconds, Wait Bucket). |
-| Daily Summary | One row per date, 5 rows, and its ten columns. |
-| Agent Summary | One row per agent, 8 rows, and its nine columns. |
+| Raw Data | All 10 columns and the first two calls: Diane's (abandoned) and Becky's (answered). Below them, the counts: 120 calls, 8 agents, 5 days (2021-01-04 to 2021-01-08), 15 abandoned. Read only. |
+| Cleaned Data | The script creates it: one row per call, so 120 rows. All 10 Raw Data columns plus six fields (Answered, Abandoned, Resolved and SLA flags, Talk Seconds, Wait Bucket), each with its rule. |
+| Daily Summary | The script creates it: one row per date, so 5 rows, and its ten columns. |
+| Agent Summary | The script creates it: one row per agent, so 8 rows, and its nine columns. |
 
 The page shows what each tab must contain, never the computed answers. Counts above come from `src/data/day2.js`; if the workbook changes, the page follows it and this table must be updated.
 
-**SAY** (on Raw Data):
-> "Row 2 is Diane's call, ID0001. Abandoned, so the speed and rating cells are empty. All 15 abandoned calls look like that. Sound familiar? Empty is a value you have to decide about. That's Tomas's NULL all over again."
+**SAY** (on Raw Data, pointing at the two rows):
+> "Two calls side by side. Becky's was answered: 25 seconds, rated 5. Diane's was abandoned, so her speed and rating are empty. All 15 abandoned calls look like that. Sound familiar? Empty is a value you have to decide about. That's Tomas's NULL all over again."
 
 **SAY** (close):
 > "This morning we started with a checklist on a desk. Now it's saved as a preset, checked against a manual filter, and you've watched it run. Day 2: you read, modify, run, inspect, and troubleshoot your own. And you won't start from nothing. You start from the moves you traced today."
 
 **DO.** Point at the parking lot. "These are what we start with on Day 2." Then close.
 
-**WATCH OUT.** "Day 2 needs new tools." It doesn't: the tool list shows them already in today's script.
-
----|---|---|
-| Active | 6 | Amara, Priya, Grace, Rafael, Marco, Kai |
-| Inactive | 2 | Jonah, Lea |
-| NULL | 1 | Tomas |
-
-**SAY** (if they pick NULL, which they often do):
-> "One row. Because 'NULL' here is a word, and Tomas is the only person with that word in his Status cell. You just used the trap on purpose."
-
-**SAY** (close):
-> "This morning we started with a checklist on a desk. Now it's saved as a preset, checked against a manual filter, and you've watched it run. Day 2: you read it, modify it, run it, inspect it, and troubleshoot it yourself. And you won't start from a blank editor. You start from this exact script in the sandbox."
-
-**DO.** Point at the parking lot. "These are what we start with on Day 2." Then close.
-
-**WATCH OUT.** "Day 2 starts from a blank editor."
+**WATCH OUT.** "Day 2 needs new tools." Almost none: every tool on the list except `else` is already in today's script, at the line the chip shows.
 
 ---
 

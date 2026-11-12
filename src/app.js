@@ -591,6 +591,7 @@
     var abandoned = raw.slice(1).filter(function (r) { return r[ans] === 'N'; });
     var blank = abandoned.every(function (r) { return r[spd] === '' && r[sat] === ''; });
     var rowsFor = { call: calls, Date: dates.length, Agent: agents.length };
+    var day1Fn = R.SCRIPT[0].replace(/^function (\w+).*$/, '$1');
 
     var tools = W.TOOLS.map(function (t) {
       var hits = W.toolLines(R.SCRIPT, t), known = hits.filter(function (h) { return h.line; });
@@ -603,7 +604,7 @@
 
     var tabs = ['Raw Data'].concat(W.OUTPUTS.map(function (o) { return o.name; }));
     var panels = [
-      '<div class="ws-frame">' + wsHTML(raw.slice(0, 4), { compact: true }) + '</div>' +
+      '<div class="ws-frame">' + wsHTML(raw.slice(0, 3), { compact: true }) + '</div>' +
       '<p class="d2__cap">' + calls + ' calls, ' + agents.length + ' agents, ' + dates.length + ' days (' + esc(dates[0]) + ' to ' + esc(dates[dates.length - 1]) + '). ' +
         abandoned.length + ' abandoned (Answered = N)' + (blank ? ', each with an empty speed and rating' : '') + '. Read only.</p>'
     ].concat(W.OUTPUTS.map(function (o) {
@@ -616,12 +617,14 @@
     }));
 
     el.innerHTML =
-      '<div class="card-sheet card-sheet--sm"><p class="sheet__title">The procedure</p><ol class="sheet__steps">' + D.sop.map(function (s) { return '<li>' + esc(s.clear) + '</li>'; }).join('') + '</ol></div>' +
+      '<div class="card-sheet card-sheet--sm close__day1"><p class="sheet__kicker">Day 1 · traced today</p><p class="sheet__title">The procedure</p><ol class="sheet__steps">' + D.sop.map(function (s) { return '<li>' + esc(s.clear) + '</li>'; }).join('') + '</ol>' +
+        '<p class="sheet__foot">Written as <code>' + esc(day1Fn) + '()</code>, ' + R.SCRIPT.length + ' lines.</p></div>' +
+      '<span class="close__arrow" aria-hidden="true">&rarr;</span>' +
       '<div class="d2 glass">' +
-        '<div class="d2__head"><p class="d2__kicker">Day 2 workbook <span class="tag">Sandbox extract</span></p>' +
+        '<div class="d2__head"><p class="d2__kicker">Day 2 · your script <span class="tag">Sandbox extract</span></p>' +
           '<p class="d2__title">' + esc(W.TITLE) + '</p>' +
           '<p class="d2__src">Adapted from a <a href="' + esc(W.SOURCE_REPO) + '" target="_blank" rel="noopener">public call-center dataset</a>. Your function: <code>' + esc(W.FN) + '()</code></p></div>' +
-        '<div class="d2__tools"><p class="d2__label">Tools it asks for, and where today\'s script used them</p><ul>' + tools + '</ul></div>' +
+        '<div class="d2__tools"><p class="d2__label">Tools it asks for, and the line where today\'s script used each</p><ul>' + tools + '</ul></div>' +
         '<div class="d2__book">' +
           '<div class="d2__panels">' + panels.map(function (p, i) {
             return '<div class="d2__panel" role="tabpanel" id="d2-p' + i + '" aria-labelledby="d2-t' + i + '"' + (i ? ' hidden' : '') + '>' + p + '</div>';
@@ -639,7 +642,7 @@
         t.setAttribute('aria-selected', String(k === i)); t.tabIndex = k === i ? 0 : -1; t.classList.toggle('is-active', k === i);
         panelEls[k].hidden = k !== i;
       });
-      if (focus) tabEls[i].focus();
+      if (focus) tabEls[i].focus({ preventScroll: true });
     }
     tabEls.forEach(function (t, i) {
       t.addEventListener('click', function () { select(i); });

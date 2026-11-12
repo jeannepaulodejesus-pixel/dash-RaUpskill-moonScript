@@ -382,3 +382,25 @@ Branch `claude/day2-close`, off `main`. Not merged, not deployed.
 - Request: "merge day2-close into main and deploy it". `main` fast-forwarded from `2a407bd` to `cf5cdb9`; `npm test` 17/17 and `npm run build` passed first.
 - `npm run gas:deploy` (script `17YWR_B3…h7s-51a`): OneTap deployment `AKfycbxRPiE6…z5VhxVFa` is now @3. No image changes, so it still loads from tag `v1.2.0`.
 - Open: the user should load the live page (it needs Google sign-in) and check slide 24. The Read / Modify / Run / Inspect / Troubleshoot wording question from the previous entry is still open.
+
+## 2026-11-12 · Claude Code: slide 24 pair fits together
+
+Branch `claude/close-fit`, off `main`. Not merged, not deployed.
+
+**Changed**
+
+- Request: "the header and 'The Procedure' sheet does not seem well fit with the workbook", then "also update the presenter script".
+- Slide 24 now draws the headline as a pair: the procedure card is labelled **Day 1 · traced today** and ends with "Written as `buildActiveRoster()`, 20 lines" (computed from `R.SCRIPT`); an arrow sits between it and the pane, now labelled **Day 2 · your script**. Card and pane share one top and one height (`align-items: stretch`).
+- The sheet shows all ten Raw Data columns without clipping (smaller type, tighter cells, Topic and the header row wrap) and two calls (Diane abandoned, Becky answered) instead of three.
+- A short-desktop rule (`min-width: 861px and max-height: 820px`) tightens the headline, gaps and tool chips, so the pair, the Day 2 sequence and the footer fit at 1280 x 720 and 1366 x 768. Arrow-key tab focus no longer scrolls the page.
+- `docs/PRESENTER-SCRIPT.md` slide 24 rewritten to walk the pair left to right. Also removed leftover lines of the old slide 24 section (a stray rule table and the "blank editor" close) that the previous session's edit left behind on `main`. Slide 24 speaker-note cue updated to match.
+
+**Verified**
+
+- `npm test` 17/17, `npm run build`, `npm run check:gas` (no console errors, no failed requests), `npm run check:contrast` (only the 4 known `mark.warn` false positives).
+- Screenshots at 1440 x 900, 1366 x 768, 1280 x 720 and 390 x 844; every tab at each size.
+
+**Open**
+
+- Merge into `main` and `npm run gas:deploy` when approved.
+- The Modify wording question from the earlier entry is still open.
