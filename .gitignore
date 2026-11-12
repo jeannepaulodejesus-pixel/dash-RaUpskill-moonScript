@@ -4,3 +4,4 @@ lab/
 .clasp.json
 *.log
 .claude/
+.DS_Store

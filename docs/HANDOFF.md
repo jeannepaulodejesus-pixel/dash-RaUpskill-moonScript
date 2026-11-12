@@ -478,3 +478,21 @@ Branch `main`, uncommitted. No repo source changed.
 
 - Some stops show the next section's headline peeking at the bottom edge (slides 8, 10, 23). That is how presenter mode frames them, not a capture fault.
 - Pages are images, so text is not selectable or searchable. Regenerate if the page changes.
+
+## 2026-11-13 · Claude Code: branches pruned, repo tidied
+
+Branch `main`, pushed.
+
+**Changed**
+
+- Request: "commit and push everything and prune all branch". Rebased the local handoff commit onto `origin/main`; the `docs/HANDOFF.md` conflict was two sets of appended entries, both kept. Deleted the six `claude/*` branches (all merged into `main`) locally and on GitHub, and the `.claude/worktrees/preset-analogy` worktree.
+- AGENTS.md: the PressRun build is now pointed at commit `18f80be` (the old `claude/cdn-v1.1.0` tip, two commits past tag `v1.1.0`) instead of the deleted branch.
+- `.DS_Store` untracked (root and `assets/`) and added to `.gitignore`.
+
+**Verified**
+
+- `npm test` 18/18 and `npm run build` before each push.
+
+**Open**
+
+- To rebuild PressRun: `git worktree add ../pressrun 18f80be`, then build there. No tag marks that commit; ask the user before adding one.
